@@ -1,120 +1,194 @@
-<!DOCTYPE html><html><head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
-  <base href="/">
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
-
-  <!-- iOS meta tags & icons -->
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="caratcam_clean_pro">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png">
-
-  <title>caratcam_clean_pro</title>
-  <link rel="manifest" href="manifest.json">
-  
-  
-  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
-  
-  
-  
-  
-  
-  
-  <style id="splash-screen-style">
-    html {
-      height: 100%
-    }
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CamLabs.ai | Jewelry Valuation Software</title>
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <style>
     body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
-      min-height: 100%;
-      background-color: #000000;
-          background-size: 100% 100%;
+      padding: 0;
+      background-color: #f8f8f8;
+      color: #333;
     }
-
-    .center {
+    header {
+      background-color: #000;
+      color: #fff;
+      text-align: center;
+      padding: 80px 20px;
+    }
+    header h1 {
+      font-size: 3em;
+      margin: 0 0 10px;
+    }
+    header p {
+      font-size: 1.2em;
       margin: 0;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      -ms-transform: translate(-50%, -50%);
-      transform: translate(-50%, -50%);
     }
-
-    .contain {
-      display:block;
-      width:100%; height:100%;
-      object-fit: contain;
+    nav {
+      background-color: #000;
+      text-align: center;
+      padding: 10px 0;
     }
-
-    .stretch {
-      display:block;
-      width:100%; height:100%;
+    nav a {
+      color: #fff;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
     }
-
-    .cover {
-      display:block;
-      width:100%; height:100%;
-      object-fit: cover;
+    nav a:hover {
+      text-decoration: underline;
     }
-
-    .bottom {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      -ms-transform: translate(-50%, 0);
-      transform: translate(-50%, 0);
+    .hero-image {
+      text-align: center;
+      background: #fff;
+      padding: 40px 0;
     }
-
-    .bottomLeft {
-      position: absolute;
-      bottom: 0;
-      left: 0;
+    .hero-image img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     }
-
-    .bottomRight {
-      position: absolute;
-      bottom: 0;
-      right: 0;
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .product {
+      background-color: #fff;
+      margin: 20px auto;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .product h2 {
+      margin-top: 0;
+    }
+    .product p {
+      margin: 10px 0 20px;
+    }
+    .product a {
+      display: inline-block;
+      background-color: #007acc;
+      color: #fff;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    .note {
+      margin-top: 10px;
+      font-size: 0.9em;
+      color: #777;
+    }
+    .highlight {
+      font-weight: bold;
+      color: #4caf50;
+      font-size: 1.1em;
+      margin-top: 10px;
+    }
+    .metals {
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid #ccc;
+    }
+    .metals h3 {
+      margin-bottom: 10px;
+    }
+    .metals span {
+      display: inline-block;
+      margin: 0 20px;
+      font-weight: bold;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #888;
     }
   </style>
-  <script id="splash-screen-script">
-    function removeSplashFromWeb() {
-      document.getElementById("splash")?.remove();
-      document.getElementById("splash-branding")?.remove();
-      document.body.style.background = "transparent";
-    }
-  </script>
 </head>
 <body>
-  <picture id="splash">
-      <source srcset="splash/img/light-1x.png 1x, splash/img/light-2x.png 2x, splash/img/light-3x.png 3x, splash/img/light-4x.png 4x" media="(prefers-color-scheme: light)">
-      <source srcset="splash/img/dark-1x.png 1x, splash/img/dark-2x.png 2x, splash/img/dark-3x.png 3x, splash/img/dark-4x.png 4x" media="(prefers-color-scheme: dark)">
-      <img class="center" aria-hidden="true" src="splash/img/light-1x.png" alt="">
-  </picture>
-  
-  
-  
-  
-  <script src="flutter_bootstrap.js" async=""></script>
+  <header>
+    <h1>CamLabs.ai</h1>
+    <p>Jewelry Valuation Software for Professionals</p>
+  </header>
+
+  <nav>
+    <a href="index.html">🏠 Home</a>
+
+    <a href="buy-caratcam.html">CaratCam</a>
+    <a href="buy-caratcam-plus.html">CaratCam Plus</a>
 
 
-</body></html>
+    <a href="support.html">Support</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <div class="hero-image">
+    <img src="caratcam_promo.png" alt="CaratCam Promo Graphic">
+  </div>
+
+  <main>
+    <div class="product">
+      <h2>CaratCam</h2>
+      <p>Essential gem valuation software. Built for casual users and collectors who need fast, accurate insights without the subscription.</p>
+      <p class="highlight">✅ Try CaratCam free with 3 scans before purchase!</p>
+      <a href="buy-caratcam.html">🔍 Learn About CaratCam</a>
+    </div>
+
+    <div class="product">
+      <h2>CaratCam Plus</h2>
+      <p>Advanced valuation tools for professionals. Includes enhanced scan accuracy, reporting, and lifetime updates.</p>
+      <p class="highlight">✅ Includes 3 free scans to try before you buy!</p>
+      <a href="buy-caratcam-plus.html">💎 Learn About CaratCam Plus</a>
+    </div>
+
+    <div class="metals">
+      <h3>Live Metal Prices</h3>
+      <div id="metal-prices">
+        <span id="gold">Gold: Loading...</span>
+        <span id="silver">Silver: Loading...</span>
+        <span id="platinum">Platinum: Loading...</span>
+      </div>
+    </div>
+
+    <p class="note">⚠️ Both versions currently support Android. Desktop and iOS versions coming soon.</p>
+  </main>
+
+  <footer>
+  &copy; 2025 CamLabs.ai. All rights reserved.<br>
+  📍 4736 Royal Ave #109165, Eugene, Oregon 97402<br>
+  📞 <a href="tel:+15039293443">(503) 929-3443</a><br>
+  🔒 <a href="disclaimer.html" style="color: #007acc;">Disclaimer</a> – View terms of use and legal notice
+</footer>
+
+
+  <script>
+    fetch('https://api.metalpriceapi.com/v1/latest?api_key=eba0cee69e29e9a76238474fd2d0da75&base=USD&currencies=XAU,XAG,XPT')
+      .then(res => res.json())
+      .then(data => {
+        const gold = data.rates.USDXAU;
+        const silver = data.rates.USDXAG;
+        const platinum = data.rates.USDXPT;
+
+        if (gold && silver && platinum) {
+          document.getElementById('gold').textContent = `Gold: $${gold.toFixed(2)} / oz`;
+          document.getElementById('silver').textContent = `Silver: $${silver.toFixed(2)} / oz`;
+          document.getElementById('platinum').textContent = `Platinum: $${platinum.toFixed(2)} / oz`;
+        } else {
+          document.getElementById('metal-prices').innerHTML = '<span>Live pricing temporarily unavailable.</span>';
+        }
+      })
+      .catch(() => {
+        document.getElementById('metal-prices').innerHTML = '<span>Error loading metal prices.</span>';
+      });
+  </script>
+</body>
+</html>
