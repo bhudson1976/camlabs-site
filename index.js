@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const crypto = require('crypto');
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+console.log("📦 Stripe integration initializing...");
 console.log("🔐 Using Stripe Key:", process.env.STRIPE_SECRET_KEY?.substring(0, 10));
 
 const app = express();
