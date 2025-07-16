@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CaratCam Plus Estimator</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f8f8f8;
+      color: #333;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      color: teal;
+    }
+    label {
+      display: block;
+      margin-top: 16px;
+      font-weight: bold;
+    }
+    select, input, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    button {
+      background-color: teal;
+      color: white;
+      border: none;
+      margin-top: 24px;
+      font-size: 16px;
+    }
+    .result {
+      margin-top: 24px;
+      background: #fff;
+      padding: 16px;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.05);
+    }
+    .copyable {
+      cursor: pointer;
+      color: teal;
+    }
+    .diamond-fields {
+      display: none;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+  <h1>CaratCam Plus Estimator</h1>
+
+  <label for="gemstone">Gemstone Type</label>
+  <select id="gemstone" onchange="toggleDiamondFields()">
+    <option value="">Select...</option>
+    <option>Alexandrite</option>
+    <option>Amazonite</option>
+    <option>Amethyst</option>
+    <option>Aquamarine</option>
+    <option>Bloodstone</option>
+    <option>Blue Spinel</option>
+    <option>Carnelian</option>
+    <option>Chrysocolla</option>
+    <option>Chrysoprase</option>
+    <option>Citrine</option>
+    <option>Diamond</option>
+    <option>Emerald</option>
+    <option>Fire Opal</option>
+    <option>Fluorite</option>
+    <option>Garnet</option>
+    <option>Howlite</option>
+    <option>Iolite</option>
+    <option>Jade</option>
+    <option>Kyanite</option>
+    <option>Lapis Lazuli</option>
+    <option>Larimar</option>
+    <option>Malachite</option>
+    <option>Moonstone</option>
+    <option>Morganite</option>
+    <option>Obsidian</option>
+    <option>Onyx</option>
+    <option>Opal</option>
+    <option>Pearl</option>
+    <option>Peridot</option>
+    <option>Red Spinel</option>
+    <option>Rhodolite Garnet</option>
+    <option>Rhodochrosite</option>
+    <option>Ruby</option>
+    <option>Sapphire</option>
+    <option>Spinel</option>
+    <option>Sunstone</option>
+    <option>Tanzanite</option>
+    <option>Topaz</option>
+    <option>Tourmaline</option>
+    <option>Tsavorite</option>
+    <option>Turquoise</option>
+    <option>Zircon</option>
+  </select>
+
+  <div id="diamondFields" class="diamond-fields">
+    <label for="cut">Diamond Cut</label>
+    <select id="cut">
+      <option value="">Select...</option>
+      <option>Princess</option>
+      <option>Emerald</option>
+      <option>Oval</option>
+      <option>Marquise</option>
+      <option>Heart</option>
+      <option>Pear</option>
+      <option>Asscher</option>
+      <option>Radiant</option>
+      <option>Round</option>
+      <option>Trilliant</option>
+      <option>Baguette</option>
+      <option>Old Euro</option>
+    </select>
+
+    <label for="color">Diamond Color</label>
+    <select id="color">
+      <option value="">Select...</option>
+      <option>D</option><option>E</option><option>F</option><option>G</option><option>H</option>
+      <option>I</option><option>J</option><option>K</option><option>L</option><option>M</option>
+      <option>N</option><option>O</option><option>P</option><option>Q</option><option>R</option>
+      <option>S</option><option>T</option><option>U</option><option>V</option><option>W</option>
+      <option>X</option><option>Y</option><option>Z</option>
+    </select>
+
+    <label for="clarity">Diamond Clarity</label>
+    <select id="clarity">
+      <option value="">Select...</option>
+      <option>FL</option><option>IF</option><option>VVS1</option><option>VVS2</option>
+      <option>VS1</option><option>VS2</option><option>SI1</option><option>SI2</option>
+      <option>I1</option><option>I2</option>
+    </select>
+  </div>
+
+  <label for="carat">Carat Weight</label>
+  <input type="number" id="carat" placeholder="e.g. 1.5" />
+
+  <label for="metal">Metal Type</label>
+  <select id="metal">
+    <option value="xau-0.333">8k Gold</option>
+    <option value="xau-0.417">10k Gold</option>
+    <option value="xau-0.585">14k Gold</option>
+    <option value="xau-0.750">18k Gold</option>
+    <option value="xau-0.916">22k Gold</option>
+    <option value="xau-1.000">24k Gold</option>
+    <option value="xpt-0.900">Platinum 900</option>
+    <option value="xpt-0.950">Platinum 950</option>
+    <option value="xag-0.925">Silver 925</option>
+    <option value="xag-0.999">Silver 999</option>
+    <option value="xpd-0.900">Palladium 900</option>
+    <option value="xpd-0.950">Palladium 950</option>
+  </select>
+
+  <label for="metalWeight">Metal Weight</label>
+  <input type="number" id="metalWeight" placeholder="e.g. 3.0" />
+
+  <label for="unit">Unit</label>
+  <select id="unit">
+    <option value="grams">grams</option>
+    <option value="oz">oz</option>
+    <option value="dwt">dwt</option>
+  </select>
+
+  <label for="notes">Notes</label>
+  <textarea id="notes" rows="3" placeholder="Optional notes..."></textarea>
+
+  <button onclick="estimateValue()">Estimate Value</button>
+
+  <div class="result" id="result" style="display:none;"></div>
+  <script>
+    const metalApiKey = "0275197f7c69daa2e4524efa9e25de8d";
+    const gemPriceUrl = "https://gist.githubusercontent.com/bhudson1976/c674a336ed90613f8c3f4364620779fa/raw/13c453319d8e35ecb0a43f7824000799303331c2/gem_prices.json";
+
+    function convertToOunces(weight, unit) {
+      if (unit === 'grams') return weight / 28.3495;
+      if (unit === 'dwt') return weight / 20.0;
+      return weight; // oz
+    }
+
+    function toggleDiamondFields() {
+      const selected = document.getElementById("gemstone").value;
+      const diamondFields = document.getElementById("diamondFields");
+      diamondFields.style.display = selected === "Diamond" ? "block" : "none";
+    }
+
+    async function estimateValue() {
+      const gemInput = document.getElementById("gemstone").value.trim().toLowerCase();
+      const carat = parseFloat(document.getElementById("carat").value) || 0;
+      const [metalSymbol, purity] = document.getElementById("metal").value.split("-");
+      const metalWeight = parseFloat(document.getElementById("metalWeight").value) || 0;
+      const unit = document.getElementById("unit").value;
+      const weightOz = convertToOunces(metalWeight, unit);
+      const isDiamond = gemInput === "diamond";
+
+      let gemValue = 0;
+      let metalValue = 0;
+
+      const resultDiv = document.getElementById("result");
+      resultDiv.style.display = "none";
+      resultDiv.innerHTML = "";
+
+      try {
+        // Case-insensitive key match
+        const gemRes = await fetch(gemPriceUrl);
+        const gemPrices = await gemRes.json();
+        const matchedKey = Object.keys(gemPrices).find(
+          k => k.trim().toLowerCase() === gemInput
+        );
+        const pricePerCarat = matchedKey ? parseFloat(gemPrices[matchedKey]) : 0;
+        gemValue = carat * pricePerCarat;
+
+        if (isDiamond) {
+          const cut = document.getElementById("cut").value;
+          const color = document.getElementById("color").value;
+          const clarity = document.getElementById("clarity").value;
+
+          let multiplier = 1.0;
+          if (["Ideal", "Excellent"].includes(cut)) multiplier += 0.2;
+          else if (["Fair", "Good"].includes(cut)) multiplier -= 0.1;
+
+          if (["D", "E", "F"].includes(color)) multiplier += 0.15;
+          else if (["S", "T", "U", "V", "W", "X", "Y", "Z"].includes(color)) multiplier -= 0.10;
+
+          if (["FL", "IF", "VVS1"].includes(clarity)) multiplier += 0.25;
+          else if (["SI1", "SI2", "I1", "I2"].includes(clarity)) multiplier -= 0.15;
+
+          multiplier = Math.min(Math.max(multiplier, 0.6), 1.6);
+          gemValue *= multiplier;
+        }
+
+        const metalRes = await fetch(`https://api.metalpriceapi.com/v1/latest?api_key=${metalApiKey}&base=USD&currencies=${metalSymbol}`);
+        const metalJson = await metalRes.json();
+        const rawRate = metalJson.rates[metalSymbol.toUpperCase()];
+        const ratePerOz = rawRate > 0 ? 1 / rawRate : 0;
+        metalValue = ratePerOz * weightOz * parseFloat(purity);
+
+        const total = gemValue + metalValue;
+
+        resultDiv.style.display = "block";
+        resultDiv.innerHTML = `
+          <div><strong class="copyable" onclick="copyText(${gemValue.toFixed(2)})">💎 Gemstone Value: $${gemValue.toFixed(2)}</strong></div>
+          <div><strong class="copyable" onclick="copyText(${metalValue.toFixed(2)})">🪙 Metal Value: $${metalValue.toFixed(2)}</strong></div>
+          <div><strong class="copyable" onclick="copyText(${total.toFixed(2)})">💰 Total Estimated Value: $${total.toFixed(2)}</strong></div>
+        `;
+      } catch (e) {
+        resultDiv.style.display = "block";
+        resultDiv.innerHTML = `<span style="color:red;">⚠️ Error fetching data. Try again later.</span>`;
+        console.error(e);
+      }
+    }
+
+    function copyText(val) {
+      navigator.clipboard.writeText(val.toString());
+      alert("Copied: $" + val.toFixed(2));
+    }
+  </script>
+</body>
+</html>

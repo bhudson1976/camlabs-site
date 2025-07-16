@@ -1,38 +1,19 @@
 {
-  "hosting": {
-    // This points Firebase to the folder that contains your site files
-    "public": "web",
-
-    // Ignore config files and development junk during deploy
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-
-    // Set correct headers for APK downloads so they’re served cleanly
-    "headers": [
-      {
-        "source": "**/*.apk",
-        "headers": [
-          {
-            "key": "Cache-Control",
-            "value": "no-store"
-          },
-          {
-            "key": "Pragma",
-            "value": "no-cache"
-          },
-          {
-            "key": "Expires",
-            "value": "0"
-          },
-          {
-            "key": "Content-Type",
-            "value": "application/vnd.android.package-archive"
-          }
-        ]
-      }
-    ]
-  }
+  "hosting": [
+    {
+      "target": "camlabs",
+      "public": "public",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
 }

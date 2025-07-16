@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CaratCam Plus Unlock</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f7f7f7;
+      color: #333;
+      text-align: center;
+      padding: 40px 16px;
+    }
+
+    h1 {
+      color: #00695c;
+      font-size: 28px;
+    }
+
+    .button {
+      display: none;
+      background-color: #ff9800;
+      color: #fff;
+      padding: 16px 28px;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 24px;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: #e68900;
+    }
+
+    .error {
+      color: red;
+      margin-top: 24px;
+    }
+  </style>
+</head>
+<body>
+  <h1>✅ Thank you for unlocking CaratCam Plus!</h1>
+  <p>Your license has been verified. Click below to download:</p>
+
+  <a
+    href="caratcam_plus_final_verified.apk"
+    download
+    class="button"
+    id="downloadBtn"
+  >
+    ⬇ Download CaratCam Plus
+  </a>
+
+  <div class="error" id="errorMsg"></div>
+
+  <script>
+    const token = new URLSearchParams(window.location.search).get("token");
+
+    if (!token) {
+      document.getElementById("errorMsg").textContent =
+        "❌ License token missing. Please return to the app and try again.";
+    } else {
+      // OPTIONAL: validate token with backend before enabling button
+      // fetch(`https://caratcam-plus-license-server.onrender.com/check-license?token=${token}`)
+      //   .then(res => res.json())
+      //   .then(data => {
+      //     if (data.valid) {
+      //       document.getElementById("downloadBtn").style.display = "inline-block";
+      //     } else {
+      //       document.getElementById("errorMsg").textContent = "❌ Invalid or expired license token.";
+      //     }
+      //   })
+      //   .catch(() => {
+      //     document.getElementById("errorMsg").textContent = "⚠️ Could not verify license. Try again later.";
+      //   });
+
+      // For now, just show button if token is present
+      document.getElementById("downloadBtn").style.display = "inline-block";
+    }
+  </script>
+</body>
+</html>

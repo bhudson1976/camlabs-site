@@ -1,5 +1,12 @@
 {
   "projects": {
     "default": "caratcam-release"
+  },
+  "targets": {
+    "caratcam-release": {
+      "hosting": {
+        "camlabs": ["camlabs"]
+      }
+    }
   }
 }
