@@ -106,6 +106,32 @@
       margin: 0 20px;
       font-weight: bold;
     }
+    /* video block */
+    .video-block {
+      max-width: 900px;
+      margin: 24px auto;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.08);
+      padding: 20px;
+    }
+    .video-block h3 {
+      margin: 0 0 12px;
+      font-size: 1.4em;
+    }
+    .video-wrap {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+    .video-wrap iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: 0;
+    }
     footer {
       text-align: center;
       padding: 20px;
@@ -140,12 +166,38 @@
       <a href="buy-caratcam.html">🔍 Learn About CaratCam</a>
     </div>
 
+    <!-- CaratCam video -->
+    <section class="video-block" aria-label="CaratCam Demo">
+      <h3>See CaratCam in Action</h3>
+      <div class="video-wrap">
+        <iframe
+          src="https://www.youtube.com/embed/5aZ4Y2yQ3h4"
+          title="CaratCam Demo"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </section>
+
     <div class="product">
       <h2>CaratCam Plus</h2>
       <p>Advanced valuation tools for professionals. Includes enhanced scan accuracy, reporting, and lifetime updates.</p>
       <p class="highlight">🔓 Premium version with lifetime access and advanced features.</p>
       <a href="buy-caratcam-plus.html">💎 Learn About CaratCam Plus</a>
     </div>
+
+    <!-- CaratCam Plus video -->
+    <section class="video-block" aria-label="CaratCam Plus Demo">
+      <h3>See CaratCam Plus in Action</h3>
+      <div class="video-wrap">
+        <iframe
+          src="https://www.youtube.com/embed/O-xiBoZX8bA"
+          title="CaratCam Plus Demo"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </section>
 
     <div class="metals">
       <h3>Live Metal Prices</h3>
