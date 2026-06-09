@@ -109,6 +109,15 @@
       font-size:0.85rem; font-weight:500;
     }
 
+    /* Demo video — responsive 16:9, framed to match the screenshot */
+    .video-frame {
+      position:relative; width:100%; aspect-ratio:16 / 9; margin:0;
+      border-radius:18px; overflow:hidden;
+      border:1px solid var(--border-strong); background:#000;
+      box-shadow:0 44px 96px -42px rgba(91,140,255,0.6), 0 0 0 1px rgba(91,140,255,0.06);
+    }
+    .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+
     /* Section heads */
     section { padding:54px 0; }
     .sec-head { text-align:center; max-width:640px; margin:0 auto 38px; }
@@ -176,6 +185,7 @@
     <nav>
       <a class="brand" href="/sentinel/"><img class="brand-logo" src="/sentinel/assets/sentinel_logo.JPG" alt="Sentinel AI"> Sentinel AI</a>
       <a href="#features">Features</a>
+      <a href="#demo">Demo</a>
       <a href="#how-it-works">How it works</a>
       <a href="#pricing">Pricing</a>
       <a href="/sentinel/download.html">Download</a>
@@ -252,6 +262,25 @@
             <h3>No cloud, no check-ins</h3>
             <p>After activation the engine runs on your hardware — no license-server pings, no telemetry. Static scans and the AI work with zero internet; only a URL audit reaches out, and only to the target you choose.</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- See it in action -->
+    <section id="demo">
+      <div class="container">
+        <div class="sec-head">
+          <h2>See Sentinel in action</h2>
+          <p>Watch a live audit — security grade, real findings, and copy-ready fixes.</p>
+        </div>
+        <div class="video-frame">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/0YUtisVEkro?rel=0"
+            title="Sentinel AI — live security audit demo"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
         </div>
       </div>
     </section>
