@@ -20,7 +20,12 @@ const PORT = process.env.PORT || 10000;
 // Both apex and www are permitted (CaratCam flows use www). The webhook is
 // server-to-server (Stripe → us) and needs no CORS.
 // To test locally, temporarily add 'http://localhost:5000' to this array.
-app.use('/sentinel', cors({ origin: ['https://camlabs.ai', 'https://www.camlabs.ai'] }));
+app.use('/sentinel', cors({ origin: [
+  'https://camlabs.ai',
+  'https://www.camlabs.ai',
+  'https://camlabs.web.app',          // Firebase Hosting default domain (live)
+  'https://camlabs.firebaseapp.com',  // Firebase Hosting alternate domain
+] }));
 
 // ─── Sentinel AI routes ───────────────────────────────────────────────────────
 // Webhook first — it mounts its own express.raw body parser internally, so it
