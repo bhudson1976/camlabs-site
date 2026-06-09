@@ -9,7 +9,7 @@
 const API_BASE_URL =
   typeof window !== 'undefined' && window.location.hostname === 'localhost'
     ? 'http://localhost:3000'
-    : 'https://YOUR-ACTUAL-RENDER-APP-NAME.onrender.com'; // ← update this text placeholder manually
+    : 'https://caratcam-plus-license-server.onrender.com';
 
 const CHECKOUT_ENDPOINT = `${API_BASE_URL}/sentinel/create-checkout-session`;
 // ──────────────────────────────────────────────────────────────────────────────
