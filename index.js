@@ -1,198 +1,85 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CamLabs.ai | Jewelry Valuation Software</title>
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f8f8f8;
-      color: #333;
-    }
-    header {
-      background-color: #000;
-      color: #fff;
-      text-align: center;
-      padding: 80px 20px;
-    }
-    header h1 { font-size: 3em; margin: 0 0 10px; }
-    header p { font-size: 1.2em; margin: 0; }
+// CamLabs license server (Render) — CaratCam + Sentinel AI · PRODUCTION
+// Dependencies: express, cors, stripe, @supabase/supabase-js, dotenv
+require('dotenv').config();
 
-    nav {
-      background-color: #000;
-      text-align: center;
-      padding: 10px 0;
-    }
-    nav a {
-      color: #fff;
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    nav a:hover { text-decoration: underline; }
+const express = require('express');
+const cors = require('cors');
+const fs = require('fs');
+const crypto = require('crypto');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-    .hero-image { text-align: center; background: #fff; padding: 40px 0; }
-    .hero-image img {
-      max-width: 100%; height: auto; border-radius: 8px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    }
+// Sentinel modules
+const { registerSentinelWebhook } = require('./web-plugin/sentinel-webhook');
+const { sentinelCheckoutRoute } = require('./web-plugin/create-checkout-session');
 
-    main { max-width: 1000px; margin: auto; padding: 40px 20px; text-align: center; }
+const app = express();
+const PORT = process.env.PORT || 10000;
 
-    .product {
-      background-color: #fff; margin: 20px auto; border-radius: 8px;
-      padding: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    .product h2 { margin-top: 0; }
-    .product p { margin: 10px 0 20px; }
-    .product a {
-      display: inline-block; background-color: #007acc; color: #fff;
-      padding: 10px 20px; text-decoration: none; border-radius: 4px; font-weight: bold;
-    }
+// ─── CORS ─────────────────────────────────────────────────────────────────────
+// Allow the production storefront to call the Sentinel checkout endpoint.
+// Both apex and www are permitted (CaratCam flows use www). The webhook is
+// server-to-server (Stripe → us) and needs no CORS.
+// To test locally, temporarily add 'http://localhost:5000' to this array.
+app.use('/sentinel', cors({ origin: ['https://camlabs.ai', 'https://www.camlabs.ai'] }));
 
-    .note { margin-top: 10px; font-size: 0.9em; color: #777; }
-    .highlight { font-weight: bold; color: #4caf50; font-size: 1.1em; margin-top: 10px; }
+// ─── Sentinel AI routes ───────────────────────────────────────────────────────
+// Webhook first — it mounts its own express.raw body parser internally, so it
+// must NOT be preceded by a global JSON parser.
+registerSentinelWebhook(app, stripe);
+// Checkout session creation (browser POSTs JSON → { url }).
+app.post('/sentinel/create-checkout-session', express.json(), sentinelCheckoutRoute(stripe));
 
-    /* video block */
-    .video-block {
-      max-width: 900px; margin: 24px auto; background: #fff;
-      border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.08); padding: 20px;
-    }
-    .video-block h3 { margin: 0 0 12px; font-size: 1.4em; }
-    .video-wrap {
-      position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px;
-    }
-    .video-wrap iframe {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;
-    }
-    .cta-row { margin-top: 15px; }
-    .cta-btn {
-      display: inline-block; padding: 12px 24px; border-radius: 6px;
-      text-decoration: none; font-weight: bold; font-size: 1.1em; color: #fff;
-    }
-    .cta-blue { background: #007acc; }
-    .cta-green { background: #4caf50; }
+// ─── CaratCam (existing, preserved) ─────────────────────────────────────────────
+const LICENSE_FILE = 'licenses.json';
+let licenses = fs.existsSync(LICENSE_FILE) ? JSON.parse(fs.readFileSync(LICENSE_FILE)) : [];
+function saveLicenses() {
+  fs.writeFileSync(LICENSE_FILE, JSON.stringify(licenses, null, 2));
+}
 
-    .metals { margin-top: 50px; padding-top: 20px; border-top: 1px solid #ccc; }
-    .metals h3 { margin-bottom: 10px; }
-    .metals span { display: inline-block; margin: 0 20px; font-weight: bold; }
+// CaratCam Stripe webhook → flat-file license.
+app.post('/create-license', express.raw({ type: 'application/json' }), (req, res) => {
+  const sig = req.headers['stripe-signature'];
+  let event;
+  try {
+    event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
+  } catch (err) {
+    console.error('❌ CaratCam webhook signature failed:', err.message);
+    return res.status(400).send(`Webhook Error: ${err.message}`);
+  }
+  if (event.type !== 'checkout.session.completed') {
+    return res.status(400).json({ error: 'Unhandled event type' });
+  }
+  const token = 'CCP-' + crypto.randomBytes(5).toString('hex').toUpperCase();
+  licenses.push({ token, created_at: new Date().toISOString() });
+  saveLicenses();
+  console.log('✅ New CaratCam license issued:', token);
+  res.json({ success: true });
+});
 
-    footer {
-      text-align: center; padding: 20px; font-size: 0.9rem; color: #888;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>CamLabs.ai</h1>
-    <p>Jewelry Valuation Software for Professionals</p>
-  </header>
+// CaratCam license check.
+app.get('/check-license', (req, res) => {
+  const { token } = req.query;
+  res.json({ valid: !!licenses.find((l) => l.token === token) });
+});
 
-  <nav>
-    <a href="index.html">🏠 Home</a>
-    <a href="buy-caratcam.html">CaratCam</a>
-    <a href="buy-caratcam-plus.html">CaratCam Plus</a>
-    <a href="support.html">Support</a>
-    <a href="contact.html">Contact</a>
-  </nav>
+// CaratCam checkout.
+app.post('/create-checkout-session', async (req, res) => {
+  try {
+    const session = await stripe.checkout.sessions.create({
+      mode: 'payment',
+      payment_method_types: ['card'],
+      line_items: [{ price: process.env.PRICE_ID, quantity: 1 }],
+      success_url: 'https://www.camlabs.ai/unlocked-caratcam-plus.html?token={CHECKOUT_SESSION_ID}',
+      cancel_url: 'https://www.camlabs.ai/cancel.html',
+    });
+    res.json({ url: session.url });
+  } catch (err) {
+    console.error('❌ CaratCam Stripe session creation failed:', err.message);
+    res.status(500).json({ error: 'Stripe session error' });
+  }
+});
 
-  <div class="hero-image">
-    <img src="caratcam_promo.png" alt="CaratCam Promo Graphic">
-  </div>
-
-  <main>
-    <!-- CaratCam -->
-    <div class="product">
-      <h2>CaratCam</h2>
-      <p>Essential gem valuation software. Built for casual users and collectors who need fast, accurate insights without the subscription.</p>
-      <p class="highlight">🔓 One-time payment unlocks unlimited access. No subscriptions.</p>
-      <a href="buy-caratcam.html">🔍 Learn About CaratCam</a>
-    </div>
-
-    <!-- CaratCam video -->
-    <section class="video-block" aria-label="CaratCam Demo">
-      <h3>See CaratCam in Action</h3>
-      <div class="video-wrap">
-        <iframe
-          src="https://www.youtube.com/embed/5aZ4Y2yQ3h4"
-          title="CaratCam Demo"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-      </div>
-      <div class="cta-row">
-        <a class="cta-btn cta-blue" href="buy-caratcam.html">👉 Buy CaratCam Now</a>
-      </div>
-    </section>
-
-    <!-- CaratCam Plus -->
-    <div class="product">
-      <h2>CaratCam Plus</h2>
-      <p>Advanced valuation tools for professionals. Includes enhanced scan accuracy, reporting, and lifetime updates.</p>
-      <p class="highlight">🔓 Premium version with lifetime access and advanced features.</p>
-      <a href="buy-caratcam-plus.html">💎 Learn About CaratCam Plus</a>
-    </div>
-
-    <!-- CaratCam Plus video -->
-    <section class="video-block" aria-label="CaratCam Plus Demo">
-      <h3>See CaratCam Plus in Action</h3>
-      <div class="video-wrap">
-        <iframe
-          src="https://www.youtube.com/embed/O-xiBoZX8bA"
-          title="CaratCam Plus Demo"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-      </div>
-      <div class="cta-row">
-        <a class="cta-btn cta-green" href="buy-caratcam-plus.html">💎 Get CaratCam Plus</a>
-      </div>
-    </section>
-
-    <div class="metals">
-      <h3>Live Metal Prices</h3>
-      <div id="metal-prices">
-        <span id="gold">Gold: Loading...</span>
-        <span id="silver">Silver: Loading...</span>
-        <span id="platinum">Platinum: Loading...</span>
-      </div>
-    </div>
-
-    <p class="note">⚠️ Both versions currently support Android. Desktop and iOS versions coming soon.</p>
-  </main>
-
-  <footer>
-    &copy; 2025 CamLabs.ai. All rights reserved.<br>
-    📍 4736 Royal Ave #109165, Eugene, Oregon 97402<br>
-    📞 <a href="tel:+15039293443">(503) 929-3443</a><br>
-    🔒 <a href="disclaimer.html" style="color: #007acc;">Disclaimer</a> – View terms of use and legal notice
-  </footer>
-
-  <script>
-    fetch('https://api.metalpriceapi.com/v1/latest?api_key=eba0cee69e29e9a76238474fd2d0da75&base=USD&currencies=XAU,XAG,XPT')
-      .then(res => res.json())
-      .then(data => {
-        const gold = data.rates.USDXAU;
-        const silver = data.rates.USDXAG;
-        const platinum = data.rates.USDXPT;
-
-        if (gold && silver && platinum) {
-          document.getElementById('gold').textContent = `Gold: $${gold.toFixed(2)} / oz`;
-          document.getElementById('silver').textContent = `Silver: $${silver.toFixed(2)} / oz`;
-          document.getElementById('platinum').textContent = `Platinum: $${platinum.toFixed(2)} / oz`;
-        } else {
-          document.getElementById('metal-prices').innerHTML = '<span>Live pricing temporarily unavailable.</span>';
-        }
-      })
-      .catch(() => {
-        document.getElementById('metal-prices').innerHTML = '<span>Error loading metal prices.</span>';
-      });
-  </script>
-</body>
-</html>
+// ─── Start ──────────────────────────────────────────────────────────────────────
+app.listen(PORT, () => {
+  console.log(`🚀 CamLabs license server running on port ${PORT}`);
+});

@@ -1,12 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Basic SEO -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CamLabs.ai | Jewelry Valuation Software</title>
+  <title>CamLabs.ai | Gem & Metal Valuation Software</title>
+  <meta name="description" content="Professional jewelry valuation software. Estimate diamond, gemstone, and metal value instantly. No subscriptions. One-time unlock.">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://camlabs.ai/" />
+
+  <!-- Open Graph (for Facebook, LinkedIn) -->
+  <meta property="og:title" content="CamLabs.ai | Jewelry Valuation Software" />
+  <meta property="og:description" content="Estimate the value of diamonds, gemstones, and precious metals in seconds. Trusted by professionals. One-time unlock." />
+  <meta property="og:image" content="https://camlabs.ai/caratcam_promo.png" />
+  <meta property="og:url" content="https://camlabs.ai/" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CamLabs.ai | Jewelry Valuation Software">
+  <meta name="twitter:description" content="Instant gem and metal appraisals. No subscriptions. Just results.">
+  <meta name="twitter:image" content="https://camlabs.ai/caratcam_promo.png">
+
+  <!-- Prevent caching -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
+
+  <!-- Favicons -->
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+  <!-- Styles -->
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -53,6 +78,43 @@
       height: auto;
       border-radius: 8px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    .video-section {
+      background-color: #fff;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .video-section h2 {
+      margin-bottom: 30px;
+    }
+    .videos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+    }
+    .video-card {
+      max-width: 360px;
+      text-align: center;
+    }
+    .video-card iframe {
+      width: 100%;
+      height: 200px;
+      border-radius: 8px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .video-card iframe:hover {
+      transform: scale(1.03);
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+    }
+    .video-card h3 {
+      margin: 15px 0 5px;
+      font-size: 1.2em;
+    }
+    .video-card p {
+      margin: 0;
+      font-size: 0.95em;
+      color: #555;
     }
     main {
       max-width: 1000px;
@@ -138,6 +200,13 @@
       font-size: 0.9rem;
       color: #888;
     }
+    footer a {
+      color: #007acc;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
@@ -155,10 +224,28 @@
   </nav>
 
   <div class="hero-image">
-    <img src="caratcam_promo.png" alt="CaratCam Promo Graphic">
+    <img src="caratcam_promo.png" alt="CaratCam Promo Graphic showing app interface">
+  </div>
+
+  <div class="video-section">
+    <h2>Watch CaratCam in Action</h2>
+    <div class="videos">
+      <div class="video-card">
+        <iframe src="https://www.youtube.com/embed/5aZ4Y2yQ3h4" title="CaratCam demo video" frameborder="0" allowfullscreen loading="lazy"></iframe>
+        <h3>CaratCam</h3>
+        <p>Quick gem valuations in your pocket — perfect for collectors and casual users.</p>
+      </div>
+      <div class="video-card">
+        <iframe src="https://www.youtube.com/embed/O-xiBoZX8bA" title="CaratCam Plus demo video" frameborder="0" allowfullscreen loading="lazy"></iframe>
+        <h3>CaratCam Plus</h3>
+        <p>Professional-grade scanning for advanced users, retailers, and appraisers.</p>
+      </div>
+    </div>
   </div>
 
   <main>
+    <h2>Estimate Diamond and Metal Value in Seconds</h2>
+
     <div class="product">
       <h2>CaratCam</h2>
       <p>Essential gem valuation software. Built for casual users and collectors who need fast, accurate insights without the subscription.</p>
@@ -211,13 +298,18 @@
     <p class="note">⚠️ Both versions currently support Android. Desktop and iOS versions coming soon.</p>
   </main>
 
-  <footer>
+   <footer>
     &copy; 2025 CamLabs.ai. All rights reserved.<br>
     📍 4736 Royal Ave #109165, Eugene, Oregon 97402<br>
     📞 <a href="tel:+15039293443">(503) 929-3443</a><br>
-    🔒 <a href="disclaimer.html" style="color: #007acc;">Disclaimer</a> – View terms of use and legal notice
+    🔒 
+    <a href="disclaimer.html" style="color: #007acc;">Disclaimer</a> • 
+    <a href="privacy.html" style="color: #007acc;">Privacy Policy</a> • 
+    <a href="terms.html" style="color: #007acc;">Terms of Use</a> • 
+    <a href="delete.html" style="color: #007acc;">Data Deletion</a>
   </footer>
 
+  <!-- JS for live metal prices -->
   <script>
     fetch('https://api.metalpriceapi.com/v1/latest?api_key=eba0cee69e29e9a76238474fd2d0da75&base=USD&currencies=XAU,XAG,XPT')
       .then(res => res.json())

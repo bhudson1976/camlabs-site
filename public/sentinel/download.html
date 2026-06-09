@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download Sentinel AI | Windows &amp; macOS | CamLabs.ai</title>
+  <meta name="description" content="Download Sentinel AI for Windows or macOS. Local-first security auditing for Flutter/Dart. Enter your license key on first launch to activate.">
+  <link rel="canonical" href="https://camlabs.ai/sentinel/download.html" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <style>
+    :root { --accent:#007acc; --accent-2:#00c2a8; --bg:#f8f8f8; --ink:#333; --ok:#14894f; }
+    * { box-sizing:border-box; }
+    body { font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif; margin:0; background:var(--bg); color:var(--ink); }
+    nav { background:#000; text-align:center; padding:12px 0; }
+    nav a { color:#fff; margin:0 14px; text-decoration:none; font-weight:bold; }
+    nav a:hover { text-decoration:underline; }
+
+    header.hero { background:radial-gradient(1200px 400px at 50% -10%, #14324a 0%, #000 60%); color:#fff; text-align:center; padding:56px 20px 46px; }
+    header.hero h1 { font-size:2.3em; margin:0 0 10px; }
+    header.hero p { color:#d9e2ea; margin:0; }
+
+    main { max-width:900px; margin:auto; padding:36px 20px 48px; }
+
+    /* Success banner */
+    .success {
+      display:flex; gap:16px; align-items:flex-start;
+      background:#e9f8f0; border:1px solid #b7e6cd; border-left:6px solid var(--ok);
+      border-radius:10px; padding:20px 22px; margin-bottom:34px;
+    }
+    .success .check {
+      flex:0 0 auto; width:40px; height:40px; border-radius:50%;
+      background:var(--ok); color:#fff; font-size:22px; line-height:40px; text-align:center;
+    }
+    .success h2 { margin:0 0 4px; font-size:1.15em; color:#0f6b3e; }
+    .success p { margin:0; font-size:0.96em; color:#2c5e45; line-height:1.5; }
+
+    /* Download cards */
+    .dl-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:22px; }
+    .dl-card { background:#fff; border-radius:12px; padding:30px; text-align:center; box-shadow:0 0 14px rgba(0,0,0,0.08); position:relative; }
+    .dl-card .os { font-size:2.8em; line-height:1; }
+    .dl-card h3 { margin:10px 0 4px; font-size:1.2em; }
+    .dl-card .meta { color:#777; font-size:0.9em; margin-bottom:18px; }
+    .btn { display:inline-block; padding:14px 26px; border-radius:6px; text-decoration:none; font-weight:bold; background:var(--accent); color:#fff; }
+    .btn:hover { background:#0a6bb0; }
+    .rec { position:absolute; top:14px; right:14px; background:var(--accent-2); color:#063; font-size:0.7em; font-weight:bold; padding:3px 9px; border-radius:20px; display:none; }
+    .rec.show { display:inline-block; }
+
+    .key-note { text-align:center; margin:30px auto 0; max-width:620px; color:#555; font-size:0.95em; }
+    .key-note strong { color:var(--ink); }
+
+    .install { background:#fff; border-radius:12px; padding:26px 28px; margin-top:30px; box-shadow:0 0 14px rgba(0,0,0,0.06); }
+    .install h3 { margin:0 0 6px; }
+    .install ol { padding-left:22px; color:#555; margin:0 0 14px; }
+    .install li { margin:6px 0; }
+    .install .last { margin-bottom:0; }
+    .warn { color:#8a6d00; font-size:0.92em; }
+
+    footer { text-align:center; padding:26px; font-size:0.9rem; color:#888; }
+    footer a { color:var(--accent); text-decoration:none; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/index.html">🏠 CamLabs</a>
+    <a href="/sentinel/">Sentinel</a>
+    <a href="/sentinel/download.html">Download</a>
+    <a href="/support.html">Support</a>
+    <a href="/contact.html">Contact</a>
+  </nav>
+
+  <header class="hero">
+    <h1>Download Sentinel AI</h1>
+    <p>Local-first security auditing for Flutter &amp; Dart — Windows &amp; macOS</p>
+  </header>
+
+  <main>
+    <!-- 1. Success banner -->
+    <div class="success" id="success-banner">
+      <div class="check">✓</div>
+      <div>
+        <h2 id="success-title">Payment Received!</h2>
+        <p id="success-msg">
+          Your lifetime license has been issued. Please check your email inbox for your
+          secure activation key — you'll enter it in the app on first launch.
+        </p>
+      </div>
+    </div>
+
+    <!-- 2. Installers -->
+    <div class="dl-grid">
+      <div class="dl-card">
+        <span class="rec" id="rec-mac">Detected</span>
+        <div class="os"></div>
+        <h3>macOS</h3>
+        <div class="meta">Apple Silicon recommended (Metal) · .zip</div>
+        <a class="btn" href="https://pub-10ae3ecc83a24d31961ba7a11de5255a.r2.dev/installers/sentinel_desktop_mac.zip">
+          ⬇️ Download for macOS
+        </a>
+      </div>
+
+      <div class="dl-card">
+        <span class="rec" id="rec-win">Detected</span>
+        <div class="os">🪟</div>
+        <h3>Windows</h3>
+        <div class="meta">Windows 10/11 · 64-bit · GPU recommended · .exe</div>
+        <a class="btn" href="https://pub-10ae3ecc83a24d31961ba7a11de5255a.r2.dev/installers/sentinel_desktop_win.exe">
+          ⬇️ Download for Windows
+        </a>
+      </div>
+    </div>
+
+    <p class="key-note">
+      🔑 No license key yet? <a href="/sentinel/#how-it-works">Get a lifetime license</a>.
+      Sentinel installs freely — your <strong>license key</strong> activates it on first launch.
+    </p>
+
+    <!-- Helpful install/activation steps -->
+    <div class="install">
+      <h3>🪟 Windows — install &amp; activate</h3>
+      <ol>
+        <li>Download and run the installer above.</li>
+        <li>If Windows SmartScreen warns about an unknown publisher, click <strong>More info → Run anyway</strong>.</li>
+        <li class="last">Launch Sentinel and paste your license key when prompted.</li>
+      </ol>
+
+      <h3> macOS — install &amp; activate</h3>
+      <ol>
+        <li>Download and unzip — you'll get the Sentinel app. Drag it into <strong>Applications</strong>.</li>
+        <li>First launch: <strong>right-click the app → Open</strong> to bypass the Gatekeeper warning for apps from outside the App Store.</li>
+        <li class="last">Paste your license key when prompted.</li>
+      </ol>
+
+      <p class="warn">⚠️ On first launch Sentinel downloads its ~5&nbsp;GB on-device AI model (one time). After that it runs fully offline.</p>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 CamLabs.ai. All rights reserved.<br>
+    🔒
+    <a href="/privacy.html">Privacy Policy</a> •
+    <a href="/terms.html">Terms of Use</a> •
+    <a href="/support.html">Support</a>
+  </footer>
+
+  <script>
+    // Show the "Payment Received!" banner only for buyers arriving from Stripe
+    // (their success redirect carries ?session_id=). Otherwise soften it so
+    // casual visitors / returning users aren't told they just paid.
+    (function () {
+      var hasSession = new URLSearchParams(window.location.search).has('session_id');
+      if (!hasSession) {
+        document.getElementById('success-title').textContent = 'Download Sentinel AI';
+        document.getElementById('success-msg').innerHTML =
+          'Already purchased? Your activation key was emailed to you. Install below and enter it on first launch.';
+        document.getElementById('success-banner').style.cssText +=
+          'background:#eef6ff;border-color:#cfe4fb;border-left-color:#007acc;';
+        var check = document.querySelector('.success .check');
+        check.style.background = '#007acc';
+        check.textContent = '⬇';
+      }
+
+      // Highlight the installer matching the visitor's OS.
+      var p = (navigator.userAgentData && navigator.userAgentData.platform) || navigator.platform || '';
+      if (/Mac/i.test(p)) document.getElementById('rec-mac').classList.add('show');
+      else if (/Win/i.test(p)) document.getElementById('rec-win').classList.add('show');
+    })();
+  </script>
+</body>
+</html>

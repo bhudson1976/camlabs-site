@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Basic SEO -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sentinel AI | On-Device Security Auditing for Flutter & Dart | CamLabs.ai</title>
+  <meta name="description" content="Sentinel is a local-first security auditor for Flutter/Dart codebases. An 8B AI model runs entirely on your machine — no cloud, no telemetry, your code never leaves your computer.">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://camlabs.ai/sentinel/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Sentinel AI | On-Device Security Auditing" />
+  <meta property="og:description" content="Scan Flutter/Dart projects for real vulnerabilities with an AI that runs entirely on your machine. No cloud. No telemetry. Your code never leaves your computer." />
+  <meta property="og:url" content="https://camlabs.ai/sentinel/" />
+  <meta property="og:type" content="product" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sentinel AI | On-Device Security Auditing">
+  <meta name="twitter:description" content="Local-first AI security audits for Flutter/Dart. No cloud, no nonsense.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+  <style>
+    :root {
+      --accent: #007acc;
+      --accent-2: #00c2a8;
+      --bg: #f8f8f8;
+      --ink: #333;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0; padding: 0;
+      background-color: var(--bg);
+      color: var(--ink);
+    }
+    nav {
+      background-color: #000;
+      text-align: center;
+      padding: 12px 0;
+    }
+    nav a {
+      color: #fff; margin: 0 14px;
+      text-decoration: none; font-weight: bold;
+    }
+    nav a:hover { text-decoration: underline; }
+
+    header.hero {
+      background: radial-gradient(1200px 400px at 50% -10%, #14324a 0%, #000 60%);
+      color: #fff;
+      text-align: center;
+      padding: 90px 20px 70px;
+    }
+    .hero .eyebrow {
+      letter-spacing: 2px; text-transform: uppercase;
+      font-size: 0.8em; color: var(--accent-2); margin-bottom: 14px;
+    }
+    .hero h1 { font-size: 3em; margin: 0 0 16px; }
+    .hero p.lede { font-size: 1.25em; max-width: 720px; margin: 0 auto 28px; color: #d9e2ea; }
+    .cta-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 10px; }
+    .btn {
+      display: inline-block; padding: 14px 26px; border-radius: 6px;
+      text-decoration: none; font-weight: bold; font-size: 1em;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: #0a6bb0; }
+    .btn-ghost { background: transparent; color: #fff; border: 1px solid #3a5970; }
+    .btn-ghost:hover { border-color: var(--accent-2); }
+    .hero .sub { margin-top: 18px; font-size: 0.9em; color: #9fb3c2; }
+
+    main { max-width: 1000px; margin: auto; padding: 50px 20px; }
+    .section-title { text-align: center; font-size: 1.9em; margin: 0 0 8px; }
+    .section-sub { text-align: center; color: #666; max-width: 640px; margin: 0 auto 36px; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    .card {
+      background: #fff; border-radius: 10px; padding: 26px;
+      box-shadow: 0 0 12px rgba(0,0,0,0.08);
+    }
+    .card h3 { margin: 0 0 10px; font-size: 1.15em; }
+    .card p { margin: 0; color: #555; font-size: 0.97em; }
+    .card .ico { font-size: 1.6em; }
+
+    .band { background: #fff; border-top: 1px solid #eee; border-bottom: 1px solid #eee; }
+    .band .inner { max-width: 900px; margin: auto; padding: 50px 20px; }
+    ol.flow { counter-reset: step; list-style: none; padding: 0; max-width: 720px; margin: 0 auto; }
+    ol.flow li { position: relative; padding: 14px 0 14px 54px; border-bottom: 1px solid #f0f0f0; }
+    ol.flow li:before {
+      counter-increment: step; content: counter(step);
+      position: absolute; left: 0; top: 12px;
+      width: 34px; height: 34px; border-radius: 50%;
+      background: var(--accent); color: #fff; font-weight: bold;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .req { background: #fff; border: 1px solid #eee; border-radius: 10px; padding: 22px; margin-top: 26px; }
+    .req h3 { margin-top: 0; }
+    .req ul { margin: 0; padding-left: 20px; color: #555; }
+    .req li { margin: 6px 0; }
+
+    .pricing { text-align: center; }
+    .price-card {
+      background: #fff; border: 2px solid var(--accent); border-radius: 12px;
+      max-width: 380px; margin: 0 auto; padding: 34px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+    }
+    .price-card .amount { font-size: 2.6em; font-weight: bold; color: #111; }
+    .price-card .term { color: #777; margin-bottom: 18px; }
+    .placeholder { background: #fff7e6; border: 1px dashed #e0a800; color: #8a6d00; padding: 8px 12px; border-radius: 6px; font-size: 0.85em; }
+
+    footer { text-align: center; padding: 26px; font-size: 0.9rem; color: #888; }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/index.html">🏠 CamLabs</a>
+    <a href="/sentinel/">Sentinel</a>
+    <a href="/sentinel/download.html">Download</a>
+    <a href="/support.html">Support</a>
+    <a href="/contact.html">Contact</a>
+  </nav>
+
+  <header class="hero">
+    <div class="eyebrow">CamLabs · Sentinel AI</div>
+    <h1>Security audits that never leave your machine.</h1>
+    <p class="lede">
+      Sentinel scans your Flutter &amp; Dart projects for real vulnerabilities using an
+      AI model that runs <strong>entirely on your own computer</strong>. No cloud inference.
+      No telemetry. Your source code never gets uploaded anywhere.
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="/sentinel/download.html">⬇️ Download Sentinel</a>
+      <a class="btn btn-ghost" href="#how-it-works">How licensing works</a>
+    </div>
+    <div class="sub">Windows &amp; macOS · One-time license, no subscription</div>
+  </header>
+
+  <main>
+    <h2 class="section-title">Why Sentinel</h2>
+    <p class="section-sub">Built for developers who can't send their code to a third-party cloud — and don't want to.</p>
+
+    <div class="grid">
+      <div class="card">
+        <div class="ico">🔒</div>
+        <h3>Private by design</h3>
+        <p>The AI runs locally. Your code is never uploaded, logged, or sent to any server — yours or ours. Audit proprietary or client code with zero exposure.</p>
+      </div>
+      <div class="card">
+        <div class="ico">🎯</div>
+        <h3>Real findings, not lint noise</h3>
+        <p>Sentinel reports actual vulnerabilities — command &amp; SQL injection, path traversal, hardcoded secrets, broken auth, XSS, unsafe deserialization — with risk level, file, and line. If your code is clean, it says so.</p>
+      </div>
+      <div class="card">
+        <div class="ico">🛠️</div>
+        <h3>Fix-ready remediation</h3>
+        <p>Every finding comes with a clear description and suggested remediation code, so you can go from "found" to "fixed" without leaving the report.</p>
+      </div>
+      <div class="card">
+        <div class="ico">📴</div>
+        <h3>Works offline</h3>
+        <p>Once activated, Sentinel needs no internet connection. Audit on a plane, in a SCIF, or anywhere your code lives.</p>
+      </div>
+      <div class="card">
+        <div class="ico">💬</div>
+        <h3>Built-in code Q&amp;A</h3>
+        <p>Ask questions about your code in a chat panel and get straight answers from a seasoned security perspective.</p>
+      </div>
+      <div class="card">
+        <div class="ico">🎯</div>
+        <h3>Tuned for Flutter &amp; Dart</h3>
+        <p>The audit engine is purpose-built for Dart vulnerability patterns — not a generic scanner bolted onto another language.</p>
+      </div>
+    </div>
+  </main>
+
+  <div class="band" id="how-it-works">
+    <div class="inner">
+      <h2 class="section-title">How it works</h2>
+      <p class="section-sub">A one-time license, bound to your machine.</p>
+      <ol class="flow">
+        <li>Buy a one-time license here on camlabs.ai.</li>
+        <li>We email you a license key.</li>
+        <li>Download Sentinel for your operating system.</li>
+        <li>Enter your key on first launch — it activates and locks to that machine.</li>
+        <li>Audit away, fully offline. No subscription, no recurring fees.</li>
+      </ol>
+
+      <div class="req">
+        <h3>What you'll need</h3>
+        <ul>
+          <li><strong>Windows or macOS</strong> (Apple Silicon recommended on Mac — uses Metal acceleration).</li>
+          <li><strong>A real GPU</strong> for full speed. Tested on RTX 4050 6GB (Windows) and Apple Silicon (macOS). CPU-only works but is slow.</li>
+          <li><strong>Disk space for the AI model</strong> (~5 GB) that powers on-device analysis.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <main class="pricing">
+    <h2 class="section-title">Pricing</h2>
+    <p class="section-sub">One license. One machine. Pay once.</p>
+    <div class="price-card">
+      <div class="amount">$149.99</div>
+      <div class="term">one-time · per machine · lifetime license · no subscription</div>
+      <button id="buy-sentinel" class="btn btn-primary" data-loading-label="Redirecting…"
+              style="margin-top:14px;border:none;cursor:pointer;font:inherit;font-weight:bold;">
+        Buy Sentinel AI — $149.99
+      </button>
+      <p style="margin-top:14px;font-size:0.85em;color:#888;">
+        Already purchased? <a href="/sentinel/download.html" style="color:var(--accent);">Download Sentinel →</a>
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 CamLabs.ai. All rights reserved.<br>
+    📍 4736 Royal Ave #109165, Eugene, Oregon 97402<br>
+    📞 <a href="tel:+15416024016">(541) 602-4016</a><br>
+    🔒
+    <a href="/privacy.html">Privacy Policy</a> •
+    <a href="/terms.html">Terms of Use</a> •
+    <a href="/support.html">Support</a>
+  </footer>
+
+  <script src="/sentinel/buy-button.js"></script>
+</body>
+</html>
