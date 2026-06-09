@@ -27,6 +27,13 @@ app.use('/sentinel', cors({ origin: [
   'https://camlabs.firebaseapp.com',  // Firebase Hosting alternate domain
 ] }));
 
+// ─── Health check ─────────────────────────────────────────────────────────────
+// Lightweight liveness endpoint so Render's health check (and uptime pings) get a
+// fast 200 instead of a 404 on '/'. Reports both product lines on this server.
+app.get('/', (req, res) => {
+  res.status(200).send('✅ CamLabs license server running — CaratCam + Sentinel AI');
+});
+
 // ─── Sentinel AI routes ───────────────────────────────────────────────────────
 // Webhook first — it mounts its own express.raw body parser internally, so it
 // must NOT be preceded by a global JSON parser.
