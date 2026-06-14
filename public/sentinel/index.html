@@ -10,9 +10,35 @@
   <meta property="og:description" content="A hostile, local-first security suite — live URL & header auditing, Flutter/Dart static scanning, and an on-device AI you can interrogate. Runs entirely on your machine. No cloud. No telemetry. Nothing you scan ever leaves your computer." />
   <meta property="og:url" content="https://camlabs.ai/sentinel/" />
   <meta property="og:type" content="product" />
+  <meta property="og:image" content="https://camlabs.ai/sentinel/assets/sentinel_screen.PNG" />
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Sentinel AI | On-Device Security Auditing Suite">
   <meta name="twitter:description" content="A hostile, local-first security suite — URL & header auditing, Flutter/Dart static scanning, and an on-device AI. No cloud, no telemetry, no nonsense.">
+  <meta name="twitter:image" content="https://camlabs.ai/sentinel/assets/sentinel_screen.PNG">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Sentinel AI",
+    "applicationCategory": "SecurityApplication",
+    "operatingSystem": "Windows, macOS",
+    "url": "https://camlabs.ai/sentinel/",
+    "image": "https://camlabs.ai/sentinel/assets/sentinel_screen.PNG",
+    "description": "Sentinel AI is a local-first security suite that audits Flutter & Dart code and live endpoints entirely on your machine — an 8B AI model runs on-device with no cloud and no telemetry.",
+    "offers": {
+      "@type": "Offer",
+      "price": "149.99",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "url": "https://camlabs.ai/sentinel/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "CamLabs",
+      "url": "https://camlabs.ai/"
+    }
+  }
+  </script>
   <link rel="icon" type="image/jpeg" href="/sentinel/assets/sentinel_logo.JPG">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -175,6 +201,16 @@
     .mission-card p:last-of-type { margin-bottom:0; }
     .mission-card .sig { margin-top:22px; color:var(--ink-faint); font-size:0.95rem; font-style:italic; }
 
+    /* FAQ */
+    .faq { max-width:760px; margin:0 auto; display:grid; gap:12px; }
+    .faq details { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:0 22px; transition:border-color .2s, background .2s; }
+    .faq details[open] { border-color:var(--border-strong); background:var(--card-hover); }
+    .faq summary { cursor:pointer; padding:18px 0; font-weight:600; color:var(--ink); font-size:1rem; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:16px; }
+    .faq summary::-webkit-details-marker { display:none; }
+    .faq summary::after { content:"+"; color:var(--ink-faint); font-size:1.4rem; line-height:1; transition:transform .2s; }
+    .faq details[open] summary::after { transform:rotate(45deg); }
+    .faq .ans { padding:0 0 18px; color:var(--ink-dim); font-size:0.95rem; }
+
     footer { text-align:center; padding:36px 20px; border-top:1px solid var(--border); color:var(--ink-faint); font-size:0.85rem; }
     footer a { color:var(--ink-dim); text-decoration:none; }
     footer a:hover { color:var(--ink); }
@@ -220,6 +256,7 @@
           <span class="tag">🌐 URL &amp; header auditing</span>
           <span class="tag">🔍 Flutter &amp; Dart static scan</span>
           <span class="tag">💬 On-device AI chat</span>
+          <span class="tag">🔊 Roasts your code out loud</span>
         </div>
       </div>
     </section>
@@ -236,6 +273,11 @@
             <div class="ico">🥊</div>
             <h3>A hostile auditor</h3>
             <p>Across your code and your live endpoints, Sentinel works like an attacker, not a cheerleader — everything is guilty until proven safe. No false comfort: if it's actually clean, it says so.</p>
+          </div>
+          <div class="card">
+            <div class="ico">🔊</div>
+            <h3>It doesn't just report — it roasts</h3>
+            <p>Sentinel audits out loud. It speaks every finding like a comedian who's seen too many security disasters — brutal, funny, and not here to spare your feelings. Haptic feedback buzzes your Mac trackpad the instant it hits a vulnerability, and alerts fire on every code issue it finds. You don't read the report in silence — you feel it.</p>
           </div>
           <div class="card">
             <div class="ico">🌐</div>
@@ -334,6 +376,80 @@
         </div>
       </div>
     </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <div class="container">
+        <div class="sec-head">
+          <h2>Frequently asked questions</h2>
+          <p>The short answers. Still curious? Reach out via <a href="/support.html" style="color:var(--brand);text-decoration:none;">support</a>.</p>
+        </div>
+        <div class="faq">
+          <details>
+            <summary>Does my source code ever leave my computer?</summary>
+            <div class="ans">No. Sentinel runs an 8B AI model entirely on your own machine. There's no cloud inference and no telemetry — your code is never uploaded, logged, or sent to any server, ours or anyone else's.</div>
+          </details>
+          <details>
+            <summary>Does Sentinel work offline?</summary>
+            <div class="ans">Yes. After a one-time model download (~5&nbsp;GB) on first launch and license activation, static code scanning and the on-device AI run with no internet connection at all. Live URL auditing is the one exception — it has to reach the site you point it at.</div>
+          </details>
+          <details>
+            <summary>What does Sentinel actually audit?</summary>
+            <div class="ans">Three things: deep static analysis of Flutter &amp; Dart code (injection, hardcoded secrets, broken auth, path traversal, XSS, unsafe deserialization), live URL &amp; security-header auditing (COOP, COEP, CORP, CSP), and an on-device AI you can chat with about findings.</div>
+          </details>
+          <details>
+            <summary>What do I need to run it?</summary>
+            <div class="ans">Windows or macOS. A real GPU is recommended for full speed (CPU-only works, just slower), plus about 5&nbsp;GB of disk for the on-device model. On Apple Silicon Macs it uses Metal acceleration.</div>
+          </details>
+          <details>
+            <summary>Is this a subscription?</summary>
+            <div class="ans">No. Sentinel is a one-time $149.99 purchase — a lifetime license for one machine. No recurring fees, ever.</div>
+          </details>
+          <details>
+            <summary>How does activation work?</summary>
+            <div class="ans">After purchase we email you a secure license key. Enter it on first launch; it activates and locks to that machine, then runs fully offline. Keys are hardware-bound — one machine per license.</div>
+          </details>
+        </div>
+      </div>
+    </section>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does my source code ever leave my computer?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Sentinel runs an 8B AI model entirely on your own machine. There's no cloud inference and no telemetry — your code is never uploaded, logged, or sent to any server, ours or anyone else's." }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Sentinel work offline?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. After a one-time model download (~5 GB) on first launch and license activation, static code scanning and the on-device AI run with no internet connection at all. Live URL auditing is the one exception — it has to reach the site you point it at." }
+        },
+        {
+          "@type": "Question",
+          "name": "What does Sentinel actually audit?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Three things: deep static analysis of Flutter & Dart code (injection, hardcoded secrets, broken auth, path traversal, XSS, unsafe deserialization), live URL & security-header auditing (COOP, COEP, CORP, CSP), and an on-device AI you can chat with about findings." }
+        },
+        {
+          "@type": "Question",
+          "name": "What do I need to run it?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Windows or macOS. A real GPU is recommended for full speed (CPU-only works, just slower), plus about 5 GB of disk for the on-device model. On Apple Silicon Macs it uses Metal acceleration." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this a subscription?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Sentinel is a one-time $149.99 purchase — a lifetime license for one machine. No recurring fees, ever." }
+        },
+        {
+          "@type": "Question",
+          "name": "How does activation work?",
+          "acceptedAnswer": { "@type": "Answer", "text": "After purchase we email you a secure license key. Enter it on first launch; it activates and locks to that machine, then runs fully offline. Keys are hardware-bound — one machine per license." }
+        }
+      ]
+    }
+    </script>
 
     <!-- Pricing -->
     <section id="pricing">

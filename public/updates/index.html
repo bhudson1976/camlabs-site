@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update Sentinel AI | Get the Latest Installer | CamLabs.ai</title>
+  <meta name="description" content="Already own Sentinel AI? Enter your purchase email and we'll send a direct download link for the latest macOS & Windows installer — no account, no cloud tracking.">
+  <link rel="canonical" href="https://camlabs.ai/updates/" />
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/jpeg" href="/sentinel/assets/sentinel_logo.JPG">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0B0F19;
+      --card:rgba(255,255,255,0.025);
+      --border:rgba(255,255,255,0.08);
+      --border-strong:rgba(255,255,255,0.14);
+      --ink:#F3F5F9;
+      --ink-dim:#9aa4b6;
+      --ink-faint:#6b7585;
+      --brand:#5b8cff;
+      --brand-2:#7c5cff;
+      --emerald:#10b981;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0; background:var(--bg); color:var(--ink); line-height:1.6;
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      -webkit-font-smoothing:antialiased; min-height:100vh; display:flex; flex-direction:column;
+    }
+    a { color:inherit; }
+    body::before {
+      content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+      background:
+        radial-gradient(640px 320px at 50% -10%, rgba(91,140,255,0.18), transparent 70%),
+        radial-gradient(520px 360px at 86% 8%, rgba(124,92,255,0.12), transparent 70%);
+    }
+    .wrap { position:relative; z-index:1; flex:1 0 auto; display:flex; flex-direction:column; }
+
+    nav {
+      display:flex; justify-content:center; gap:26px; align-items:center;
+      padding:18px 20px; border-bottom:1px solid var(--border);
+      backdrop-filter:blur(8px); background:rgba(11,15,25,0.7);
+    }
+    nav a { color:var(--ink-dim); text-decoration:none; font-size:0.92rem; font-weight:500; transition:color .15s; }
+    nav a:hover { color:var(--ink); }
+    nav a.brand { color:var(--ink); font-weight:700; display:inline-flex; align-items:center; gap:9px; }
+    .brand-logo { width:28px; height:28px; border-radius:8px; object-fit:cover; object-position:center 26%; border:1px solid var(--border); }
+
+    main { flex:1 0 auto; display:flex; align-items:center; justify-content:center; padding:64px 20px; }
+    .panel {
+      width:100%; max-width:520px; text-align:center;
+      background:linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.01));
+      border:1px solid var(--border); border-radius:22px; padding:46px 38px;
+      box-shadow:0 30px 80px -40px rgba(91,140,255,0.5);
+    }
+    .pill {
+      display:inline-flex; align-items:center; gap:8px; padding:6px 14px; margin-bottom:22px;
+      border:1px solid var(--border); border-radius:999px; background:var(--card);
+      font-size:0.76rem; color:var(--ink-dim); letter-spacing:0.04em; text-transform:uppercase;
+    }
+    .pill .dot { width:7px; height:7px; border-radius:50%; background:var(--emerald); box-shadow:0 0 10px var(--emerald); }
+    h1 {
+      font-size:clamp(1.7rem,4.5vw,2.3rem); margin:0 0 14px; font-weight:800; letter-spacing:-0.03em; line-height:1.12;
+      background:linear-gradient(180deg,#ffffff,#aeb9d1); -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .lede { margin:0 auto 30px; color:var(--ink-dim); font-size:1rem; max-width:440px; }
+
+    form { display:flex; flex-direction:column; gap:12px; }
+    input[type=email] {
+      width:100%; padding:15px 18px; border-radius:12px; font-family:inherit; font-size:1rem;
+      background:rgba(255,255,255,0.04); border:1px solid var(--border-strong); color:var(--ink); outline:none;
+      transition:border-color .15s, box-shadow .15s;
+    }
+    input[type=email]::placeholder { color:var(--ink-faint); }
+    input[type=email]:focus { border-color:var(--brand); box-shadow:0 0 0 3px rgba(91,140,255,0.18); }
+    button {
+      width:100%; padding:15px 20px; border-radius:12px; font-family:inherit; font-size:1rem; font-weight:600;
+      border:1px solid transparent; color:#fff; cursor:pointer;
+      background:linear-gradient(135deg,var(--brand),var(--brand-2));
+      box-shadow:0 12px 34px -10px rgba(91,140,255,0.85); transition:filter .18s, transform .18s;
+    }
+    button:hover:not(:disabled) { filter:brightness(1.08); transform:translateY(-1px); }
+    button:disabled { opacity:0.7; cursor:default; }
+
+    .success {
+      display:none; margin-top:6px; gap:14px; align-items:flex-start; text-align:left;
+      border-radius:14px; padding:18px 20px;
+      background:linear-gradient(180deg, rgba(16,185,129,0.10), rgba(16,185,129,0.03));
+      border:1px solid rgba(16,185,129,0.35);
+    }
+    .success.show { display:flex; }
+    .success .check {
+      flex:0 0 auto; width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center;
+      font-size:16px; font-weight:700; background:linear-gradient(135deg,#10b981,#059669); color:#04130d;
+    }
+    .success p { margin:0; font-size:0.92rem; color:#bfe9d8; }
+
+    .privacy { margin-top:22px; font-size:0.8rem; color:var(--ink-faint); line-height:1.55; }
+    .privacy a { color:var(--brand); text-decoration:none; }
+
+    footer { flex-shrink:0; text-align:center; padding:28px 20px; border-top:1px solid var(--border); color:var(--ink-faint); font-size:0.83rem; }
+    footer a { color:var(--ink-dim); text-decoration:none; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="/"><img class="brand-logo" src="/sentinel/assets/sentinel_logo.JPG" alt="CamLabs.ai"> CamLabs.ai</a>
+      <a href="/sentinel/">Sentinel AI</a>
+      <a href="/sentinel/download.html">Download</a>
+      <a href="/support.html">Support</a>
+    </nav>
+
+    <main>
+      <div class="panel">
+        <div class="pill"><span class="dot"></span> Local-first · No account required</div>
+        <h1>Own your software.<br>Stay updated.</h1>
+        <p class="lede">
+          Enter the email address you used to purchase Sentinel AI below. We will instantly verify
+          your license and email you a secure, direct download link for the latest installer —
+          completely bypassing cloud tracking or mandatory accounts.
+        </p>
+
+        <form id="update-form" novalidate>
+          <input type="email" id="email" name="email" required autocomplete="email"
+                 placeholder="your.email@domain.com" aria-label="Purchase email address">
+          <button type="submit" id="submit-btn" data-loading="Verifying…">Request Latest Installer</button>
+        </form>
+
+        <div class="success" id="success">
+          <div class="check">✓</div>
+          <p>Check your inbox. If your email is registered, a secure download link for the latest installer is on its way.</p>
+        </div>
+
+        <p class="privacy">
+          🔒 We never share your email, and Sentinel never phones home. This page only confirms an existing
+          purchase to send your installer link. No newsletters, no tracking.
+        </p>
+      </div>
+    </main>
+
+    <footer>
+      &copy; 2025 CamLabs.ai · Sentinel AI &nbsp;·&nbsp;
+      <a href="/privacy.html">Privacy</a> &nbsp;·&nbsp;
+      <a href="/support.html">Support</a>
+    </footer>
+  </div>
+
+  <script>
+    // On localhost we hit a local dev server; otherwise the production Render API.
+    var API_BASE_URL =
+      (typeof window !== 'undefined' && window.location.hostname === 'localhost')
+        ? 'http://localhost:3000'
+        : 'https://caratcam-plus-license-server.onrender.com';
+    var ENDPOINT = API_BASE_URL + '/sentinel/request-update';
+
+    var form = document.getElementById('update-form');
+    var btn = document.getElementById('submit-btn');
+    var input = document.getElementById('email');
+    var success = document.getElementById('success');
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      var email = input.value.trim();
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        input.focus();
+        return;
+      }
+      btn.disabled = true;
+      btn.textContent = btn.dataset.loading;
+      try {
+        // The server ALWAYS returns the same response (whether or not the email is a
+        // customer), so we never reveal who owns a license. We just show the success state.
+        await fetch(ENDPOINT, {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ email: email }),
+        });
+      } catch (err) {
+        // Even on a network hiccup we show the neutral message — no information leak.
+        console.error(err);
+      }
+      form.style.display = 'none';
+      success.classList.add('show');
+    });
+  </script>
+</body>
+</html>

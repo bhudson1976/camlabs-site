@@ -121,14 +121,17 @@ async function handleSentinelWebhook(req, res, stripe) {
   }
 
   // 5. Email the key. Don't fail the webhook if email hiccups — license exists.
+  let emailSent = false;
   try {
     await sendLicenseEmail({ email, name, licenseKey });
+    emailSent = true;
   } catch (err) {
-    console.error('Sentinel onboarding email failed (license WAS created):', err);
+    // Loud, single-line failure so this never slips past as a "success" again.
+    console.error(`⚠️ LICENSE ISSUED BUT EMAIL FAILED: ${err.message} — key ${licenseKey} for ${email}`);
   }
 
-  console.log('✅ Sentinel lifetime license issued:', licenseKey, 'for', email);
-  return res.status(200).json({ received: true, license_issued: true });
+  console.log('✅ Sentinel lifetime license issued:', licenseKey, 'for', email, '· email_sent:', emailSent);
+  return res.status(200).json({ received: true, license_issued: true, email_sent: emailSent });
 }
 
 // ─── Email ───────────────────────────────────────────────────────────────────

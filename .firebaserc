@@ -5,8 +5,11 @@
   "targets": {
     "caratcam-release": {
       "hosting": {
-        "camlabs": ["camlabs"]
+        "camlabs": [
+          "camlabs"
+        ]
       }
     }
-  }
+  },
+  "etags": {}
 }

@@ -136,6 +136,8 @@
       box-shadow:0 10px 30px -10px rgba(91,140,255,0.8);
     }
     .btn.primary:hover { filter:brightness(1.08); transform:translateY(-1px); box-shadow:0 14px 36px -10px rgba(91,140,255,0.95); }
+    .btn.soon { background:rgba(255,255,255,0.03); color:var(--ink-faint); border-color:var(--border); cursor:default; box-shadow:none; }
+    .btn.soon:hover { background:rgba(255,255,255,0.03); transform:none; filter:none; box-shadow:none; }
 
     .key-note { text-align:center; margin:30px auto 0; max-width:560px; color:var(--ink-dim); font-size:0.92rem; }
     .key-note a { color:var(--brand); text-decoration:none; font-weight:600; }
@@ -165,6 +167,18 @@
       margin-top:24px; padding:16px 18px; border-radius:12px;
       background:rgba(245,200,66,0.06); border:1px solid rgba(245,200,66,0.22); color:#e7d39a; font-size:0.88rem;
     }
+
+    .trust-note {
+      max-width:740px; margin:18px auto 0; padding:28px 30px; border-radius:18px;
+      background:linear-gradient(180deg, rgba(16,185,129,0.13), rgba(16,185,129,0.03));
+      border:1px solid rgba(16,185,129,0.40);
+      box-shadow:0 0 0 1px rgba(16,185,129,0.05), 0 22px 56px -24px rgba(16,185,129,0.55);
+    }
+    .trust-note h3 { margin:0 0 14px; font-size:1.32rem; font-weight:800; color:#d7fbed; display:flex; align-items:center; gap:10px; letter-spacing:-0.01em; }
+    .trust-note p { margin:0 0 12px; color:#c6ecdb; font-size:1.03rem; line-height:1.62; }
+    .trust-note p:last-child { margin-bottom:0; }
+    .trust-note strong { color:#ffffff; font-weight:700; }
+    .trust-note .hl { color:#6ef0c0; font-weight:800; }
 
     footer { text-align:center; padding:34px 20px; border-top:1px solid var(--border); color:var(--ink-faint); font-size:0.85rem; }
     footer a { color:var(--ink-dim); text-decoration:none; }
@@ -202,19 +216,26 @@
           <span class="rec" id="rec-mac">★ Recommended for you</span>
           <div class="os"></div>
           <h3>macOS</h3>
-          <div class="meta">Apple Silicon · Metal-accelerated · .zip</div>
+          <div class="meta">Apple Silicon · Metal-accelerated · .dmg</div>
           <div class="spacer"></div>
-          <a class="btn" id="btn-mac" href="https://pub-10ae3ecc83a24d31961ba7a11de5255a.r2.dev/installers/sentinel_desktop_mac.zip">⬇ Download for macOS</a>
+          <a class="btn" id="btn-mac" href="https://pub-10ae3ecc83a24d31961ba7a11de5255a.r2.dev/installers/Sentinel-AI-v1.0.0-beta-macOS.dmg">⬇ Download for macOS</a>
         </div>
 
         <div class="dl-card" id="card-win">
           <span class="rec" id="rec-win">★ Recommended for you</span>
           <div class="os">🪟</div>
           <h3>Windows</h3>
-          <div class="meta">Windows 10/11 · 64-bit · GPU recommended · .exe</div>
+          <div class="meta">Windows 10/11 · 64-bit · GPU recommended · .zip</div>
           <div class="spacer"></div>
-          <a class="btn" id="btn-win" href="https://pub-10ae3ecc83a24d31961ba7a11de5255a.r2.dev/installers/sentinel_desktop_win.exe">⬇ Download for Windows</a>
+          <a class="btn" id="btn-win" href="https://pub-10ae3ecc83a24d31961ba7a11de5255a.r2.dev/installers/sentinel_desktop_win.zip">⬇ Download for Windows</a>
         </div>
+      </div>
+
+      <div class="trust-note">
+        <h3>😊 Good news — Sentinel is safe to install</h3>
+        <p>We get it: the internet is full of sketchy downloads, and we would <strong>never</strong> lump ourselves in with the crooks. So here's the honest scoop — Sentinel is brand-new, and our official code-signing certificate is still being issued. Until it's ready, Windows SmartScreen may flash an <strong>"unrecognized publisher"</strong> notice.</p>
+        <p><span class="hl">That's a reputation check, not a safety warning</span> 👍 — it just means we're new, not that anything is wrong. The file you download is <strong>exactly</strong> what we published on this page, served straight from our own storage. 💙</p>
+        <p><strong>To install:</strong> on Windows click <strong>More info → Run anyway</strong>; on macOS <strong>right-click → Open</strong>. That's it — you're good to go! Signed builds are coming soon, and these notices will disappear completely. 🎉</p>
       </div>
 
       <p class="key-note">🔑 No license key yet? <a href="/sentinel/#how-it-works">Get a lifetime license</a> — one-time, per machine.</p>
@@ -228,15 +249,15 @@
         <div class="panels">
           <div class="panel">
             <h3><span class="os">🪟</span> Windows</h3>
-            <div class="step"><div class="num">1</div><div class="txt">Run the downloaded installer.</div></div>
-            <div class="step"><div class="num">2</div><div class="txt">If SmartScreen warns about an unknown publisher, click <strong>More info → Run anyway</strong>.</div></div>
-            <div class="step"><div class="num">3</div><div class="txt">Launch Sentinel and paste your <strong>license key</strong> when prompted.</div></div>
+            <div class="step"><div class="num">1</div><div class="txt">Unzip the download and open the <strong>Sentinel</strong> folder.</div></div>
+            <div class="step"><div class="num">2</div><div class="txt">Run <strong>sentinel_auditor.exe</strong>. If SmartScreen warns about an unknown publisher, click <strong>More info → Run anyway</strong>.</div></div>
+            <div class="step"><div class="num">3</div><div class="txt">Paste your <strong>license key</strong> when prompted on first launch.</div></div>
           </div>
 
           <div class="panel">
             <h3><span class="os"></span> macOS</h3>
-            <div class="step"><div class="num">1</div><div class="txt">Unzip and drag <strong>Sentinel</strong> into your <strong>Applications</strong> folder.</div></div>
-            <div class="step"><div class="num">2</div><div class="txt">First launch: <strong>right-click the app → Open</strong> to bypass the Gatekeeper warning.</div></div>
+            <div class="step"><div class="num">1</div><div class="txt">Open the downloaded <strong>.dmg</strong> and drag <strong>Sentinel</strong> into your <strong>Applications</strong> folder.</div></div>
+            <div class="step"><div class="num">2</div><div class="txt">Launch Sentinel. If macOS asks, <strong>right-click → Open</strong> to confirm (it's a signed build — most Macs open it right away).</div></div>
             <div class="step"><div class="num">3</div><div class="txt">Paste your <strong>license key</strong> when prompted.</div></div>
           </div>
         </div>
@@ -277,7 +298,7 @@
         document.getElementById('rec-win').classList.add('show');
         document.getElementById('btn-win').classList.add('primary');
       } else {
-        // Unknown OS — make both prominent.
+        // Unknown OS — make both downloads prominent.
         document.getElementById('btn-mac').classList.add('primary');
         document.getElementById('btn-win').classList.add('primary');
       }

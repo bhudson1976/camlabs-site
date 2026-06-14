@@ -11,6 +11,7 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 // Sentinel modules
 const { registerSentinelWebhook } = require('./web-plugin/sentinel-webhook');
 const { sentinelCheckoutRoute } = require('./web-plugin/create-checkout-session');
+const { requestUpdateRoute } = require('./web-plugin/request-update');
 
 const app = express();
 const PORT = process.env.PORT || 10000;
@@ -40,6 +41,8 @@ app.get('/', (req, res) => {
 registerSentinelWebhook(app, stripe);
 // Checkout session creation (browser POSTs JSON → { url }).
 app.post('/sentinel/create-checkout-session', express.json(), sentinelCheckoutRoute(stripe));
+// Email-gated update portal → emails verified customers time-limited R2 presigned links.
+app.post('/sentinel/request-update', express.json(), requestUpdateRoute());
 
 // ─── CaratCam (existing, preserved) ─────────────────────────────────────────────
 const LICENSE_FILE = 'licenses.json';
