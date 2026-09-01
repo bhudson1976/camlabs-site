@@ -134,6 +134,15 @@
     .card h3 { margin:0 0 8px; font-size:1.1rem; font-weight:700; letter-spacing:-0.01em; }
     .card p { margin:0; color:var(--ink-dim); font-size:0.94rem; }
 
+    /* Video */
+    .video-wrap {
+      max-width:860px; margin:0 auto; border-radius:16px; overflow:hidden;
+      border:1px solid rgba(255,255,255,0.1);
+      box-shadow:0 24px 60px -20px rgba(124,92,255,0.5);
+      aspect-ratio:16/9;
+    }
+    .video-wrap iframe { width:100%; height:100%; border:0; }
+
     /* Pricing */
     .pricing-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; max-width:680px; margin:0 auto; }
     .price-card {
@@ -225,6 +234,19 @@
       </div>
       <div class="hero-sub">14-day free trial · No card required · Cancel anytime</div>
     </header>
+
+    <!-- Video demo -->
+    <section id="demo" style="padding:30px 0 10px;">
+      <div class="container">
+        <div class="sec-head" style="margin-bottom:28px;">
+          <h2>Watch it work</h2>
+          <p>A 14-page loan packet, redacted in under two minutes.</p>
+        </div>
+        <div class="video-wrap">
+          <iframe src="https://www.youtube.com/embed/EwYQVBpxhxM" title="Redactly Pro — full demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+    </section>
 
     <!-- Screenshot gallery -->
     <section id="screens" style="padding:40px 0 20px;">
