@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Is SharedPreferences Secure? The Flutter Storage Mistake That Leaks Tokens | CamLabs.ai</title>
+  <meta name="description" content="No, SharedPreferences is not secure — it's plaintext on disk. Here's why 'it never leaves the device' doesn't protect your tokens, and how to store sensitive data in Flutter the right way.">
+  <link rel="canonical" href="https://camlabs.ai/blog/flutter-secure-local-storage/" />
+
+  <meta property="og:title" content="Is SharedPreferences Secure? The Flutter Storage Mistake That Leaks Tokens" />
+  <meta property="og:description" content="'Local' protects the transit, not the data at rest. Why storing tokens in SharedPreferences leaks them — and how to store sensitive data in Flutter correctly." />
+  <meta property="og:image" content="https://camlabs.ai/sentinel/assets/sentinel_screen.PNG" />
+  <meta property="og:url" content="https://camlabs.ai/blog/flutter-secure-local-storage/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-06-25" />
+  <meta property="article:author" content="Bryon Hudson" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Is SharedPreferences Secure? The Flutter Storage Mistake That Leaks Tokens">
+  <meta name="twitter:description" content="'Local' protects the transit, not the data at rest. Why SharedPreferences leaks your tokens — and how to store sensitive data in Flutter correctly.">
+  <meta name="twitter:image" content="https://camlabs.ai/sentinel/assets/sentinel_screen.PNG">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Is SharedPreferences Secure? The Flutter Storage Mistake That Leaks Tokens",
+    "description": "No, SharedPreferences is not secure — it's plaintext on disk. Why 'it never leaves the device' doesn't protect your tokens, and how to store sensitive data in Flutter the right way.",
+    "image": "https://camlabs.ai/sentinel/assets/sentinel_screen.PNG",
+    "datePublished": "2026-06-25",
+    "dateModified": "2026-06-25",
+    "author": { "@type": "Person", "name": "Bryon Hudson", "url": "https://camlabs.ai/" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "CamLabs",
+      "logo": { "@type": "ImageObject", "url": "https://camlabs.ai/sentinel/assets/sentinel_logo.JPG" }
+    },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://camlabs.ai/blog/flutter-secure-local-storage/" }
+  }
+  </script>
+
+  <link rel="icon" type="image/jpeg" href="/sentinel/assets/sentinel_logo.JPG">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0B0F19; --card:rgba(255,255,255,0.025); --border:rgba(255,255,255,0.08);
+      --border-strong:rgba(255,255,255,0.14); --ink:#F3F5F9; --ink-dim:#9aa4b6; --ink-faint:#6b7585;
+      --brand:#5b8cff; --brand-2:#7c5cff; --emerald:#10b981;
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0; background:var(--bg); color:var(--ink); line-height:1.7;
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; -webkit-font-smoothing:antialiased;
+    }
+    a { color:var(--brand); }
+    body::before {
+      content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+      background:radial-gradient(700px 340px at 50% -10%, rgba(91,140,255,0.16), transparent 70%);
+    }
+    .wrap { position:relative; z-index:1; }
+    nav {
+      display:flex; justify-content:center; gap:26px; align-items:center;
+      padding:18px 20px; border-bottom:1px solid var(--border);
+      backdrop-filter:blur(8px); position:sticky; top:0; background:rgba(11,15,25,0.7); z-index:5; flex-wrap:wrap;
+    }
+    nav a { color:var(--ink-dim); text-decoration:none; font-size:0.92rem; font-weight:500; }
+    nav a:hover { color:var(--ink); }
+    nav a.brand { color:var(--ink); font-weight:700; display:inline-flex; align-items:center; gap:9px; }
+    .brand-logo { width:28px; height:28px; border-radius:8px; object-fit:cover; object-position:center 26%; border:1px solid var(--border); }
+
+    .article { max-width:720px; margin:0 auto; padding:56px 22px 40px; }
+    .crumb { font-size:0.85rem; color:var(--ink-faint); margin-bottom:22px; }
+    .crumb a { color:var(--ink-dim); text-decoration:none; }
+    .article h1 {
+      font-size:clamp(1.9rem,4.6vw,2.6rem); line-height:1.14; margin:0 0 18px; font-weight:800; letter-spacing:-0.03em;
+      background:linear-gradient(180deg,#ffffff,#aeb9d1); -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .byline { display:flex; align-items:center; gap:12px; color:var(--ink-faint); font-size:0.9rem; margin-bottom:34px; padding-bottom:24px; border-bottom:1px solid var(--border); }
+    .byline .avatar { width:38px; height:38px; border-radius:50%; object-fit:cover; border:1px solid var(--border); }
+    .byline b { color:var(--ink-dim); font-weight:600; }
+    .article p { color:#c2cad8; font-size:1.06rem; margin:0 0 20px; }
+    .article h2 { font-size:1.45rem; font-weight:700; letter-spacing:-0.02em; margin:40px 0 14px; color:var(--ink); }
+    .article strong { color:var(--ink); font-weight:600; }
+    .article ul { padding-left:0; list-style:none; margin:0 0 20px; }
+    .article ul li {
+      position:relative; padding:16px 18px 16px 20px; margin-bottom:12px; border-radius:12px;
+      background:var(--card); border:1px solid var(--border); color:#c2cad8; font-size:1.02rem;
+    }
+    .article ul li strong { color:var(--ink); }
+    .lead { font-size:1.18rem !important; color:var(--ink-dim) !important; }
+    .mono { font-family:'JetBrains Mono',ui-monospace,Consolas,monospace; font-size:0.9em; background:rgba(255,255,255,0.05); padding:2px 7px; border-radius:5px; color:#cdd6e6; }
+
+    .cta-box {
+      margin:44px 0 8px; padding:30px 28px; text-align:center; border-radius:18px;
+      background:linear-gradient(180deg, rgba(91,140,255,0.10), rgba(124,92,255,0.04));
+      border:1px solid rgba(91,140,255,0.3);
+    }
+    .cta-box h3 { margin:0 0 8px; font-size:1.25rem; font-weight:700; color:var(--ink); }
+    .cta-box p { margin:0 0 18px; color:var(--ink-dim); font-size:1rem; }
+    .cta {
+      display:inline-flex; align-items:center; gap:8px; padding:13px 26px; border-radius:12px;
+      font-weight:600; font-size:1rem; text-decoration:none; color:#fff; border:1px solid transparent;
+      background:linear-gradient(135deg,var(--brand),var(--brand-2)); box-shadow:0 12px 34px -10px rgba(91,140,255,0.85);
+    }
+    .cta:hover { filter:brightness(1.08); }
+
+    footer { text-align:center; padding:36px 20px; border-top:1px solid var(--border); color:var(--ink-faint); font-size:0.85rem; }
+    footer a { color:var(--ink-dim); text-decoration:none; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="/"><img class="brand-logo" src="/sentinel/assets/sentinel_logo.JPG" alt="CamLabs.ai"> CamLabs.ai</a>
+      <a href="/sentinel/">Sentinel AI</a>
+      <a href="/blog/">Blog</a>
+      <a href="/sentinel/download.html">Download</a>
+      <a href="/support.html">Support</a>
+    </nav>
+
+    <article class="article">
+      <div class="crumb"><a href="/blog/">← All posts</a></div>
+      <h1>Is SharedPreferences Secure? The Flutter Storage Mistake That Leaks Tokens</h1>
+      <div class="byline">
+        <img class="avatar" src="/sentinel/assets/sentinel_logo.JPG" alt="CamLabs">
+        <div>By <b>Bryon Hudson</b> · Founder, CamLabs<br>June 25, 2026 · 5 min read</div>
+      </div>
+
+      <p class="lead">Of all the security mistakes I see Flutter developers make, this is the most common — and the most quietly dangerous, because it feels safe. It's storing sensitive data on the device and assuming that "on the device" means "protected." It doesn't.</p>
+
+      <p>The short version: <strong>no, <span class="mono">SharedPreferences</span> is not secure.</strong> If you're keeping auth tokens, session JWTs, or personal data in it, you're storing them in plaintext on disk — and "it never leaves the device" is solving the wrong half of the problem.</p>
+
+      <h2>Why "It Never Leaves the Device" Misses the Point</h2>
+      <p>Keeping data local protects it <em>in transit</em> — it's not flying across the network to be intercepted. Good. But security has a second half: <strong>data at rest</strong>. The device itself is not a sealed vault. It's an environment other things can read:</p>
+      <ul>
+        <li><strong>On desktop (Windows &amp; macOS):</strong> your app writes its data to a user-readable application-support folder. Any process running as that user — or anyone who walks off with the laptop — can open those files.</li>
+        <li><strong>On mobile:</strong> a rooted or jailbroken device exposes your app's sandbox completely, and backups can carry that plaintext off the phone entirely.</li>
+        <li><strong>Everywhere:</strong> "local" never meant "encrypted." It just meant "didn't get uploaded."</li>
+      </ul>
+
+      <h2>What SharedPreferences Actually Is</h2>
+      <p>Under the hood, <span class="mono">SharedPreferences</span> (and similar default stores) is just a plaintext file — XML, a plist, or JSON depending on the platform. There's no encryption. Open the file, read the values. The same goes for an unencrypted <span class="mono">sqflite</span> or <span class="mono">Hive</span> database, or a config file you wrote "just to cache the token." If a human can read the file, so can an attacker who gets to it.</p>
+
+      <h2>What Gets Leaked This Way</h2>
+      <ul>
+        <li><strong>Auth tokens &amp; JWTs</strong> — the single most common item, and a stolen session is a logged-in attacker.</li>
+        <li><strong>Personal data (PII)</strong> — cached user profiles and API responses that are now sitting in cleartext.</li>
+        <li><strong>API keys you cached at runtime</strong> — same exposure as hardcoding them, just written later.</li>
+      </ul>
+
+      <h2>How to Store Sensitive Data Correctly</h2>
+      <ul>
+        <li><strong>Use platform-backed secure storage.</strong> <span class="mono">flutter_secure_storage</span> hands your secrets to the OS's real vault — Keychain on macOS/iOS, Keystore on Android, DPAPI/credential locker on Windows. That's the right home for tokens and keys.</li>
+        <li><strong>Encrypt databases at rest.</strong> If you persist sensitive records, encrypt the store (e.g. SQLCipher, or an encrypted Hive box) — and keep the encryption key itself in secure storage, not next to the data.</li>
+        <li><strong>Don't store what you don't need.</strong> Prefer short-lived access tokens with refresh flows over long-lived secrets sitting on disk for months. The safest data is the data you never persisted.</li>
+      </ul>
+
+      <h2>The Catch: You Have to Actually Catch It</h2>
+      <p>Here's why this one is so persistent — it never throws an error. <span class="mono">SharedPreferences</span> works perfectly; the app runs, the token saves, the feature ships. Nothing tells you it's insecure, so a manual code review has to <em>remember</em> to look for it, on every build, forever. That's exactly the kind of silent, easy-to-miss pattern an automated audit is built to flag — pointing you at the file and line where a sensitive value is going somewhere it shouldn't, before it ever reaches a user's disk.</p>
+
+      <h2>The Bottom Line</h2>
+      <p>"Local-first" is a philosophy I believe in deeply — but local-first means keeping data <em>on your terms</em>, not leaving it unlocked because it happens to sit on a hard drive. Treat the device as a place that needs protecting too, store secrets in the vault the OS already gives you, and verify it on every build.</p>
+
+      <div class="cta-box">
+        <h3>Catch insecure storage before it ships</h3>
+        <p>Sentinel AI audits your Flutter &amp; Dart code for insecure data storage, hardcoded secrets, and more — fully on-device, with file and line. Windows &amp; macOS, one-time lifetime license.</p>
+        <a class="cta" href="/sentinel/">Explore Sentinel AI →</a>
+      </div>
+    </article>
+
+    <footer>
+      &copy; 2025 CamLabs.ai · <a href="/blog/">Blog</a> · <a href="/sentinel/">Sentinel AI</a> · <a href="/privacy.html">Privacy</a> · <a href="/support.html">Support</a>
+    </footer>
+  </div>
+</body>
+</html>

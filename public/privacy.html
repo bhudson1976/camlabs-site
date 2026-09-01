@@ -1,46 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Privacy Policy | CaratCam</title>
-  <meta name="description" content="Privacy Policy for CaratCam iOS app. We respect your privacy and do not collect personal data." />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy | CamLabs.ai</title>
+  <meta name="description" content="Privacy Policy for CamLabs.ai and its applications, including Redactly, Sentinel AI, and CaratCam. Our apps process your data locally on your device.">
+  <link rel="canonical" href="https://camlabs.ai/privacy.html" />
+  <link rel="icon" type="image/jpeg" href="/sentinel/assets/sentinel_logo.JPG">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg:#0B0F19; --card:rgba(255,255,255,0.025); --border:rgba(255,255,255,0.08);
+      --border-strong:rgba(255,255,255,0.14); --ink:#F3F5F9; --ink-body:#c2cad8;
+      --ink-dim:#9aa4b6; --ink-faint:#6b7585; --brand:#5b8cff; --brand-2:#7c5cff; --emerald:#10b981;
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
     body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      margin: 40px auto;
-      max-width: 800px;
-      padding: 0 16px;
-      color: #333;
+      margin:0; background:var(--bg); color:var(--ink-body); line-height:1.7;
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; -webkit-font-smoothing:antialiased;
     }
-    h1, h2 {
-      color: #00695c;
+    a { color:var(--brand); }
+    body::before {
+      content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+      background:radial-gradient(700px 340px at 50% -10%, rgba(91,140,255,0.14), transparent 70%);
     }
+    .wrap { position:relative; z-index:1; }
+
+    nav {
+      display:flex; justify-content:center; gap:26px; align-items:center; flex-wrap:wrap;
+      padding:18px 20px; border-bottom:1px solid var(--border);
+      backdrop-filter:blur(8px); position:sticky; top:0; background:rgba(11,15,25,0.7); z-index:5;
+    }
+    nav a { color:var(--ink-dim); text-decoration:none; font-size:0.92rem; font-weight:500; }
+    nav a:hover { color:var(--ink); }
+    nav a.brand { color:var(--ink); font-weight:700; display:inline-flex; align-items:center; gap:9px; }
+    .brand-logo { width:28px; height:28px; border-radius:8px; object-fit:cover; object-position:center 26%; border:1px solid var(--border); }
+
+    main { max-width:760px; margin:0 auto; padding:56px 22px 48px; }
+    h1 {
+      font-size:clamp(2rem,5vw,2.6rem); line-height:1.15; margin:0 0 12px; font-weight:800; letter-spacing:-0.03em;
+      background:linear-gradient(180deg,#ffffff,#aeb9d1); -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .meta { color:var(--ink-faint); font-size:0.92rem; margin:0 0 30px; padding-bottom:24px; border-bottom:1px solid var(--border); }
+    .meta strong { color:var(--ink-dim); }
+
+    h2 { font-size:1.32rem; font-weight:700; letter-spacing:-0.02em; margin:38px 0 12px; color:var(--ink); }
+    h3 { font-size:1.05rem; font-weight:700; margin:24px 0 8px; color:var(--ink); }
+    p { margin:0 0 16px; font-size:1.02rem; }
+    strong { color:var(--ink); font-weight:600; }
+    ul { padding-left:0; list-style:none; margin:0 0 18px; }
+    ul li {
+      padding:14px 18px; margin-bottom:10px; border-radius:12px;
+      background:var(--card); border:1px solid var(--border); font-size:0.99rem;
+    }
+    ul li strong { color:var(--ink); }
+
+    .summary {
+      margin:0 0 34px; padding:26px 28px; border-radius:18px;
+      background:linear-gradient(180deg, rgba(16,185,129,0.10), rgba(16,185,129,0.03));
+      border:1px solid rgba(16,185,129,0.34);
+    }
+    .summary h2 { margin:0 0 12px; font-size:1.15rem; color:#d7fbed; }
+    .summary ul { margin:0; }
+    .summary ul li { background:rgba(255,255,255,0.03); border-color:rgba(16,185,129,0.18); color:#c6ecdb; }
+    .summary ul li strong { color:#ffffff; }
+
+    .contact-box {
+      margin:38px 0 0; padding:26px 28px; border-radius:18px; text-align:center;
+      background:linear-gradient(180deg, rgba(91,140,255,0.10), rgba(124,92,255,0.04));
+      border:1px solid rgba(91,140,255,0.3);
+    }
+    .contact-box h2 { margin:0 0 8px; }
+    .contact-box p { margin:0 0 6px; }
+    .contact-box a { font-weight:600; }
+
+    footer { text-align:center; padding:36px 20px; border-top:1px solid var(--border); color:var(--ink-faint); font-size:0.85rem; }
+    footer a { color:var(--ink-dim); text-decoration:none; }
   </style>
 </head>
 <body>
-  <h1>Privacy Policy for CaratCam (iOS Version)</h1>
-  <p><strong>Effective Date:</strong> July 21, 2025</p>
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="/"><img class="brand-logo" src="/sentinel/assets/sentinel_logo.JPG" alt="CamLabs.ai"> CamLabs.ai</a>
+      <a href="/sentinel/">Sentinel AI</a>
+      <a href="/blog/">Blog</a>
+      <a href="/support.html">Support</a>
+      <a href="/terms.html">Terms</a>
+    </nav>
 
-  <p>Cam Labs ("we", "our", or "us") values your privacy. This Privacy Policy explains how CaratCam handles your data. We do not collect, store, or share any personally identifiable information from users.</p>
+    <main>
+      <h1>Privacy Policy</h1>
+      <p class="meta">
+        <strong>Effective Date:</strong> June 25, 2026 &nbsp;·&nbsp;
+        <strong>Entity:</strong> CamLabs.ai &nbsp;·&nbsp;
+        <strong>Contact:</strong> <a href="mailto:support@camlabs.ai">support@camlabs.ai</a>
+      </p>
 
-  <h2>Information We Collect</h2>
-  <p>CaratCam does not collect or transmit any personal data. All image analysis happens locally on your device. No photos, metadata, or results are uploaded or shared with our servers.</p>
+      <div class="summary">
+        <h2>🔒 The short version</h2>
+        <ul>
+          <li><strong>Our apps process your data on your device.</strong> Redactly and Sentinel AI do not collect, store, transmit, or share your documents, images, code, or personal information.</li>
+          <li><strong>No tracking.</strong> We use no third-party analytics, advertising, or tracking SDKs in our applications.</li>
+          <li><strong>We never sell your data.</strong> Not ever, to anyone.</li>
+          <li><strong>The one exception is buying a license</strong> on this website, which necessarily involves your email address and a payment processor — explained in full below.</li>
+        </ul>
+      </div>
 
-  <h2>Third-Party Services</h2>
-  <p>CaratCam uses a third-party service (MetalpriceAPI) to retrieve live metal pricing. This service may log non-identifiable data such as IP addresses solely for rate-limiting and usage tracking.</p>
+      <h2>1. Who This Policy Covers</h2>
+      <p>This Privacy Policy describes how <strong>CamLabs.ai</strong> ("we", "our", or "us") handles information across our applications and this website. It applies to:</p>
+      <ul>
+        <li><strong>Redactly</strong> — our on-device document redaction utility</li>
+        <li><strong>Sentinel AI</strong> — our local-first desktop security auditing application</li>
+        <li><strong>CaratCam</strong> and <strong>CaratCam Plus</strong> — our gem &amp; metal valuation applications</li>
+        <li><strong>camlabs.ai</strong> — this website, including license purchases and support</li>
+      </ul>
 
-  <h2>Children's Privacy</h2>
-  <p>CaratCam is not intended for children under the age of 13. We do not knowingly collect any personal data from minors.</p>
+      <h2>2. Redactly</h2>
+      <p><strong>Redactly is a local, on-device document redaction utility.</strong> It does <strong>not</strong> collect, store, track, transmit, or share any personal data, documents, images, or personally identifiable information. All processing occurs entirely locally on your device.</p>
+      <p>Your documents and images never leave your device through Redactly. We have no servers receiving them, no accounts to create, and no ability to see what you redact. Redactly contains no third-party tracking, analytics, or advertising SDKs.</p>
 
-  <h2>Your Consent</h2>
-  <p>By using CaratCam, you agree to the terms outlined in this Privacy Policy.</p>
+      <h2>3. Sentinel AI</h2>
+      <p>Sentinel AI performs its security analysis entirely on your own machine using an on-device AI model. <strong>Your source code is never uploaded, logged, or transmitted to us or any third party.</strong> The application contains no telemetry, analytics, or tracking.</p>
+      <p>For transparency, Sentinel AI touches the network in only two one-time situations: downloading its AI model on first launch, and validating your license key during activation. After activation, it operates offline.</p>
 
-  <h2>Changes to This Policy</h2>
-  <p>We may update this policy from time to time. Any changes will be posted to this page with an updated effective date.</p>
+      <h2>4. CaratCam &amp; CaratCam Plus</h2>
+      <p>Image analysis in CaratCam happens locally on your device. No photos, metadata, or analysis results are uploaded to our servers.</p>
+      <p><strong>Third-party disclosure:</strong> CaratCam retrieves live precious-metal pricing from a third-party service (MetalpriceAPI). That service may log non-identifiable technical data such as IP addresses solely for rate-limiting and usage measurement. No personal information or images are sent to it.</p>
 
-  <h2>Contact Us</h2>
-  <p>If you have any questions or concerns about this policy, contact us at: <a href="mailto:support@camlabs.ai">support@camlabs.ai</a></p>
+      <h2>5. This Website &amp; License Purchases</h2>
+      <p>We believe in being precise rather than sweeping, so here is exactly what happens if you purchase a license on camlabs.ai:</p>
+      <ul>
+        <li><strong>Email address.</strong> We collect the email address you provide at checkout for one purpose: to deliver your license key and provide support. We do not send marketing emails.</li>
+        <li><strong>Payment information.</strong> Payments are processed by <strong>Stripe</strong>. Your card details go directly to Stripe and are <strong>never seen, handled, or stored by us</strong>.</li>
+        <li><strong>License records.</strong> We store a record of your license (key, email, purchase reference, activation status) so we can validate your license and re-send it if you need it.</li>
+        <li><strong>Transactional email.</strong> We use an email delivery provider to send your license key and support replies.</li>
+      </ul>
+      <p>We do not use advertising networks, behavioral tracking, or third-party analytics SDKs on this website.</p>
+
+      <h2>6. Service Providers</h2>
+      <p>We rely on a small number of reputable providers strictly to operate the business — never to profile you:</p>
+      <ul>
+        <li><strong>Stripe</strong> — payment processing</li>
+        <li><strong>Supabase</strong> — secure storage of license records</li>
+        <li><strong>Resend</strong> — delivery of transactional email (license keys, support)</li>
+        <li><strong>Firebase Hosting</strong> and <strong>Cloudflare R2</strong> — website hosting and application downloads</li>
+        <li><strong>MetalpriceAPI</strong> — live metal pricing for CaratCam only</li>
+      </ul>
+
+      <h2>7. Data Retention</h2>
+      <p>Because our applications collect nothing, there is nothing to retain from them. For purchases, we retain license records for as long as your lifetime license remains valid, and as required for tax and accounting obligations. You may request deletion of your purchase record at any time, understanding that this may prevent us from re-issuing your license.</p>
+
+      <h2>8. Your Rights</h2>
+      <p>Depending on where you live, you may have the right to access, correct, export, or delete the personal information we hold about you, and to object to certain processing. Because the only personal information we hold is tied to a purchase, these requests are simple to fulfill — email <a href="mailto:support@camlabs.ai">support@camlabs.ai</a> and we will respond promptly.</p>
+
+      <h2>9. Children's Privacy</h2>
+      <p>Our applications and services are not directed to children under the age of 13, and we do not knowingly collect personal information from children. If you believe a child has provided us information, contact us and we will delete it.</p>
+
+      <h2>10. Security</h2>
+      <p>We minimize risk by minimizing collection — the safest data is the data we never gather. The limited purchase information we do hold is stored with access controls and transmitted over encrypted connections.</p>
+
+      <h2>11. Changes to This Policy</h2>
+      <p>We may update this policy from time to time. Any changes will be posted on this page with a revised effective date. Material changes affecting how we handle personal information will be described clearly.</p>
+
+      <h2>12. Your Consent</h2>
+      <p>By using our applications or this website, you agree to the terms outlined in this Privacy Policy.</p>
+
+      <div class="contact-box">
+        <h2>Contact Us</h2>
+        <p>Questions or concerns about this policy? We're happy to help.</p>
+        <p><a href="mailto:support@camlabs.ai">support@camlabs.ai</a></p>
+        <p style="color:var(--ink-faint);font-size:0.88rem;">CamLabs.ai · 4736 Royal Ave #109165, Eugene, Oregon 97402</p>
+      </div>
+    </main>
+
+    <footer>
+      &copy; 2025 CamLabs.ai &nbsp;·&nbsp;
+      <a href="/">Home</a> &nbsp;·&nbsp;
+      <a href="/terms.html">Terms</a> &nbsp;·&nbsp;
+      <a href="/support.html">Support</a>
+    </footer>
+  </div>
 </body>
 </html>

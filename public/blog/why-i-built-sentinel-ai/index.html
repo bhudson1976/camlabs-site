@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why I Built Sentinel AI: Code Security Should Start at Home | CamLabs.ai</title>
+  <meta name="description" content="Why I built Sentinel AI as a local-first desktop security auditor — your source code never leaves your machine. No cloud uploads, no telemetry, total ownership.">
+  <link rel="canonical" href="https://camlabs.ai/blog/why-i-built-sentinel-ai/" />
+
+  <meta property="og:title" content="Why I Built Sentinel AI: Code Security Should Start at Home" />
+  <meta property="og:description" content="A local-first desktop security auditor where your source code never leaves your machine. No cloud uploads, no telemetry — total ownership of your work." />
+  <meta property="og:image" content="https://camlabs.ai/sentinel/assets/sentinel_screen.PNG" />
+  <meta property="og:url" content="https://camlabs.ai/blog/why-i-built-sentinel-ai/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-06-24" />
+  <meta property="article:author" content="Bryon Hudson" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Why I Built Sentinel AI: Code Security Should Start at Home">
+  <meta name="twitter:description" content="A local-first desktop security auditor where your source code never leaves your machine. No cloud, no telemetry — total ownership.">
+  <meta name="twitter:image" content="https://camlabs.ai/sentinel/assets/sentinel_screen.PNG">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Why I Built Sentinel AI: Code Security Should Start at Home",
+    "description": "Why I built Sentinel AI as a local-first desktop security auditor — your source code never leaves your machine. No cloud uploads, no telemetry, total ownership.",
+    "image": "https://camlabs.ai/sentinel/assets/sentinel_screen.PNG",
+    "datePublished": "2026-06-24",
+    "dateModified": "2026-06-24",
+    "author": { "@type": "Person", "name": "Bryon Hudson", "url": "https://camlabs.ai/" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "CamLabs",
+      "logo": { "@type": "ImageObject", "url": "https://camlabs.ai/sentinel/assets/sentinel_logo.JPG" }
+    },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://camlabs.ai/blog/why-i-built-sentinel-ai/" }
+  }
+  </script>
+
+  <link rel="icon" type="image/jpeg" href="/sentinel/assets/sentinel_logo.JPG">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0B0F19; --card:rgba(255,255,255,0.025); --border:rgba(255,255,255,0.08);
+      --border-strong:rgba(255,255,255,0.14); --ink:#F3F5F9; --ink-dim:#9aa4b6; --ink-faint:#6b7585;
+      --brand:#5b8cff; --brand-2:#7c5cff; --emerald:#10b981;
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0; background:var(--bg); color:var(--ink); line-height:1.7;
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; -webkit-font-smoothing:antialiased;
+    }
+    a { color:var(--brand); }
+    body::before {
+      content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+      background:radial-gradient(700px 340px at 50% -10%, rgba(91,140,255,0.16), transparent 70%);
+    }
+    .wrap { position:relative; z-index:1; }
+    nav {
+      display:flex; justify-content:center; gap:26px; align-items:center;
+      padding:18px 20px; border-bottom:1px solid var(--border);
+      backdrop-filter:blur(8px); position:sticky; top:0; background:rgba(11,15,25,0.7); z-index:5; flex-wrap:wrap;
+    }
+    nav a { color:var(--ink-dim); text-decoration:none; font-size:0.92rem; font-weight:500; }
+    nav a:hover { color:var(--ink); }
+    nav a.brand { color:var(--ink); font-weight:700; display:inline-flex; align-items:center; gap:9px; }
+    .brand-logo { width:28px; height:28px; border-radius:8px; object-fit:cover; object-position:center 26%; border:1px solid var(--border); }
+
+    .article { max-width:720px; margin:0 auto; padding:56px 22px 40px; }
+    .crumb { font-size:0.85rem; color:var(--ink-faint); margin-bottom:22px; }
+    .crumb a { color:var(--ink-dim); text-decoration:none; }
+    .article h1 {
+      font-size:clamp(2rem,5vw,2.7rem); line-height:1.12; margin:0 0 18px; font-weight:800; letter-spacing:-0.03em;
+      background:linear-gradient(180deg,#ffffff,#aeb9d1); -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .byline { display:flex; align-items:center; gap:12px; color:var(--ink-faint); font-size:0.9rem; margin-bottom:34px; padding-bottom:24px; border-bottom:1px solid var(--border); }
+    .byline .avatar { width:38px; height:38px; border-radius:50%; object-fit:cover; border:1px solid var(--border); }
+    .byline b { color:var(--ink-dim); font-weight:600; }
+    .article p { color:#c2cad8; font-size:1.06rem; margin:0 0 20px; }
+    .article h2 { font-size:1.45rem; font-weight:700; letter-spacing:-0.02em; margin:40px 0 14px; color:var(--ink); }
+    .article strong { color:var(--ink); font-weight:600; }
+    .article ul { padding-left:0; list-style:none; margin:0 0 20px; }
+    .article ul li {
+      position:relative; padding:16px 18px 16px 20px; margin-bottom:12px; border-radius:12px;
+      background:var(--card); border:1px solid var(--border); color:#c2cad8; font-size:1.02rem;
+    }
+    .article ul li strong { color:var(--ink); }
+    .lead { font-size:1.18rem !important; color:var(--ink-dim) !important; }
+
+    .cta-box {
+      margin:44px 0 8px; padding:30px 28px; text-align:center; border-radius:18px;
+      background:linear-gradient(180deg, rgba(91,140,255,0.10), rgba(124,92,255,0.04));
+      border:1px solid rgba(91,140,255,0.3);
+    }
+    .cta-box h3 { margin:0 0 8px; font-size:1.25rem; font-weight:700; color:var(--ink); }
+    .cta-box p { margin:0 0 18px; color:var(--ink-dim); font-size:1rem; }
+    .cta {
+      display:inline-flex; align-items:center; gap:8px; padding:13px 26px; border-radius:12px;
+      font-weight:600; font-size:1rem; text-decoration:none; color:#fff; border:1px solid transparent;
+      background:linear-gradient(135deg,var(--brand),var(--brand-2)); box-shadow:0 12px 34px -10px rgba(91,140,255,0.85);
+    }
+    .cta:hover { filter:brightness(1.08); }
+
+    footer { text-align:center; padding:36px 20px; border-top:1px solid var(--border); color:var(--ink-faint); font-size:0.85rem; }
+    footer a { color:var(--ink-dim); text-decoration:none; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="/"><img class="brand-logo" src="/sentinel/assets/sentinel_logo.JPG" alt="CamLabs.ai"> CamLabs.ai</a>
+      <a href="/sentinel/">Sentinel AI</a>
+      <a href="/blog/">Blog</a>
+      <a href="/sentinel/download.html">Download</a>
+      <a href="/support.html">Support</a>
+    </nav>
+
+    <article class="article">
+      <div class="crumb"><a href="/blog/">← All posts</a></div>
+      <h1>Why I Built Sentinel AI: Code Security Should Start at Home</h1>
+      <div class="byline">
+        <img class="avatar" src="/sentinel/assets/sentinel_logo.JPG" alt="CamLabs">
+        <div>By <b>Bryon Hudson</b> · Founder, CamLabs<br>June 24, 2026 · 4 min read</div>
+      </div>
+
+      <p class="lead">We live in a world of "cloud-everything." SaaS tools, web-based auditors, and remote scanners are everywhere. They are convenient, sure — but they come with a fundamental trade-off: you have to trust someone else with your intellectual property.</p>
+
+      <p>As a software developer, I've spent years building applications. And like many of you, I've always had that lingering thought in the back of my mind when using a third-party security tool: <strong>Where is my code actually going? Who is looking at this? How secure is their infrastructure?</strong></p>
+
+      <h2>The "Cloud" Compromise</h2>
+      <p>When you use a web-based auditing tool, your source code leaves your local environment. It gets uploaded, processed on a remote server, and stored — even if just temporarily — in a database that isn't yours. For many projects, that's fine. But for the applications I care most about, it felt like an unnecessary risk.</p>
+      <p>I realized I didn't want a "service." <strong>I wanted a tool.</strong></p>
+
+      <h2>Sentinel AI: Built for the Machine, Not the Cloud</h2>
+      <p>That's why I built Sentinel AI.</p>
+      <p>Sentinel AI was designed with one core philosophy: <strong>Your code belongs on your machine.</strong> When you run an audit with Sentinel AI, it happens locally. It leverages your hardware, stays within your file system, and never transmits your sensitive logic to an external server for processing.</p>
+
+      <h2>Why This Matters</h2>
+      <ul>
+        <li><strong>Total Ownership:</strong> Your code never leaves your local environment. You decide where it goes, and it stays there.</li>
+        <li><strong>Speed and Performance:</strong> By leveraging local compute, you get the results you need without waiting for slow server uploads or network latency.</li>
+        <li><strong>Privacy-First Architecture:</strong> I built this to be a native desktop application because the desktop is still the most secure place to develop. No browsers, no intercepting proxies, no hidden data collection — just a tool that audits your work and lets you get back to building.</li>
+      </ul>
+
+      <h2>The Bottom Line</h2>
+      <p>Sentinel AI isn't just a security scanner; it's a tool built by a developer for developers who value <strong>sovereignty over their work</strong>. I built it because I wanted to sleep better at night knowing my intellectual property was secure on my terms.</p>
+      <p>If you're tired of the "upload and pray" security model, I invite you to try Sentinel AI. Keep your code on your machine — where it belongs.</p>
+
+      <div class="cta-box">
+        <h3>Audit your code without it ever leaving your machine</h3>
+        <p>Sentinel AI runs an 8B AI model fully on-device — Windows &amp; macOS, one-time lifetime license.</p>
+        <a class="cta" href="/sentinel/">Explore Sentinel AI →</a>
+      </div>
+    </article>
+
+    <footer>
+      &copy; 2025 CamLabs.ai · <a href="/blog/">Blog</a> · <a href="/sentinel/">Sentinel AI</a> · <a href="/privacy.html">Privacy</a> · <a href="/support.html">Support</a>
+    </footer>
+  </div>
+</body>
+</html>

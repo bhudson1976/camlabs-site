@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why We Don't Phone Home: Zero-Telemetry by Design | CamLabs.ai</title>
+  <meta name="description" content="Most software quietly phones home with telemetry and analytics. Sentinel AI doesn't — and for a tool that audits your code, that's a deliberate design choice. Here's why.">
+  <link rel="canonical" href="https://camlabs.ai/blog/zero-telemetry-by-design/" />
+
+  <meta property="og:title" content="Why We Don't Phone Home: Zero-Telemetry by Design" />
+  <meta property="og:description" content="Most software phones home with telemetry and analytics. Sentinel AI doesn't — and for a tool that audits your code, that's the whole point." />
+  <meta property="og:image" content="https://camlabs.ai/sentinel/assets/sentinel_screen.PNG" />
+  <meta property="og:url" content="https://camlabs.ai/blog/zero-telemetry-by-design/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-06-24" />
+  <meta property="article:author" content="Bryon Hudson" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Why We Don't Phone Home: Zero-Telemetry by Design">
+  <meta name="twitter:description" content="Most software phones home with telemetry. Sentinel AI doesn't — for a tool that audits your code, that's the whole point.">
+  <meta name="twitter:image" content="https://camlabs.ai/sentinel/assets/sentinel_screen.PNG">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Why We Don't Phone Home: Zero-Telemetry by Design",
+    "description": "Most software quietly phones home with telemetry and analytics. Sentinel AI doesn't — and for a tool that audits your code, that's a deliberate design choice. Here's why.",
+    "image": "https://camlabs.ai/sentinel/assets/sentinel_screen.PNG",
+    "datePublished": "2026-06-24",
+    "dateModified": "2026-06-24",
+    "author": { "@type": "Person", "name": "Bryon Hudson", "url": "https://camlabs.ai/" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "CamLabs",
+      "logo": { "@type": "ImageObject", "url": "https://camlabs.ai/sentinel/assets/sentinel_logo.JPG" }
+    },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://camlabs.ai/blog/zero-telemetry-by-design/" }
+  }
+  </script>
+
+  <link rel="icon" type="image/jpeg" href="/sentinel/assets/sentinel_logo.JPG">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0B0F19; --card:rgba(255,255,255,0.025); --border:rgba(255,255,255,0.08);
+      --border-strong:rgba(255,255,255,0.14); --ink:#F3F5F9; --ink-dim:#9aa4b6; --ink-faint:#6b7585;
+      --brand:#5b8cff; --brand-2:#7c5cff; --emerald:#10b981;
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0; background:var(--bg); color:var(--ink); line-height:1.7;
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; -webkit-font-smoothing:antialiased;
+    }
+    a { color:var(--brand); }
+    body::before {
+      content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+      background:radial-gradient(700px 340px at 50% -10%, rgba(91,140,255,0.16), transparent 70%);
+    }
+    .wrap { position:relative; z-index:1; }
+    nav {
+      display:flex; justify-content:center; gap:26px; align-items:center;
+      padding:18px 20px; border-bottom:1px solid var(--border);
+      backdrop-filter:blur(8px); position:sticky; top:0; background:rgba(11,15,25,0.7); z-index:5; flex-wrap:wrap;
+    }
+    nav a { color:var(--ink-dim); text-decoration:none; font-size:0.92rem; font-weight:500; }
+    nav a:hover { color:var(--ink); }
+    nav a.brand { color:var(--ink); font-weight:700; display:inline-flex; align-items:center; gap:9px; }
+    .brand-logo { width:28px; height:28px; border-radius:8px; object-fit:cover; object-position:center 26%; border:1px solid var(--border); }
+
+    .article { max-width:720px; margin:0 auto; padding:56px 22px 40px; }
+    .crumb { font-size:0.85rem; color:var(--ink-faint); margin-bottom:22px; }
+    .crumb a { color:var(--ink-dim); text-decoration:none; }
+    .article h1 {
+      font-size:clamp(2rem,5vw,2.7rem); line-height:1.12; margin:0 0 18px; font-weight:800; letter-spacing:-0.03em;
+      background:linear-gradient(180deg,#ffffff,#aeb9d1); -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .byline { display:flex; align-items:center; gap:12px; color:var(--ink-faint); font-size:0.9rem; margin-bottom:34px; padding-bottom:24px; border-bottom:1px solid var(--border); }
+    .byline .avatar { width:38px; height:38px; border-radius:50%; object-fit:cover; border:1px solid var(--border); }
+    .byline b { color:var(--ink-dim); font-weight:600; }
+    .article p { color:#c2cad8; font-size:1.06rem; margin:0 0 20px; }
+    .article h2 { font-size:1.45rem; font-weight:700; letter-spacing:-0.02em; margin:40px 0 14px; color:var(--ink); }
+    .article strong { color:var(--ink); font-weight:600; }
+    .article ul { padding-left:0; list-style:none; margin:0 0 20px; }
+    .article ul li {
+      position:relative; padding:16px 18px 16px 20px; margin-bottom:12px; border-radius:12px;
+      background:var(--card); border:1px solid var(--border); color:#c2cad8; font-size:1.02rem;
+    }
+    .article ul li strong { color:var(--ink); }
+    .lead { font-size:1.18rem !important; color:var(--ink-dim) !important; }
+
+    .cta-box {
+      margin:44px 0 8px; padding:30px 28px; text-align:center; border-radius:18px;
+      background:linear-gradient(180deg, rgba(91,140,255,0.10), rgba(124,92,255,0.04));
+      border:1px solid rgba(91,140,255,0.3);
+    }
+    .cta-box h3 { margin:0 0 8px; font-size:1.25rem; font-weight:700; color:var(--ink); }
+    .cta-box p { margin:0 0 18px; color:var(--ink-dim); font-size:1rem; }
+    .cta {
+      display:inline-flex; align-items:center; gap:8px; padding:13px 26px; border-radius:12px;
+      font-weight:600; font-size:1rem; text-decoration:none; color:#fff; border:1px solid transparent;
+      background:linear-gradient(135deg,var(--brand),var(--brand-2)); box-shadow:0 12px 34px -10px rgba(91,140,255,0.85);
+    }
+    .cta:hover { filter:brightness(1.08); }
+
+    footer { text-align:center; padding:36px 20px; border-top:1px solid var(--border); color:var(--ink-faint); font-size:0.85rem; }
+    footer a { color:var(--ink-dim); text-decoration:none; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="/"><img class="brand-logo" src="/sentinel/assets/sentinel_logo.JPG" alt="CamLabs.ai"> CamLabs.ai</a>
+      <a href="/sentinel/">Sentinel AI</a>
+      <a href="/blog/">Blog</a>
+      <a href="/sentinel/download.html">Download</a>
+      <a href="/support.html">Support</a>
+    </nav>
+
+    <article class="article">
+      <div class="crumb"><a href="/blog/">← All posts</a></div>
+      <h1>Why We Don't Phone Home: Zero-Telemetry by Design</h1>
+      <div class="byline">
+        <img class="avatar" src="/sentinel/assets/sentinel_logo.JPG" alt="CamLabs">
+        <div>By <b>Bryon Hudson</b> · Founder, CamLabs<br>June 24, 2026 · 4 min read</div>
+      </div>
+
+      <p class="lead">Open a network monitor and launch the average "privacy-respecting" app. Watch the traffic. You'll usually see a steady trickle of outbound chatter — analytics pings, usage events, crash reports, a little packet of "how are people using us" heading off to a server somewhere. Sentinel AI, once it's running, is silent. That's not an accident.</p>
+
+      <h2>What "Phoning Home" Really Means</h2>
+      <p>"Telemetry" sounds clinical, but it just means your software sending data about you back to its maker: what features you use, how long you run it, what errors you hit, sometimes what you're working on. Most of it is collected with good intentions — product analytics, debugging, "improving the experience." But intentions aside, the mechanism is the same: <strong>data about you and your work leaves your machine</strong>, continuously, in the background, whether you thought about it or not.</p>
+
+      <h2>Why It's Especially Wrong for a Security Tool</h2>
+      <p>Now apply that to a tool whose entire job is to look at your source code. A security auditor that phones home is a contradiction: you'd be inviting a piece of software to inspect your most sensitive logic, while that same software keeps an open line back to its vendor. The thing you're trying to protect is the thing it has the deepest access to.</p>
+      <p>For Sentinel, "trust us, we don't misuse it" was never good enough. The only honest answer is to build it so there's <strong>nothing to misuse</strong> — because nothing leaves.</p>
+
+      <h2>Zero-Telemetry by Design</h2>
+      <p>Here's what that means concretely. After setup, Sentinel makes no analytics calls, ships no usage events, and transmits none of your code or audit results anywhere. There's no tracking SDK bolted on, no "anonymous diagnostics" toggle hiding in settings. The AI model lives on your hardware, so the audit itself happens entirely offline — your code is read and analyzed on your own machine and goes no further.</p>
+      <p>To be fully transparent: there are exactly two moments Sentinel touches the network, both one-time and both obvious — downloading its AI model on first launch, and validating your license key when you activate. After that, it runs dark. No background connections, no telemetry, no exceptions.</p>
+
+      <h2>"But Don't You Lose Insight?"</h2>
+      <p>Yes — and on purpose. Telemetry is genuinely useful to a software company; it tells you what to fix and build next. By not collecting it, I give that up. I don't know which features get used most or where people get stuck, beyond what they tell me directly. That's a real trade, and I made it deliberately: <strong>your privacy is worth more to this product than my convenience.</strong> For a security tool, it's the only trade that makes sense.</p>
+
+      <h2>The Bottom Line</h2>
+      <p>The best part is that you don't have to take my word for any of this. Run Sentinel, open your own network monitor, and watch it stay quiet. A privacy promise you can verify yourself isn't a marketing line — it's just how the software is built. Your code stays on your machine, and so does everything about how you use it.</p>
+
+      <div class="cta-box">
+        <h3>A security tool that keeps its mouth shut</h3>
+        <p>Sentinel AI audits your code fully on-device — no telemetry, no tracking, no phoning home. Windows &amp; macOS, one-time lifetime license.</p>
+        <a class="cta" href="/sentinel/">Explore Sentinel AI →</a>
+      </div>
+    </article>
+
+    <footer>
+      &copy; 2025 CamLabs.ai · <a href="/blog/">Blog</a> · <a href="/sentinel/">Sentinel AI</a> · <a href="/privacy.html">Privacy</a> · <a href="/support.html">Support</a>
+    </footer>
+  </div>
+</body>
+</html>

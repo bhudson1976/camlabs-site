@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog | Local-First Security & Developer Sovereignty | CamLabs.ai</title>
+  <meta name="description" content="Notes from CamLabs on local-first software, on-device AI security auditing, developer privacy, and building tools that respect your code.">
+  <link rel="canonical" href="https://camlabs.ai/blog/" />
+
+  <meta property="og:title" content="CamLabs Blog | Local-First Security & Developer Sovereignty" />
+  <meta property="og:description" content="Notes on local-first software, on-device AI security auditing, and building tools that keep your code on your machine." />
+  <meta property="og:image" content="https://camlabs.ai/sentinel/assets/sentinel_logo.JPG" />
+  <meta property="og:url" content="https://camlabs.ai/blog/" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CamLabs Blog | Local-First Security & Developer Sovereignty">
+  <meta name="twitter:description" content="Notes on local-first software, on-device AI security auditing, and developer privacy.">
+  <meta name="twitter:image" content="https://camlabs.ai/sentinel/assets/sentinel_logo.JPG">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "CamLabs Blog",
+    "url": "https://camlabs.ai/blog/",
+    "description": "Notes on local-first software, on-device AI security auditing, and developer sovereignty.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "CamLabs",
+      "logo": { "@type": "ImageObject", "url": "https://camlabs.ai/sentinel/assets/sentinel_logo.JPG" }
+    },
+    "blogPost": [
+      {
+        "@type": "BlogPosting",
+        "headline": "Manual Redaction Is Costing Law Offices Hours — Here's the AI Fix",
+        "url": "https://camlabs.ai/blog/ai-redaction-for-legal-documents/",
+        "datePublished": "2026-08-05",
+        "author": { "@type": "Person", "name": "Bryon Hudson" }
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Is SharedPreferences Secure? The Flutter Storage Mistake That Leaks Tokens",
+        "url": "https://camlabs.ai/blog/flutter-secure-local-storage/",
+        "datePublished": "2026-06-25",
+        "author": { "@type": "Person", "name": "Bryon Hudson" }
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Why We Don't Phone Home: Zero-Telemetry by Design",
+        "url": "https://camlabs.ai/blog/zero-telemetry-by-design/",
+        "datePublished": "2026-06-24",
+        "author": { "@type": "Person", "name": "Bryon Hudson" }
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "You Don't Need a $10,000 Security Audit",
+        "url": "https://camlabs.ai/blog/affordable-security-audit/",
+        "datePublished": "2026-06-24",
+        "author": { "@type": "Person", "name": "Bryon Hudson" }
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Hardcoded Secrets & API Keys: The Hidden Risk in Your Compiled Flutter App",
+        "url": "https://camlabs.ai/blog/hardcoded-secrets-api-keys-flutter/",
+        "datePublished": "2026-06-24",
+        "author": { "@type": "Person", "name": "Bryon Hudson" }
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Local AI vs. Cloud AI: What Happens to Your Code?",
+        "url": "https://camlabs.ai/blog/local-ai-vs-cloud-ai/",
+        "datePublished": "2026-06-24",
+        "author": { "@type": "Person", "name": "Bryon Hudson" }
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Stop Guessing: Why Flutter Security Needs a Professional Auditor",
+        "url": "https://camlabs.ai/blog/flutter-security-needs-a-professional-auditor/",
+        "datePublished": "2026-06-24",
+        "author": { "@type": "Person", "name": "Bryon Hudson" }
+      },
+      {
+        "@type": "BlogPosting",
+        "headline": "Why I Built Sentinel AI: Code Security Should Start at Home",
+        "url": "https://camlabs.ai/blog/why-i-built-sentinel-ai/",
+        "datePublished": "2026-06-24",
+        "author": { "@type": "Person", "name": "Bryon Hudson" }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="icon" type="image/jpeg" href="/sentinel/assets/sentinel_logo.JPG">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0B0F19; --card:rgba(255,255,255,0.025); --card-hover:rgba(255,255,255,0.05);
+      --border:rgba(255,255,255,0.08); --border-strong:rgba(255,255,255,0.14);
+      --ink:#F3F5F9; --ink-dim:#9aa4b6; --ink-faint:#6b7585; --brand:#5b8cff; --brand-2:#7c5cff; --emerald:#10b981;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0; background:var(--bg); color:var(--ink); line-height:1.6;
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; -webkit-font-smoothing:antialiased;
+    }
+    a { color:inherit; }
+    body::before {
+      content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+      background:radial-gradient(700px 340px at 50% -10%, rgba(91,140,255,0.16), transparent 70%);
+    }
+    .wrap { position:relative; z-index:1; }
+    .container { max-width:760px; margin:0 auto; padding:0 22px; }
+    nav {
+      display:flex; justify-content:center; gap:26px; align-items:center;
+      padding:18px 20px; border-bottom:1px solid var(--border);
+      backdrop-filter:blur(8px); position:sticky; top:0; background:rgba(11,15,25,0.7); z-index:5; flex-wrap:wrap;
+    }
+    nav a { color:var(--ink-dim); text-decoration:none; font-size:0.92rem; font-weight:500; }
+    nav a:hover { color:var(--ink); }
+    nav a.brand { color:var(--ink); font-weight:700; display:inline-flex; align-items:center; gap:9px; }
+    .brand-logo { width:28px; height:28px; border-radius:8px; object-fit:cover; object-position:center 26%; border:1px solid var(--border); }
+
+    header.head { text-align:center; padding:74px 20px 30px; }
+    .pill {
+      display:inline-flex; align-items:center; gap:8px; padding:6px 14px; margin-bottom:18px;
+      border:1px solid var(--border); border-radius:999px; background:var(--card);
+      font-size:0.76rem; color:var(--ink-dim); letter-spacing:0.04em; text-transform:uppercase;
+    }
+    .pill .dot { width:7px; height:7px; border-radius:50%; background:var(--emerald); box-shadow:0 0 10px var(--emerald); }
+    header.head h1 {
+      font-size:clamp(2rem,5vw,2.8rem); margin:0 0 12px; font-weight:800; letter-spacing:-0.03em;
+      background:linear-gradient(180deg,#ffffff,#aeb9d1); -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    header.head p { margin:0 auto; max-width:520px; color:var(--ink-dim); font-size:1.05rem; }
+
+    .posts { padding:30px 0 64px; display:grid; gap:18px; }
+    .post-card {
+      display:block; text-decoration:none; padding:28px 28px; border-radius:18px;
+      background:var(--card); border:1px solid var(--border); transition:border-color .2s, background .2s, transform .2s;
+    }
+    .post-card:hover { background:var(--card-hover); border-color:var(--border-strong); transform:translateY(-3px); }
+    .post-card .date { color:var(--ink-faint); font-size:0.82rem; letter-spacing:0.02em; text-transform:uppercase; }
+    .post-card h2 { margin:8px 0 10px; font-size:1.4rem; font-weight:700; letter-spacing:-0.02em; color:var(--ink); }
+    .post-card p { margin:0 0 14px; color:var(--ink-dim); font-size:0.98rem; }
+    .post-card .more { color:var(--brand); font-weight:600; font-size:0.92rem; }
+
+    footer { text-align:center; padding:36px 20px; border-top:1px solid var(--border); color:var(--ink-faint); font-size:0.85rem; }
+    footer a { color:var(--ink-dim); text-decoration:none; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="/"><img class="brand-logo" src="/sentinel/assets/sentinel_logo.JPG" alt="CamLabs.ai"> CamLabs.ai</a>
+      <a href="/sentinel/">Sentinel AI</a>
+      <a href="/blog/">Blog</a>
+      <a href="/sentinel/download.html">Download</a>
+      <a href="/support.html">Support</a>
+    </nav>
+
+    <header class="head">
+      <div class="pill"><span class="dot"></span> From the CamLabs workshop</div>
+      <h1>The Blog</h1>
+      <p>Notes on local-first software, on-device AI security, and keeping developers sovereign over their own code.</p>
+    </header>
+
+    <div class="container">
+      <div class="posts">
+        <a class="post-card" href="/blog/ai-redaction-for-legal-documents/">
+          <div class="date">August 5, 2026 · 5 min read</div>
+          <h2>Manual Redaction Is Costing Law Offices Hours — Here's the AI Fix</h2>
+          <p>Law offices still redact by hand in Adobe — hunting for every name and SSN, drawing black boxes one by one. It's slow and dangerously error-prone. Here's how on-device AI redaction fixes it.</p>
+          <span class="more">Read the post →</span>
+        </a>
+        <a class="post-card" href="/blog/flutter-secure-local-storage/">
+          <div class="date">June 25, 2026 · 5 min read</div>
+          <h2>Is SharedPreferences Secure? The Flutter Storage Mistake That Leaks Tokens</h2>
+          <p>The #1 mistake I see: storing tokens and PII on the device and assuming "local" means "safe." It doesn't — SharedPreferences is plaintext on disk. Here's why, and how to store sensitive data in Flutter the right way.</p>
+          <span class="more">Read the post →</span>
+        </a>
+        <a class="post-card" href="/blog/zero-telemetry-by-design/">
+          <div class="date">June 24, 2026 · 4 min read</div>
+          <h2>Why We Don't Phone Home: Zero-Telemetry by Design</h2>
+          <p>Most software quietly phones home with telemetry and analytics. Sentinel AI doesn't — and for a tool that audits your code, that silence is the whole point. Here's why, and how you can verify it yourself.</p>
+          <span class="more">Read the post →</span>
+        </a>
+        <a class="post-card" href="/blog/affordable-security-audit/">
+          <div class="date">June 24, 2026 · 4 min read</div>
+          <h2>You Don't Need a $10,000 Security Audit</h2>
+          <p>Pro-grade security auditing has been priced out of reach for indie devs and small teams. Here's what you're really paying a firm for — and how to audit your code without the five-figure invoice.</p>
+          <span class="more">Read the post →</span>
+        </a>
+        <a class="post-card" href="/blog/hardcoded-secrets-api-keys-flutter/">
+          <div class="date">June 24, 2026 · 5 min read</div>
+          <h2>Hardcoded Secrets &amp; API Keys: The Hidden Risk in Your Compiled Flutter App</h2>
+          <p>Think compiling your Flutter app hides your API keys? It doesn't. Here's how secrets get extracted from desktop binaries — and how to stop shipping them.</p>
+          <span class="more">Read the post →</span>
+        </a>
+        <a class="post-card" href="/blog/local-ai-vs-cloud-ai/">
+          <div class="date">June 24, 2026 · 5 min read</div>
+          <h2>Local AI vs. Cloud AI: What Happens to Your Code?</h2>
+          <p>Every developer is pasting code into AI tools now — but where does it actually go? The honest breakdown of cloud AI vs. local AI, and why running the model on your own machine changes everything.</p>
+          <span class="more">Read the post →</span>
+        </a>
+        <a class="post-card" href="/blog/flutter-security-needs-a-professional-auditor/">
+          <div class="date">June 24, 2026 · 4 min read</div>
+          <h2>Stop Guessing: Why Flutter Security Needs a Professional Auditor</h2>
+          <p>Flutter and Dart aren't "secure by default" — compiled desktop binaries can be decompiled and analyzed. Here's why every build needs a consistent, local security audit, not just a one-off manual review.</p>
+          <span class="more">Read the post →</span>
+        </a>
+        <a class="post-card" href="/blog/why-i-built-sentinel-ai/">
+          <div class="date">June 24, 2026 · 4 min read</div>
+          <h2>Why I Built Sentinel AI: Code Security Should Start at Home</h2>
+          <p>The cloud is convenient — but it means trusting someone else with your intellectual property. Here's why I built a security auditor that runs entirely on your machine, where your code belongs.</p>
+          <span class="more">Read the post →</span>
+        </a>
+      </div>
+    </div>
+
+    <footer>
+      &copy; 2025 CamLabs.ai · <a href="/sentinel/">Sentinel AI</a> · <a href="/privacy.html">Privacy</a> · <a href="/support.html">Support</a>
+    </footer>
+  </div>
+</body>
+</html>

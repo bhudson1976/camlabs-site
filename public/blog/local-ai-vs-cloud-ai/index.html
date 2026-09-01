@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Local AI vs. Cloud AI: What Happens to Your Code? | CamLabs.ai</title>
+  <meta name="description" content="Cloud AI tools are convenient — but your code leaves your machine and lands on someone else's servers. Here's the real difference between local AI and cloud AI, and what it means for your code.">
+  <link rel="canonical" href="https://camlabs.ai/blog/local-ai-vs-cloud-ai/" />
+
+  <meta property="og:title" content="Local AI vs. Cloud AI: What Happens to Your Code?" />
+  <meta property="og:description" content="When you use a cloud AI tool, your code leaves your machine. Here's what actually happens to it — and why running the model locally changes everything." />
+  <meta property="og:image" content="https://camlabs.ai/sentinel/assets/sentinel_screen.PNG" />
+  <meta property="og:url" content="https://camlabs.ai/blog/local-ai-vs-cloud-ai/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-06-24" />
+  <meta property="article:author" content="Bryon Hudson" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Local AI vs. Cloud AI: What Happens to Your Code?">
+  <meta name="twitter:description" content="When you use a cloud AI tool, your code leaves your machine. Here's what actually happens to it — and why local AI changes everything.">
+  <meta name="twitter:image" content="https://camlabs.ai/sentinel/assets/sentinel_screen.PNG">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Local AI vs. Cloud AI: What Happens to Your Code?",
+    "description": "Cloud AI tools are convenient — but your code leaves your machine and lands on someone else's servers. Here's the real difference between local AI and cloud AI, and what it means for your code.",
+    "image": "https://camlabs.ai/sentinel/assets/sentinel_screen.PNG",
+    "datePublished": "2026-06-24",
+    "dateModified": "2026-06-24",
+    "author": { "@type": "Person", "name": "Bryon Hudson", "url": "https://camlabs.ai/" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "CamLabs",
+      "logo": { "@type": "ImageObject", "url": "https://camlabs.ai/sentinel/assets/sentinel_logo.JPG" }
+    },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://camlabs.ai/blog/local-ai-vs-cloud-ai/" }
+  }
+  </script>
+
+  <link rel="icon" type="image/jpeg" href="/sentinel/assets/sentinel_logo.JPG">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0B0F19; --card:rgba(255,255,255,0.025); --border:rgba(255,255,255,0.08);
+      --border-strong:rgba(255,255,255,0.14); --ink:#F3F5F9; --ink-dim:#9aa4b6; --ink-faint:#6b7585;
+      --brand:#5b8cff; --brand-2:#7c5cff; --emerald:#10b981;
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0; background:var(--bg); color:var(--ink); line-height:1.7;
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; -webkit-font-smoothing:antialiased;
+    }
+    a { color:var(--brand); }
+    body::before {
+      content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+      background:radial-gradient(700px 340px at 50% -10%, rgba(91,140,255,0.16), transparent 70%);
+    }
+    .wrap { position:relative; z-index:1; }
+    nav {
+      display:flex; justify-content:center; gap:26px; align-items:center;
+      padding:18px 20px; border-bottom:1px solid var(--border);
+      backdrop-filter:blur(8px); position:sticky; top:0; background:rgba(11,15,25,0.7); z-index:5; flex-wrap:wrap;
+    }
+    nav a { color:var(--ink-dim); text-decoration:none; font-size:0.92rem; font-weight:500; }
+    nav a:hover { color:var(--ink); }
+    nav a.brand { color:var(--ink); font-weight:700; display:inline-flex; align-items:center; gap:9px; }
+    .brand-logo { width:28px; height:28px; border-radius:8px; object-fit:cover; object-position:center 26%; border:1px solid var(--border); }
+
+    .article { max-width:720px; margin:0 auto; padding:56px 22px 40px; }
+    .crumb { font-size:0.85rem; color:var(--ink-faint); margin-bottom:22px; }
+    .crumb a { color:var(--ink-dim); text-decoration:none; }
+    .article h1 {
+      font-size:clamp(2rem,5vw,2.7rem); line-height:1.12; margin:0 0 18px; font-weight:800; letter-spacing:-0.03em;
+      background:linear-gradient(180deg,#ffffff,#aeb9d1); -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .byline { display:flex; align-items:center; gap:12px; color:var(--ink-faint); font-size:0.9rem; margin-bottom:34px; padding-bottom:24px; border-bottom:1px solid var(--border); }
+    .byline .avatar { width:38px; height:38px; border-radius:50%; object-fit:cover; border:1px solid var(--border); }
+    .byline b { color:var(--ink-dim); font-weight:600; }
+    .article p { color:#c2cad8; font-size:1.06rem; margin:0 0 20px; }
+    .article h2 { font-size:1.45rem; font-weight:700; letter-spacing:-0.02em; margin:40px 0 14px; color:var(--ink); }
+    .article strong { color:var(--ink); font-weight:600; }
+    .article ul { padding-left:0; list-style:none; margin:0 0 20px; }
+    .article ul li {
+      position:relative; padding:16px 18px 16px 20px; margin-bottom:12px; border-radius:12px;
+      background:var(--card); border:1px solid var(--border); color:#c2cad8; font-size:1.02rem;
+    }
+    .article ul li strong { color:var(--ink); }
+    .lead { font-size:1.18rem !important; color:var(--ink-dim) !important; }
+
+    .cta-box {
+      margin:44px 0 8px; padding:30px 28px; text-align:center; border-radius:18px;
+      background:linear-gradient(180deg, rgba(91,140,255,0.10), rgba(124,92,255,0.04));
+      border:1px solid rgba(91,140,255,0.3);
+    }
+    .cta-box h3 { margin:0 0 8px; font-size:1.25rem; font-weight:700; color:var(--ink); }
+    .cta-box p { margin:0 0 18px; color:var(--ink-dim); font-size:1rem; }
+    .cta {
+      display:inline-flex; align-items:center; gap:8px; padding:13px 26px; border-radius:12px;
+      font-weight:600; font-size:1rem; text-decoration:none; color:#fff; border:1px solid transparent;
+      background:linear-gradient(135deg,var(--brand),var(--brand-2)); box-shadow:0 12px 34px -10px rgba(91,140,255,0.85);
+    }
+    .cta:hover { filter:brightness(1.08); }
+
+    footer { text-align:center; padding:36px 20px; border-top:1px solid var(--border); color:var(--ink-faint); font-size:0.85rem; }
+    footer a { color:var(--ink-dim); text-decoration:none; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="/"><img class="brand-logo" src="/sentinel/assets/sentinel_logo.JPG" alt="CamLabs.ai"> CamLabs.ai</a>
+      <a href="/sentinel/">Sentinel AI</a>
+      <a href="/blog/">Blog</a>
+      <a href="/sentinel/download.html">Download</a>
+      <a href="/support.html">Support</a>
+    </nav>
+
+    <article class="article">
+      <div class="crumb"><a href="/blog/">← All posts</a></div>
+      <h1>Local AI vs. Cloud AI: What Happens to Your Code?</h1>
+      <div class="byline">
+        <img class="avatar" src="/sentinel/assets/sentinel_logo.JPG" alt="CamLabs">
+        <div>By <b>Bryon Hudson</b> · Founder, CamLabs<br>June 24, 2026 · 5 min read</div>
+      </div>
+
+      <p class="lead">Every developer I know is using AI now. We paste a function into a chat window, ask it to find the bug, and get an answer in seconds. It feels like magic. But there's a question almost nobody stops to ask in that moment: <strong>where did my code just go?</strong></p>
+
+      <p>The answer matters more than most of us want to admit. Because "AI" isn't one thing — there's a fundamental split in <em>where the work actually happens</em>, and that split decides who else gets to see your code.</p>
+
+      <h2>The Convenience Trap</h2>
+      <p>Cloud AI is incredibly convenient, and that convenience is exactly what makes the trade-off easy to ignore. When you use a cloud-based AI tool — a chat assistant, a web auditor, a "paste your repo and we'll analyze it" service — your code doesn't stay on your machine. It travels across the internet to a server you don't own, gets processed by a model you can't inspect, and is handled according to a data policy you almost certainly didn't read.</p>
+      <p>In the rush to get an answer, "upload my proprietary logic to a stranger's computer" stops feeling like what it is.</p>
+
+      <h2>What Actually Happens to Your Code</h2>
+      <p>Here's the honest version of the round trip when you use a cloud AI tool:</p>
+      <ul>
+        <li><strong>It leaves your machine.</strong> Your source is transmitted off your device to a third-party server, often alongside thousands of other users' code.</li>
+        <li><strong>It may be retained.</strong> Depending on the provider and your plan, your input can be logged for abuse monitoring, debugging, or — in some cases — used to help train future models.</li>
+        <li><strong>It inherits someone else's risk.</strong> Once your code lives on infrastructure you don't control, it's exposed to that provider's breaches, misconfigurations, and legal obligations. Their security posture is now <em>your</em> security posture.</li>
+      </ul>
+      <p>For a weekend side project, maybe none of that matters. But for proprietary business logic, client work under NDA, or anything you'd be uncomfortable seeing leak — it's a genuine exposure. And "we probably don't train on your data" is not the same promise as "your code never left your building."</p>
+
+      <h2>The Local Alternative</h2>
+      <p>There's another way to get AI assistance that flips the entire model: <strong>run the AI on your own hardware.</strong> Instead of sending your code to the model, you bring the model to your code.</p>
+      <p>The analysis happens on your machine, inside your own file system, with nothing transmitted anywhere. No upload. No retention. No third-party infrastructure sitting in the middle — because there <em>is</em> no third party. The intelligence comes to you and stays there.</p>
+
+      <h2>Why Sentinel AI Runs Locally</h2>
+      <p>That's the principle Sentinel AI is built on. It runs an 8B AI model entirely on your own computer to audit your code — and that single architectural choice changes everything downstream:</p>
+      <ul>
+        <li><strong>True privacy:</strong> Your code is never uploaded, logged, or sent to any server — ours or anyone else's. There's nothing to breach because nothing leaves.</li>
+        <li><strong>It works offline:</strong> No internet required. Audit on a plane, in a SCIF, or behind an air gap. The model is already on your hardware.</li>
+        <li><strong>No retention, no training:</strong> Your code can't become someone's training data when it never travels. What you audit is your business, full stop.</li>
+        <li><strong>No latency tax:</strong> Local compute means no waiting on uploads or a busy API queue — the results come back as fast as your hardware can produce them.</li>
+      </ul>
+
+      <h2>The Bottom Line</h2>
+      <p>Cloud AI isn't evil — it's a trade. You trade ownership of your code, even briefly, for convenience. For plenty of tasks that's a fine deal. But it should be a <em>choice</em> you make consciously, not a default you back into because the chat box was right there.</p>
+      <p>My take is simple: if your code is worth protecting, the model should come to you — not the other way around. That's where Sentinel runs, and that's where it stays.</p>
+
+      <div class="cta-box">
+        <h3>Get AI auditing without your code ever leaving your machine</h3>
+        <p>Sentinel AI runs an 8B model fully on-device — no cloud, no telemetry. Windows &amp; macOS, one-time lifetime license.</p>
+        <a class="cta" href="/sentinel/">Explore Sentinel AI →</a>
+      </div>
+    </article>
+
+    <footer>
+      &copy; 2025 CamLabs.ai · <a href="/blog/">Blog</a> · <a href="/sentinel/">Sentinel AI</a> · <a href="/privacy.html">Privacy</a> · <a href="/support.html">Support</a>
+    </footer>
+  </div>
+</body>
+</html>

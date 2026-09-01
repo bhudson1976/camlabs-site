@@ -225,6 +225,18 @@
       align-items:center; justify-content:center;
     }
 
+    .hash { margin:12px 0 0; font-size:0.72rem; color:var(--ink-faint); line-height:1.5; text-align:left; }
+    .hash b { color:var(--ink-dim); font-weight:600; letter-spacing:0.04em; }
+    .hash code, .verify code {
+      display:block; margin-top:4px; padding:6px 8px; border-radius:6px;
+      background:rgba(255,255,255,0.04); border:1px solid var(--border);
+      font-family:'JetBrains Mono',ui-monospace,Consolas,monospace; font-size:0.68rem;
+      color:var(--ink-dim); word-break:break-all; user-select:all;
+    }
+    .verify { margin:8px 0 0; text-align:left; font-size:0.74rem; color:var(--ink-faint); }
+    .verify summary { cursor:pointer; color:var(--brand); user-select:none; }
+    .verify p { margin:8px 0 0; line-height:1.55; }
+
     footer { text-align:center; padding:34px 20px; border-top:1px solid var(--border); color:var(--ink-faint); font-size:0.85rem; }
     footer a { color:var(--ink-dim); text-decoration:none; }
     footer a:hover { color:var(--ink); }
@@ -236,6 +248,7 @@
       <a class="brand" href="/sentinel/"><img class="brand-logo" src="/sentinel/assets/sentinel_logo.JPG" alt="Sentinel AI"> Sentinel AI</a>
       <a href="/sentinel/#how-it-works">How it works</a>
       <a href="/sentinel/download.html">Download</a>
+      <a href="/blog/">Blog</a>
       <a href="/support.html">Support</a>
     </nav>
 
@@ -259,8 +272,8 @@
       <div class="note-trust">
         <span class="ic">🛡️</span>
         <div>
-          <strong>Heads-up: you may see an "unrecognized publisher" warning.</strong>
-          Sentinel is newly released and not yet code-signed (our certificate is in progress), so Windows SmartScreen and some browsers flag it on <strong>reputation — not safety</strong>. The file is exactly what we published on this page. To install: on <strong>Windows</strong> click <strong>More info → Run anyway</strong>; on <strong>macOS</strong> <strong>right-click → Open</strong>. Signed, fully-trusted builds are rolling out shortly.
+          <strong>Heads-up (Windows only): you may see an "unrecognized publisher" warning.</strong>
+          The <strong>macOS</strong> build is Apple-signed &amp; notarized — it opens normally, no workaround needed. On <strong>Windows</strong>, Sentinel isn't code-signed yet (certificate in progress), so SmartScreen flags it on <strong>reputation — not safety</strong>. The file is exactly what we published on this page. To install on Windows: click <strong>More info → Run anyway</strong>. A signed Windows build is rolling out shortly.
         </div>
       </div>
 
@@ -270,9 +283,19 @@
           <span class="rec" id="rec-mac">★ Recommended for you</span>
           <div class="os"></div>
           <h3>macOS</h3>
-          <div class="meta">Apple Silicon · Metal-accelerated · .dmg</div>
+          <div class="meta">Apple Silicon · Metal-accelerated · signed &amp; notarized · .zip</div>
           <div class="spacer"></div>
-          <a class="btn" id="btn-mac" href="https://pub-10ae3ecc83a24d31961ba7a11de5255a.r2.dev/installers/Sentinel-AI-v1.0.0-beta-macOS.dmg">⬇ Download for macOS</a>
+          <a class="btn" id="btn-mac" href="https://pub-10ae3ecc83a24d31961ba7a11de5255a.r2.dev/installers/Sentinel_AI.zip">⬇ Download for macOS</a>
+          <p class="hash">
+            <b>SHA-256</b>
+            <code>B3594441346084813D0527CEAF72FED8E7191438B11C799A2A5AAE4C10B6F8BF</code>
+          </p>
+          <details class="verify">
+            <summary>Verify your download</summary>
+            <p>In Terminal, from the folder containing the file:</p>
+            <code>shasum -a 256 Sentinel_AI.zip</code>
+            <p>The printed hash must match the value above.</p>
+          </details>
         </div>
 
         <div class="dl-card" id="card-win">
@@ -282,6 +305,16 @@
           <div class="meta">Windows 10/11 · 64-bit · GPU recommended · .zip</div>
           <div class="spacer"></div>
           <a class="btn" id="btn-win" href="https://pub-10ae3ecc83a24d31961ba7a11de5255a.r2.dev/installers/sentinel_desktop_win.zip">⬇ Download for Windows</a>
+          <p class="hash">
+            <b>SHA-256</b>
+            <code>11CB066F5820D2A4FAB144F2729A4D33F6F0AD0EB98D4D69162E8F49592D3FCC</code>
+          </p>
+          <details class="verify">
+            <summary>Verify your download</summary>
+            <p>In PowerShell, from the folder containing the file:</p>
+            <code>Get-FileHash .\sentinel_desktop_win.zip -Algorithm SHA256</code>
+            <p>The printed <b>Hash</b> must match the value above. If it doesn't, re-download and don't run it.</p>
+          </details>
         </div>
       </div>
 
@@ -289,7 +322,7 @@
         <h3>😊 Good news — Sentinel is safe to install</h3>
         <p>We get it: the internet is full of sketchy downloads, and we would <strong>never</strong> lump ourselves in with the crooks. So here's the honest scoop — Sentinel is brand-new, and our official code-signing certificate is still being issued. Until it's ready, Windows SmartScreen may flash an <strong>"unrecognized publisher"</strong> notice.</p>
         <p><span class="hl">That's a reputation check, not a safety warning</span> 👍 — SmartScreen flags <em>any</em> new app whose publisher hasn't built up download "reputation" yet, regardless of what's inside. The build is <strong>local-first, zero-telemetry, and byte-for-byte identical</strong> to what's published on this page — it audits entirely on your own machine and never phones home. 💙</p>
-        <p><strong>To install:</strong> on Windows click <strong>More info → Run anyway</strong>; on macOS <strong>right-click → Open</strong>. That's it — you're good to go! Signed builds are coming soon, and these notices will disappear completely. 🎉</p>
+        <p><strong>To install:</strong> on Windows click <strong>More info → Run anyway</strong>. (The macOS build is already Apple-notarized — it just opens, no workaround needed.) That's it — you're good to go! A signed Windows build is coming soon, and that notice will disappear completely. 🎉</p>
       </div>
 
       <div class="ss-demo">
@@ -334,8 +367,8 @@
 
           <div class="panel">
             <h3><span class="os"></span> macOS</h3>
-            <div class="step"><div class="num">1</div><div class="txt">Open the downloaded <strong>.dmg</strong> and drag <strong>Sentinel</strong> into your <strong>Applications</strong> folder.</div></div>
-            <div class="step"><div class="num">2</div><div class="txt">Launch Sentinel. If macOS asks, <strong>right-click → Open</strong> to confirm (it's a signed build — most Macs open it right away).</div></div>
+            <div class="step"><div class="num">1</div><div class="txt"><strong>Unzip</strong> the download and drag <strong>Sentinel</strong> into your <strong>Applications</strong> folder.</div></div>
+            <div class="step"><div class="num">2</div><div class="txt"><strong>Double-click to launch.</strong> The build is <strong>Apple-notarized</strong>, so it opens with no security warning.</div></div>
             <div class="step"><div class="num">3</div><div class="txt">Paste your <strong>license key</strong> when prompted.</div></div>
           </div>
         </div>
