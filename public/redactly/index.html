@@ -104,6 +104,22 @@
     .sec-head h2 { font-size:clamp(1.6rem,4vw,2.1rem); margin:0 0 10px; font-weight:700; letter-spacing:-0.025em; }
     .sec-head p { margin:0; color:var(--ink-faint); font-size:1rem; }
 
+    /* Screenshot gallery */
+    .shots {
+      display:flex; gap:20px; overflow-x:auto; padding:4px 20px 20px;
+      scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch;
+    }
+    .shots::-webkit-scrollbar { height:6px; }
+    .shots::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.12); border-radius:6px; }
+    .shot {
+      flex:0 0 auto; scroll-snap-align:center; position:relative;
+      border-radius:16px; overflow:hidden;
+      border:1px solid rgba(255,255,255,0.1);
+      box-shadow:0 24px 60px -20px rgba(124,92,255,0.5);
+    }
+    .shot img { display:block; height:480px; width:auto; }
+    .shots-hint { text-align:center; color:var(--ink-faint); font-size:0.83rem; margin-top:8px; }
+
     /* Feature grid */
     .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:18px; }
     .card {
@@ -209,6 +225,24 @@
       </div>
       <div class="hero-sub">14-day free trial · No card required · Cancel anytime</div>
     </header>
+
+    <!-- Screenshot gallery -->
+    <section id="screens" style="padding:40px 0 20px;">
+      <div class="shots">
+        <div class="shot"><img src="/redactly/assets/mac/02_home_1440x900.png"      alt="Redactly Pro — Drop in a document. That's it. 100% on-device processing." loading="lazy"></div>
+        <div class="shot"><img src="/redactly/assets/mac/04_import_1440x900.png"    alt="Redactly Pro — Works with the files you already have. PDF, PNG, JPG from Finder." loading="lazy"></div>
+        <div class="shot"><img src="/redactly/assets/mac/05_document_1440x900.png"  alt="Redactly Pro — See exactly what you're redacting. Full document view before a single bar is placed." loading="lazy"></div>
+        <div class="shot"><img src="/redactly/assets/mac/03_copilot_1440x900.png"   alt="Redactly Pro — Redact by category in one click. Names, SSNs, cards, passports, EINs, and more." loading="lazy"></div>
+        <div class="shot"><img src="/redactly/assets/mac/06_results_1440x900.png"   alt="Redactly Pro — AI finds what the eye misses. Every match found, logged, and blacked out." loading="lazy"></div>
+        <div class="shot"><img src="/redactly/assets/mac/04_tables_1440x900.png"    alt="Redactly Pro — Finds what's buried inside tables. Merged cells and structured layouts that other tools skip." loading="lazy"></div>
+        <div class="shot"><img src="/redactly/assets/mac/03_collision_1440x900.png" alt="Redactly Pro — It knows when one name means two people. Ambiguous matches are flagged, never quietly guessed." loading="lazy"></div>
+        <div class="shot"><img src="/redactly/assets/mac/05_kyc_1440x900.png"       alt="Redactly Pro — Built for KYC, HIPAA, and case files. Loan packets, medical records, legal discovery." loading="lazy"></div>
+        <div class="shot"><img src="/redactly/assets/mac/07_pages_1440x900.png"     alt="Redactly Pro — One page, or all of them. You choose exactly what gets processed." loading="lazy"></div>
+        <div class="shot"><img src="/redactly/assets/mac/08_export_1440x900.png"    alt="Redactly Pro — Export, print, or share safely. The redacted copy is the only one that ever leaves." loading="lazy"></div>
+        <div class="shot"><img src="/redactly/assets/mac/08_history_1440x900.png"   alt="Redactly Pro — A private record of every scan. Stored locally on your Mac. Never uploaded." loading="lazy"></div>
+      </div>
+      <p class="shots-hint">← swipe to see more →</p>
+    </section>
 
     <!-- Features -->
     <section id="features">
