@@ -136,12 +136,12 @@
 
     /* Video */
     .video-wrap {
-      max-width:860px; margin:0 auto; border-radius:16px; overflow:hidden;
+      position:relative; max-width:860px; margin:0 auto; border-radius:16px; overflow:hidden;
       border:1px solid rgba(255,255,255,0.1);
       box-shadow:0 24px 60px -20px rgba(124,92,255,0.5);
-      aspect-ratio:16/9;
+      padding-top:56.25%; /* 16:9 */
     }
-    .video-wrap iframe { width:100%; height:100%; border:0; }
+    .video-wrap iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:0; }
 
     /* Pricing */
     .pricing-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; max-width:680px; margin:0 auto; }
