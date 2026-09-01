@@ -143,6 +143,50 @@
     }
     .video-wrap iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:0; }
 
+    /* Trial form */
+    .trial-box {
+      max-width:520px; margin:0 auto; text-align:center;
+      background:linear-gradient(160deg, rgba(124,92,255,0.10), rgba(91,140,255,0.05));
+      border:1px solid rgba(124,92,255,0.35); border-radius:20px; padding:36px 32px;
+    }
+    .trial-box h2 { margin:0 0 8px; font-size:1.5rem; font-weight:800; color:#fff; }
+    .trial-box .sub { color:var(--ink-dim); font-size:0.95rem; margin:0 0 24px; }
+    .trial-form { display:flex; gap:10px; }
+    .trial-form input {
+      flex:1; padding:13px 16px; border-radius:12px; border:1px solid rgba(255,255,255,0.12);
+      background:rgba(0,0,0,0.3); color:#fff; font-family:inherit; font-size:0.95rem;
+      outline:none; transition:border-color .2s;
+    }
+    .trial-form input::placeholder { color:rgba(255,255,255,0.3); }
+    .trial-form input:focus { border-color:rgba(124,92,255,0.6); }
+    .trial-form button {
+      padding:13px 24px; border-radius:12px; border:none; cursor:pointer;
+      font-family:inherit; font-size:0.95rem; font-weight:700; color:#fff;
+      background:linear-gradient(135deg,var(--violet),var(--brand));
+      box-shadow:0 8px 22px -8px rgba(124,92,255,0.8);
+      transition:filter .18s, transform .18s; white-space:nowrap;
+    }
+    .trial-form button:hover { filter:brightness(1.08); transform:translateY(-1px); }
+    .trial-form button:disabled { opacity:0.6; cursor:not-allowed; filter:none; transform:none; }
+    .trial-result {
+      margin-top:20px; padding:18px; border-radius:14px;
+      background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.3);
+      display:none;
+    }
+    .trial-result.show { display:block; }
+    .trial-result .key-label { color:#bfe9d8; font-size:0.85rem; margin:0 0 6px; }
+    .trial-result .key-value {
+      font-family:'Courier New',Courier,monospace; font-size:1.15rem; font-weight:700;
+      color:#d7fbed; letter-spacing:1.5px; word-break:break-all;
+      user-select:all; cursor:text;
+    }
+    .trial-result .key-note { color:#9edcc5; font-size:0.82rem; margin:8px 0 0; }
+    .trial-error {
+      margin-top:14px; color:#ff6b6b; font-size:0.88rem; display:none;
+    }
+    .trial-error.show { display:block; }
+    @media (max-width:520px) { .trial-form { flex-direction:column; } }
+
     /* Pricing */
     .pricing-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; max-width:680px; margin:0 auto; }
     .price-card {
@@ -229,7 +273,7 @@
         with OCR and redaction that <strong>never leave your Mac</strong>. No cloud. No uploads.
       </p>
       <div class="cta-row">
-        <a class="cta" href="#pricing">Start free trial — 14 days</a>
+        <a class="cta" href="#trial">Start free trial — 14 days</a>
         <a class="cta ghost" href="#features">See how it works</a>
       </div>
       <div class="hero-sub">14-day free trial · No card required · Cancel anytime</div>
@@ -345,6 +389,26 @@
       </div>
     </section>
 
+    <!-- Trial signup -->
+    <section id="trial">
+      <div class="container">
+        <div class="trial-box">
+          <h2>Start your free trial</h2>
+          <p class="sub">Enter your email and we'll send you a 14-day trial key. No card required.</p>
+          <form class="trial-form" id="trialForm" onsubmit="return handleTrial(event)">
+            <input type="email" id="trialEmail" placeholder="you@lawfirm.com" required autocomplete="email">
+            <button type="submit" id="trialBtn">Get trial key</button>
+          </form>
+          <div class="trial-result" id="trialResult">
+            <p class="key-label">Your trial license key:</p>
+            <p class="key-value" id="trialKey"></p>
+            <p class="key-note">Check your email — we sent this key there too. Open Redactly Pro on your Mac, click "Enter your license key", and paste it in.</p>
+          </div>
+          <p class="trial-error" id="trialError"></p>
+        </div>
+      </div>
+    </section>
+
     <!-- Pricing -->
     <section id="pricing">
       <div class="container">
@@ -425,5 +489,42 @@
       <a href="/support.html">Support</a>
     </footer>
   </div>
+  <script>
+    async function handleTrial(e) {
+      e.preventDefault();
+      const email = document.getElementById('trialEmail').value.trim();
+      const btn = document.getElementById('trialBtn');
+      const result = document.getElementById('trialResult');
+      const keyEl = document.getElementById('trialKey');
+      const errEl = document.getElementById('trialError');
+
+      result.classList.remove('show');
+      errEl.classList.remove('show');
+      btn.disabled = true;
+      btn.textContent = 'Creating trial...';
+
+      try {
+        const res = await fetch('https://wfiwspuvxodxygjhsicb.supabase.co/functions/v1/check-license', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'start_trial', email: email }),
+        });
+        const data = await res.json();
+
+        if (!res.ok || !data.license_key) {
+          throw new Error(data.error || 'Failed to create trial');
+        }
+
+        keyEl.textContent = data.license_key;
+        result.classList.add('show');
+        btn.textContent = 'Trial created!';
+      } catch (err) {
+        errEl.textContent = 'Could not create trial — please check your connection and try again.';
+        errEl.classList.add('show');
+        btn.disabled = false;
+        btn.textContent = 'Get trial key';
+      }
+    }
+  </script>
 </body>
 </html>
