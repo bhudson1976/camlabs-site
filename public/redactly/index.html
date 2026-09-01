@@ -506,7 +506,10 @@
       try {
         const res = await fetch('https://wfiwspuvxodxygjhsicb.supabase.co/functions/v1/check-license', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndmaXdzcHV2eG9keHlnamhzaWNiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1NTYwNzcsImV4cCI6MjA5OTEzMjA3N30.LDhI7cb2L1XlDYEeDx7ePXxD2DVkHmgCkXg2oLtD_GI',
+          },
           body: JSON.stringify({ action: 'start_trial', email: email }),
         });
         const data = await res.json();
