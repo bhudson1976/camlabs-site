@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CamLabs.ai | Privacy-First AI Software Company</title>
-  <meta name="description" content="CamLabs builds on-device AI software for security, compliance, and document privacy. Products include Sentinel AI (security auditor), Redactly Pro (document redaction), and CaratCam (gem valuation). All processing runs locally — no cloud, no telemetry.">
+  <meta name="description" content="CamLabs builds on-device AI software for security, compliance, and document privacy. Products include Sentinel AI (security auditor) and Redactly Pro (document redaction). All processing runs locally — no cloud, no telemetry.">
   <link rel="canonical" href="https://camlabs.ai/" />
 
   <!-- Open Graph -->
   <meta property="og:title" content="CamLabs.ai | Privacy-First AI Software Company" />
-  <meta property="og:description" content="CamLabs builds on-device AI software for security, compliance, and document privacy. Sentinel AI, Redactly Pro, CaratCam — all processing runs locally." />
+  <meta property="og:description" content="CamLabs builds on-device AI software for security, compliance, and document privacy. Sentinel AI, Redactly Pro — all processing runs locally." />
   <meta property="og:image" content="https://camlabs.ai/sentinel/assets/sentinel_logo.JPG" />
   <meta property="og:url" content="https://camlabs.ai/" />
   <meta property="og:type" content="website" />
@@ -17,7 +17,7 @@
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="CamLabs.ai | Privacy-First AI Software Company">
-  <meta name="twitter:description" content="CamLabs builds on-device AI software for security, compliance, and document privacy. Sentinel AI, Redactly Pro, CaratCam — all processing runs locally.">
+  <meta name="twitter:description" content="CamLabs builds on-device AI software for security, compliance, and document privacy. Sentinel AI, Redactly Pro — all processing runs locally.">
   <meta name="twitter:image" content="https://camlabs.ai/sentinel/assets/sentinel_logo.JPG">
   <script type="application/ld+json">
   {
@@ -47,8 +47,7 @@
     "knowsAbout": ["on-device AI", "document redaction", "security auditing", "Flutter", "macOS", "privacy software"],
     "makesOffer": [
       { "@type": "Offer", "itemOffered": { "@type": "SoftwareApplication", "name": "Sentinel AI", "url": "https://camlabs.ai/sentinel/" } },
-      { "@type": "Offer", "itemOffered": { "@type": "SoftwareApplication", "name": "Redactly Pro", "url": "https://camlabs.ai/redactly/" } },
-      { "@type": "Offer", "itemOffered": { "@type": "SoftwareApplication", "name": "CaratCam", "url": "https://camlabs.ai/buy-caratcam.html" } }
+      { "@type": "Offer", "itemOffered": { "@type": "SoftwareApplication", "name": "Redactly Pro", "url": "https://camlabs.ai/redactly/" } }
     ]
   }
   </script>
@@ -168,7 +167,7 @@
       .flagship .shot { min-height:180px; border-left:none; border-top:1px solid var(--border); }
     }
 
-    /* Product grid (CaratCam) */
+    /* Product grid */
     .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:18px; }
     .card {
       background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
@@ -185,26 +184,7 @@
     .card .link { color:var(--brand); text-decoration:none; font-weight:600; font-size:0.94rem; }
     .card .link:hover { text-decoration:underline; }
 
-    /* Demo videos */
-    .videos { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:20px; }
-    .video-frame {
-      position:relative; width:100%; aspect-ratio:16 / 9; margin:0 0 12px;
-      border-radius:14px; overflow:hidden; border:1px solid var(--border-strong); background:#000;
-      box-shadow:0 30px 70px -36px rgba(91,140,255,0.5);
-    }
-    .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
-    .vcap { text-align:center; color:var(--ink-dim); font-size:0.92rem; }
-    .vcap strong { color:var(--ink); }
 
-    /* Metal prices */
-    .metals { max-width:680px; margin:30px auto 0; text-align:center;
-      background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:24px 26px; }
-    .metals h3 { margin:0 0 14px; font-size:1rem; font-weight:700; color:var(--ink); }
-    #metal-prices span {
-      display:inline-block; margin:6px 14px; font-weight:600; color:var(--ink-dim);
-      font-family:'JetBrains Mono',ui-monospace,Consolas,monospace; font-size:0.92rem;
-    }
-    .note { margin-top:14px; font-size:0.85rem; color:var(--ink-faint); text-align:center; }
 
     footer { text-align:center; padding:40px 20px; border-top:1px solid var(--border); color:var(--ink-faint); font-size:0.85rem; line-height:1.9; }
     footer a { color:var(--ink-dim); text-decoration:none; }
@@ -218,7 +198,6 @@
       <a href="/sentinel/">Sentinel AI</a>
       <a href="/redactly/">Redactly AI</a>
       <a href="/blog/">Blog</a>
-      <a href="#caratcam">CaratCam</a>
       <a href="support.html">Support</a>
       <a href="contact.html">Contact</a>
       <a class="navcta" href="/sentinel/#pricing">Get Sentinel</a>
@@ -234,7 +213,6 @@
       </p>
       <div class="cta-row">
         <a class="cta primary" href="/sentinel/">Explore Sentinel AI</a>
-        <a class="cta" href="#caratcam">See CaratCam</a>
       </div>
       <div class="hero-sub">Windows &amp; macOS · On-device processing · No cloud dependency</div>
     </header>
@@ -307,59 +285,6 @@
       </div>
     </section>
 
-    <!-- CaratCam -->
-    <section id="caratcam">
-      <div class="container">
-        <div class="sec-head">
-          <h2>Also from CamLabs — CaratCam</h2>
-          <p>Instant gem &amp; metal valuation. One-time unlock, no subscriptions.</p>
-        </div>
-
-        <div class="grid">
-          <div class="card">
-            <div class="ico">💎</div>
-            <h3>CaratCam</h3>
-            <p>Essential gem valuation for casual users and collectors who need fast, accurate insights without a subscription. One-time payment unlocks unlimited access.</p>
-            <div class="spacer"></div>
-            <a class="link" href="buy-caratcam.html">Learn about CaratCam →</a>
-          </div>
-          <div class="card">
-            <div class="ico">🔷</div>
-            <h3>CaratCam Plus</h3>
-            <p>Advanced valuation for professionals — enhanced scan accuracy, reporting, and lifetime updates. Premium version with lifetime access.</p>
-            <div class="spacer"></div>
-            <a class="link" href="buy-caratcam-plus.html">Learn about CaratCam Plus →</a>
-          </div>
-        </div>
-
-        <div class="videos" style="margin-top:24px;">
-          <div>
-            <div class="video-frame">
-              <iframe src="https://www.youtube-nocookie.com/embed/5aZ4Y2yQ3h4?rel=0" title="CaratCam demo" loading="lazy"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            </div>
-            <div class="vcap"><strong>CaratCam</strong> — quick gem valuations in your pocket.</div>
-          </div>
-          <div>
-            <div class="video-frame">
-              <iframe src="https://www.youtube-nocookie.com/embed/O-xiBoZX8bA?rel=0" title="CaratCam Plus demo" loading="lazy"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            </div>
-            <div class="vcap"><strong>CaratCam Plus</strong> — professional-grade scanning for appraisers.</div>
-          </div>
-        </div>
-
-        <div class="metals">
-          <h3>Live Metal Prices</h3>
-          <div id="metal-prices">
-            <span id="gold">Gold: Loading…</span>
-            <span id="silver">Silver: Loading…</span>
-            <span id="platinum">Platinum: Loading…</span>
-          </div>
-        </div>
-        <p class="note">⚠️ CaratCam currently supports Android. Desktop and iOS coming soon.</p>
-      </div>
-    </section>
 
     <footer>
       &copy; 2026 CamLabs AI · All rights reserved.<br>
@@ -372,23 +297,5 @@
     </footer>
   </div>
 
-  <!-- Live metal prices (CaratCam) -->
-  <script>
-    fetch('https://api.metalpriceapi.com/v1/latest?api_key=eba0cee69e29e9a76238474fd2d0da75&base=USD&currencies=XAU,XAG,XPT')
-      .then(res => res.json())
-      .then(data => {
-        const gold = data.rates.USDXAU, silver = data.rates.USDXAG, platinum = data.rates.USDXPT;
-        if (gold && silver && platinum) {
-          document.getElementById('gold').textContent = `Gold: $${gold.toFixed(2)} / oz`;
-          document.getElementById('silver').textContent = `Silver: $${silver.toFixed(2)} / oz`;
-          document.getElementById('platinum').textContent = `Platinum: $${platinum.toFixed(2)} / oz`;
-        } else {
-          document.getElementById('metal-prices').innerHTML = '<span>Live pricing temporarily unavailable.</span>';
-        }
-      })
-      .catch(() => {
-        document.getElementById('metal-prices').innerHTML = '<span>Error loading metal prices.</span>';
-      });
-  </script>
 </body>
 </html>
