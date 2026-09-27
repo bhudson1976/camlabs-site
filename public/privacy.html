@@ -94,7 +94,7 @@
     <main>
       <h1>Privacy Policy</h1>
       <p class="meta">
-        <strong>Effective Date:</strong> June 25, 2026 &nbsp;·&nbsp;
+        <strong>Effective Date:</strong> September 27, 2026 &nbsp;·&nbsp;
         <strong>Entity:</strong> CamLabs.ai &nbsp;·&nbsp;
         <strong>Contact:</strong> <a href="mailto:support@camlabs.ai">support@camlabs.ai</a>
       </p>
@@ -102,33 +102,55 @@
       <div class="summary">
         <h2>🔒 The short version</h2>
         <ul>
-          <li><strong>Our apps process your data on your device.</strong> Redactly and Sentinel AI do not collect, store, transmit, or share your documents, images, code, or personal information.</li>
-          <li><strong>No tracking.</strong> We use no third-party analytics, advertising, or tracking SDKs in our applications.</li>
+          <li><strong>Your documents are processed on your device.</strong> Redactly scans, reads, and redacts your documents locally. We never upload them to our servers.</li>
+          <li><strong>One exception: sending a fax.</strong> If you choose to fax a document from Redactly (mobile only), that document is transmitted through our fax provider, Telnyx, to the number you enter.</li>
+          <li><strong>Accounts are optional.</strong> You can use Redactly without signing in. If you do sign in, we store your account details and purchase status so your subscription and fax credits work across devices.</li>
+          <li><strong>No tracking or ads.</strong> We use no advertising SDKs, no behavioral tracking, and no third-party analytics in our apps.</li>
           <li><strong>We never sell your data.</strong> Not ever, to anyone.</li>
-          <li><strong>The one exception is buying a license</strong> on this website, which necessarily involves your email address and a payment processor — explained in full below.</li>
         </ul>
       </div>
 
       <h2>1. Who This Policy Covers</h2>
       <p>This Privacy Policy describes how <strong>CamLabs.ai</strong> ("we", "our", or "us") handles information across our applications and this website. It applies to:</p>
       <ul>
-        <li><strong>Redactly</strong> — our on-device document redaction utility</li>
+        <li><strong>Redactly</strong> — our document scanning and redaction app for iOS, Android, macOS, and Windows</li>
         <li><strong>Sentinel AI</strong> — our local-first desktop security auditing application</li>
         <li><strong>camlabs.ai</strong> — this website, including license purchases and support</li>
       </ul>
 
       <h2>2. Redactly</h2>
-      <p><strong>Redactly is a local, on-device document redaction utility.</strong> It does <strong>not</strong> collect, store, track, transmit, or share any personal data, documents, images, or personally identifiable information. All processing occurs entirely locally on your device.</p>
-      <p>Your documents and images never leave your device through Redactly. We have no servers receiving them, no accounts to create, and no ability to see what you redact. Redactly contains no third-party tracking, analytics, or advertising SDKs.</p>
+      <h3>What stays on your device</h3>
+      <p>Scanning, text recognition (OCR), sensitive-information detection, redaction, the document Library, and the built-in AI assistant all run <strong>on your device</strong>. Your documents, images, extracted text, and redaction history are stored locally and are <strong>not uploaded to our servers</strong>. We cannot see what you scan or redact.</p>
+      <p>On Android and iOS, text recognition uses Google's ML Kit, which runs on-device. Google may receive limited technical and usage information about the ML Kit library itself (not your document content), as described in Google's ML Kit terms.</p>
+
+      <h3>Optional account</h3>
+      <p>Signing in is optional and is only needed for cross-device features, purchases tied to your account, and faxing. If you create an account (with Apple, Google, or email and password), we store:</p>
+      <ul>
+        <li><strong>Account details</strong> — your email address, a user ID, and the name your sign-in provider shares (if any).</li>
+        <li><strong>Purchase status</strong> — whether your subscription is active and when it renews or expires.</li>
+        <li><strong>Fax credits</strong> — your credit balance and a history of credit purchases and use.</li>
+      </ul>
+
+      <h3>Sending a fax (mobile only)</h3>
+      <p>When you choose to send a fax, the document you select is uploaded to <strong>Telnyx</strong>, our fax provider, which transmits it to the recipient. We keep a fax log (fax ID, the sending and receiving fax numbers, and delivery status) so we can report delivery and deduct credits. We do not keep a copy of the faxed document on our servers. Redactly does <strong>not</strong> receive faxes.</p>
+
+      <h3>Subscriptions and purchases</h3>
+      <p>In-app subscriptions and fax credits are processed by the <strong>Apple App Store</strong> or <strong>Google Play</strong>, and managed through <strong>RevenueCat</strong>, which receives an anonymous or account-linked app user ID and your purchase history. We never see your payment card details. Desktop licenses bought on this website are covered in section 4.</p>
+
+      <h3>AI model download</h3>
+      <p>On supported devices, Redactly downloads its on-device AI model once. The download is authorized by our server and delivered from Hugging Face, which, like any web server, sees your IP address during the download. After that, the AI assistant runs on your device.</p>
+
+      <h3>Deleting your data</h3>
+      <p>You can delete your account at any time in <strong>Settings → Delete Account</strong>. This permanently deletes your account, subscription status, fax credits and history, and fax logs from our servers. Documents stored on your device are removed when you delete the app. See our <a href="/delete.html">data deletion page</a> for other options.</p>
 
       <h2>3. Sentinel AI</h2>
       <p>Sentinel AI performs its security analysis entirely on your own machine using an on-device AI model. <strong>Your source code is never uploaded, logged, or transmitted to us or any third party.</strong> The application contains no telemetry, analytics, or tracking.</p>
       <p>For transparency, Sentinel AI touches the network in only two one-time situations: downloading its AI model on first launch, and validating your license key during activation. After activation, it operates offline.</p>
 
       <h2>4. This Website &amp; License Purchases</h2>
-      <p>We believe in being precise rather than sweeping, so here is exactly what happens if you purchase a license on camlabs.ai:</p>
+      <p>We believe in being precise rather than sweeping, so here is exactly what happens if you purchase a license or start a trial on camlabs.ai:</p>
       <ul>
-        <li><strong>Email address.</strong> We collect the email address you provide at checkout for one purpose: to deliver your license key and provide support. We do not send marketing emails.</li>
+        <li><strong>Email address.</strong> We collect the email address you provide for one purpose: to deliver your license key or trial and provide support. We do not send marketing emails.</li>
         <li><strong>Payment information.</strong> Payments are processed by <strong>Stripe</strong>. Your card details go directly to Stripe and are <strong>never seen, handled, or stored by us</strong>.</li>
         <li><strong>License records.</strong> We store a record of your license (key, email, purchase reference, activation status) so we can validate your license and re-send it if you need it.</li>
         <li><strong>Transactional email.</strong> We use an email delivery provider to send your license key and support replies.</li>
@@ -136,25 +158,28 @@
       <p>We do not use advertising networks, behavioral tracking, or third-party analytics SDKs on this website.</p>
 
       <h2>5. Service Providers</h2>
-      <p>We rely on a small number of reputable providers strictly to operate the business — never to profile you:</p>
+      <p>We rely on a small number of providers strictly to operate our apps and business — never to profile you or advertise to you:</p>
       <ul>
-        <li><strong>Stripe</strong> — payment processing</li>
-        <li><strong>Supabase</strong> — secure storage of license records</li>
+        <li><strong>Supabase</strong> — account sign-in and storage of account, purchase, fax-credit, and license records</li>
+        <li><strong>Telnyx</strong> — fax transmission (only when you send a fax)</li>
+        <li><strong>RevenueCat</strong>, <strong>Apple App Store</strong>, and <strong>Google Play</strong> — in-app subscriptions and purchases</li>
+        <li><strong>Stripe</strong> — payment processing for website purchases</li>
         <li><strong>Resend</strong> — delivery of transactional email (license keys, support)</li>
+        <li><strong>Hugging Face</strong> — hosting of the on-device AI model download</li>
         <li><strong>Firebase Hosting</strong> and <strong>Cloudflare R2</strong> — website hosting and application downloads</li>
       </ul>
 
       <h2>6. Data Retention</h2>
-      <p>Because our applications collect nothing, there is nothing to retain from them. For purchases, we retain license records for as long as your lifetime license remains valid, and as required for tax and accounting obligations. You may request deletion of your purchase record at any time, understanding that this may prevent us from re-issuing your license.</p>
+      <p>Documents you process in our apps stay on your device, so we have none to retain. Account, purchase, and fax records are kept while your account exists and are deleted when you delete your account, except where we must keep limited transaction records for tax and accounting obligations. License records for website purchases are kept for as long as your license remains valid and as required for tax and accounting. You may request deletion of a purchase record at any time, understanding that this may prevent us from re-issuing your license.</p>
 
       <h2>7. Your Rights</h2>
-      <p>Depending on where you live, you may have the right to access, correct, export, or delete the personal information we hold about you, and to object to certain processing. Because the only personal information we hold is tied to a purchase, these requests are simple to fulfill — email <a href="mailto:support@camlabs.ai">support@camlabs.ai</a> and we will respond promptly.</p>
+      <p>Depending on where you live, you may have the right to access, correct, export, or delete the personal information we hold about you, and to object to certain processing. You can delete your Redactly account directly in the app, or email <a href="mailto:support@camlabs.ai">support@camlabs.ai</a> for any other request and we will respond promptly.</p>
 
       <h2>8. Children's Privacy</h2>
       <p>Our applications and services are not directed to children under the age of 13, and we do not knowingly collect personal information from children. If you believe a child has provided us information, contact us and we will delete it.</p>
 
       <h2>9. Security</h2>
-      <p>We minimize risk by minimizing collection — the safest data is the data we never gather. The limited purchase information we do hold is stored with access controls and transmitted over encrypted connections.</p>
+      <p>We minimize risk by minimizing collection — the safest data is the data we never gather. The information we do hold is stored with access controls and transmitted over encrypted connections.</p>
 
       <h2>10. Changes to This Policy</h2>
       <p>We may update this policy from time to time. Any changes will be posted on this page with a revised effective date. Material changes affecting how we handle personal information will be described clearly.</p>
@@ -171,7 +196,7 @@
     </main>
 
     <footer>
-      &copy; 2025 CamLabs.ai &nbsp;·&nbsp;
+      &copy; 2026 CamLabs.ai &nbsp;·&nbsp;
       <a href="/">Home</a> &nbsp;·&nbsp;
       <a href="/terms.html">Terms</a> &nbsp;·&nbsp;
       <a href="/support.html">Support</a>
