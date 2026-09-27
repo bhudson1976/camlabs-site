@@ -3,33 +3,72 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Redactly Pro — On-Device Document Redaction for Mac | CamLabs.ai</title>
-  <meta name="description" content="Redactly Pro blacks out every name, SSN, and sensitive detail automatically — 100% on your Mac. AI-powered, permanent redaction with OCR that never leaves your computer. No cloud. No uploads. 14-day free trial.">
+  <title>Redactly AI | Scan and Redact PDFs on Your Device</title>
+  <meta name="description" content="Scan documents to PDF and redact SSNs, account numbers, and other sensitive details on-device. iPhone, iPad, Mac, and Android. Free download, 14-day trial.">
   <link rel="canonical" href="https://camlabs.ai/redactly/" />
 
-  <meta property="og:title" content="Redactly Pro — On-Device Document Redaction for Mac" />
-  <meta property="og:description" content="AI redaction in one command. Black out every name, SSN, and detail automatically — 100% on your Mac. No cloud. No uploads. 14-day free trial." />
+  <meta property="og:title" content="Redactly AI | Scan and Redact PDFs on Your Device" />
+  <meta property="og:description" content="Scan documents to PDF and redact SSNs, account numbers, and other sensitive details on-device. iPhone, iPad, Mac, and Android. Free download, 14-day trial." />
   <meta property="og:image" content="https://camlabs.ai/redactly/assets/ios_01_redaction_result.PNG" />
   <meta property="og:url" content="https://camlabs.ai/redactly/" />
   <meta property="og:type" content="product" />
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Redactly Pro — On-Device Document Redaction for Mac">
-  <meta name="twitter:description" content="AI redaction in one command. Black out every name, SSN, and detail — 100% on your Mac. Nothing leaves your computer.">
+  <meta name="twitter:title" content="Redactly AI | Scan and Redact PDFs on Your Device">
+  <meta name="twitter:description" content="Scan documents to PDF and redact SSNs, account numbers, and other sensitive details on-device. iPhone, iPad, Mac, and Android.">
   <meta name="twitter:image" content="https://camlabs.ai/redactly/assets/ios_01_redaction_result.PNG">
 
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "Redactly Pro",
-    "operatingSystem": "macOS",
-    "applicationCategory": "BusinessApplication",
+    "name": "Redactly AI",
+    "operatingSystem": "iOS, iPadOS, macOS 13+, Android",
+    "applicationCategory": ["BusinessApplication", "SecurityApplication"],
     "url": "https://camlabs.ai/redactly/",
+    "installUrl": "https://apps.apple.com/us/app/id6797546607",
     "image": "https://camlabs.ai/redactly/assets/ios_01_redaction_result.PNG",
-    "description": "On-device AI document redaction for Mac. Automatically black out names, SSNs, and sensitive details with plain-language commands — OCR and redaction happen 100% on-device with no cloud uploads.",
+    "description": "On-device document scanning and redaction for iPhone, iPad, Mac, and Android. Redact SSNs, account numbers, and other sensitive details. Permanent pixel-layer redaction with on-device OCR.",
+    "featureList": ["On-device OCR", "PII Redaction", "Permanent Pixel-Layer Redaction", "Camera Scan-to-PDF", "Outbound Mobile Faxing", "Review and Undo Individual Redactions"],
     "offers": [
-      { "@type": "Offer", "price": "50.00", "priceCurrency": "USD", "priceValidUntil": "2027-12-31", "availability": "https://schema.org/InStock" },
-      { "@type": "Offer", "price": "350.00", "priceCurrency": "USD", "priceValidUntil": "2027-12-31", "availability": "https://schema.org/InStock" }
+      {
+        "@type": "Offer",
+        "name": "Redactly Pro (App Store / Google Play)",
+        "price": "29.99",
+        "priceCurrency": "USD",
+        "priceValidUntil": "2027-12-31",
+        "availability": "https://schema.org/InStock",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "billingDuration": "P1Y",
+          "referenceQuantity": { "@type": "QuantitativeValue", "value": "1", "unitCode": "ANN" }
+        }
+      },
+      {
+        "@type": "Offer",
+        "name": "Mac Direct Download — Monthly",
+        "price": "50.00",
+        "priceCurrency": "USD",
+        "priceValidUntil": "2027-12-31",
+        "availability": "https://schema.org/InStock",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "billingDuration": "P1M",
+          "referenceQuantity": { "@type": "QuantitativeValue", "value": "1", "unitCode": "MON" }
+        }
+      },
+      {
+        "@type": "Offer",
+        "name": "Mac Direct Download — Yearly",
+        "price": "350.00",
+        "priceCurrency": "USD",
+        "priceValidUntil": "2027-12-31",
+        "availability": "https://schema.org/InStock",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "billingDuration": "P1Y",
+          "referenceQuantity": { "@type": "QuantitativeValue", "value": "1", "unitCode": "ANN" }
+        }
+      }
     ],
     "publisher": { "@type": "Organization", "name": "CamLabs", "url": "https://camlabs.ai/" }
   }
@@ -247,6 +286,109 @@
     .privacy h2 { margin:0 0 14px; font-size:clamp(1.5rem,3.5vw,2rem); font-weight:700; letter-spacing:-0.02em; color:#d7fbed; }
     .privacy p { color:#bfe9d8; font-size:1.05rem; margin:0 auto; max-width:600px; }
 
+    /* Mobile section */
+    .mobile-hero-box {
+      text-align:center; max-width:760px; margin:0 auto 44px;
+      background:linear-gradient(160deg, rgba(16,185,129,0.10), rgba(5,150,105,0.04));
+      border:1px solid rgba(16,185,129,0.30); border-radius:20px; padding:44px 36px;
+    }
+    .mobile-hero-box h2 {
+      margin:0 0 12px; font-size:clamp(1.6rem,4vw,2.1rem); font-weight:800;
+      letter-spacing:-0.025em; color:#d7fbed;
+    }
+    .mobile-hero-box .sub { color:#bfe9d8; font-size:1.05rem; margin:0 auto 28px; max-width:580px; }
+    .store-badges { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+    .store-badge {
+      display:inline-flex; align-items:center; gap:10px; padding:12px 22px;
+      border-radius:12px; font-family:inherit; font-size:0.95rem; font-weight:700;
+      text-decoration:none; color:#fff; transition:filter .18s, transform .18s;
+    }
+    .store-badge:hover { filter:brightness(1.1); transform:translateY(-1px); }
+    .store-badge.google {
+      background:linear-gradient(135deg,var(--emerald),#059669);
+      box-shadow:0 8px 22px -8px rgba(16,185,129,0.7);
+    }
+    .store-badge.mac {
+      background:rgba(255,255,255,0.07); border:1px solid var(--border-strong);
+    }
+    .store-badge svg { width:22px; height:22px; flex-shrink:0; }
+    .mobile-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px; }
+    .mobile-card {
+      background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+      padding:28px; transition:border-color .2s, background .2s, transform .2s;
+    }
+    .mobile-card:hover { background:var(--card-hover); border-color:var(--border-strong); transform:translateY(-3px); }
+    .mobile-card .m-ico {
+      width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+      margin-bottom:16px; background:rgba(16,185,129,0.12); border:1px solid rgba(16,185,129,0.28);
+    }
+    .mobile-card .m-ico svg { width:22px; height:22px; stroke:var(--emerald); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+    .mobile-card h3 { margin:0 0 8px; font-size:1.1rem; font-weight:700; letter-spacing:-0.01em; }
+    .mobile-card p { margin:0; color:var(--ink-dim); font-size:0.94rem; }
+
+    /* Platform comparison */
+    .platform-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:20px; max-width:740px; margin:0 auto; }
+    .platform-card {
+      background:var(--card); border:1px solid var(--border); border-radius:20px;
+      padding:32px 28px; position:relative; transition:transform .2s;
+    }
+    .platform-card:hover { transform:translateY(-3px); }
+    .platform-card.desktop {
+      background:linear-gradient(160deg, rgba(124,92,255,0.10), rgba(91,140,255,0.05));
+      border-color:rgba(124,92,255,0.35);
+    }
+    .platform-card.mobile {
+      background:linear-gradient(160deg, rgba(16,185,129,0.10), rgba(5,150,105,0.04));
+      border-color:rgba(16,185,129,0.35);
+    }
+    .platform-card .plat-label {
+      font-size:0.78rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
+      margin-bottom:14px; display:flex; align-items:center; gap:8px;
+    }
+    .platform-card.desktop .plat-label { color:var(--violet-2); }
+    .platform-card.mobile .plat-label { color:var(--emerald); }
+    .platform-card .plat-name { font-size:1.2rem; font-weight:800; margin:0 0 6px; color:#fff; }
+    .platform-card .plat-desc { font-size:0.9rem; color:var(--ink-dim); margin:0 0 18px; line-height:1.55; }
+    .platform-card .plat-price { font-size:0.95rem; font-weight:600; color:var(--ink); margin:0 0 18px; }
+    .platform-card ul { list-style:none; padding:0; margin:0 0 22px; }
+    .platform-card ul li { padding:5px 0; font-size:0.9rem; color:var(--ink-dim); display:flex; gap:8px; align-items:flex-start; }
+    .platform-card.desktop ul li::before { content:"✓"; color:var(--violet); font-weight:700; flex-shrink:0; }
+    .platform-card.mobile ul li::before { content:"✓"; color:var(--emerald); font-weight:700; flex-shrink:0; }
+    .platform-card .plat-cta {
+      display:block; width:100%; padding:13px; border-radius:12px; font-family:inherit;
+      font-size:0.95rem; font-weight:700; text-decoration:none; text-align:center;
+      color:#fff; transition:filter .18s, transform .18s;
+    }
+    .platform-card .plat-cta:hover { filter:brightness(1.1); transform:translateY(-1px); }
+    .platform-card.desktop .plat-cta {
+      background:linear-gradient(135deg,var(--violet),var(--brand));
+      box-shadow:0 10px 24px -8px rgba(124,92,255,0.7);
+    }
+    .platform-card.mobile .plat-cta {
+      background:linear-gradient(135deg,var(--emerald),#059669);
+      box-shadow:0 10px 24px -8px rgba(16,185,129,0.6);
+    }
+
+    /* Security & Compliance grid */
+    .compliance-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; }
+    .compliance-card {
+      background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+      padding:30px 28px; transition:border-color .2s, background .2s, transform .2s;
+    }
+    .compliance-card:hover { background:var(--card-hover); border-color:var(--border-strong); transform:translateY(-3px); }
+    .compliance-card .badge-icon {
+      width:48px; height:48px; border-radius:14px; display:flex; align-items:center; justify-content:center;
+      margin-bottom:18px; background:rgba(16,185,129,0.12); border:1px solid rgba(16,185,129,0.28);
+    }
+    .compliance-card .badge-icon svg { width:26px; height:26px; stroke:var(--emerald); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+    .compliance-card h3 { margin:0 0 10px; font-size:1.08rem; font-weight:700; letter-spacing:-0.01em; }
+    .compliance-card p { margin:0 0 14px; color:var(--ink-dim); font-size:0.92rem; line-height:1.65; }
+    .seo-pill {
+      display:inline-block; padding:4px 12px; border-radius:999px; font-size:0.72rem; font-weight:600;
+      letter-spacing:0.04em; text-transform:uppercase; color:var(--emerald);
+      background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.25);
+    }
+
     footer { text-align:center; padding:40px 20px; border-top:1px solid var(--border); color:var(--ink-faint); font-size:0.85rem; }
     footer a { color:var(--ink-dim); text-decoration:none; }
     footer a:hover { color:var(--ink); }
@@ -257,8 +399,9 @@
     <nav>
       <a class="brand" href="/"><img class="brand-logo" src="/sentinel/assets/sentinel_logo.JPG" alt="CamLabs.ai"> CamLabs.ai</a>
       <a href="/sentinel/">Sentinel AI</a>
-      <a href="/redactly/">Redactly Pro</a>
+      <a href="/redactly/">Redactly AI</a>
       <a href="/redactly/download.html">Download</a>
+      <a href="#mobile">Mobile</a>
       <a href="/blog/">Blog</a>
       <a href="/support.html">Support</a>
       <a class="cta" href="/redactly/download.html" style="padding:8px 16px;font-size:0.9rem;">Get started</a>
@@ -266,18 +409,19 @@
 
     <!-- Hero -->
     <header class="hero">
-      <div class="pill"><span class="dot"></span> macOS · On-device AI · Government-grade accuracy</div>
-      <h1>Black out every name, SSN, and detail — automatically.</h1>
+      <div class="pill"><span class="dot"></span> iPhone · iPad · Mac · Android · On-device processing</div>
+      <h1>Scan, redact, and export — right on your device.</h1>
       <p class="lede">
-        Redactly Pro is a native Mac app for document redaction. Tell it what to hide in plain language,
-        and its AI engine finds every match across every page —
-        with OCR and redaction that <strong>never leave your Mac</strong>. No cloud. No uploads.
+        Redactly AI scans documents to PDF and redacts SSNs, account numbers, dates of birth, and more
+        with on-device OCR. Tell it which names to protect and it finds every variation.
+        Documents stay on your device unless you choose to fax them.
       </p>
       <div class="cta-row">
-        <a class="cta" href="/redactly/download.html">⬇ Download Free Trial</a>
-        <a class="cta ghost" href="#features">See how it works</a>
+        <a class="cta" href="https://apps.apple.com/us/app/id6797546607" target="_blank" rel="noopener">App Store</a>
+        <a class="cta" href="https://play.google.com/store/apps/details?id=com.camlabs.redactly" target="_blank" rel="noopener" style="background:linear-gradient(135deg,var(--emerald),#059669);box-shadow:0 12px 34px -10px rgba(16,185,129,0.7);">Google Play</a>
+        <a class="cta ghost" href="/redactly/download.html">Mac direct download</a>
       </div>
-      <div class="hero-sub">macOS 13+ · No credit card required · 14-day trial</div>
+      <div class="hero-sub">Free download · Redactly Pro $29.99/year · 14-day free trial</div>
     </header>
 
     <!-- Video demo -->
@@ -296,17 +440,17 @@
     <!-- Screenshot gallery -->
     <section id="screens" style="padding:40px 0 20px;">
       <div class="shots">
-        <div class="shot"><img src="/redactly/assets/mac/02_home_1440x900.png"      alt="Redactly Pro — Drop in a document. That's it. 100% on-device processing." loading="lazy"></div>
-        <div class="shot"><img src="/redactly/assets/mac/04_import_1440x900.png"    alt="Redactly Pro — Works with the files you already have. PDF, PNG, JPG from Finder." loading="lazy"></div>
-        <div class="shot"><img src="/redactly/assets/mac/05_document_1440x900.png"  alt="Redactly Pro — See exactly what you're redacting. Full document view before a single bar is placed." loading="lazy"></div>
-        <div class="shot"><img src="/redactly/assets/mac/03_copilot_1440x900.png"   alt="Redactly Pro — Redact by category in one click. Names, SSNs, cards, passports, EINs, and more." loading="lazy"></div>
-        <div class="shot"><img src="/redactly/assets/mac/06_results_1440x900.png"   alt="Redactly Pro — AI finds what the eye misses. Every match found, logged, and blacked out." loading="lazy"></div>
-        <div class="shot"><img src="/redactly/assets/mac/04_tables_1440x900.png"    alt="Redactly Pro — Finds what's buried inside tables. Merged cells and structured layouts that other tools skip." loading="lazy"></div>
-        <div class="shot"><img src="/redactly/assets/mac/03_collision_1440x900.png" alt="Redactly Pro — It knows when one name means two people. Ambiguous matches are flagged, never quietly guessed." loading="lazy"></div>
-        <div class="shot"><img src="/redactly/assets/mac/05_kyc_1440x900.png"       alt="Redactly Pro — Built for KYC, HIPAA, and case files. Loan packets, medical records, legal discovery." loading="lazy"></div>
-        <div class="shot"><img src="/redactly/assets/mac/07_pages_1440x900.png"     alt="Redactly Pro — One page, or all of them. You choose exactly what gets processed." loading="lazy"></div>
-        <div class="shot"><img src="/redactly/assets/mac/08_export_1440x900.png"    alt="Redactly Pro — Export, print, or share safely. The redacted copy is the only one that ever leaves." loading="lazy"></div>
-        <div class="shot"><img src="/redactly/assets/mac/08_history_1440x900.png"   alt="Redactly Pro — A private record of every scan. Stored locally on your Mac. Never uploaded." loading="lazy"></div>
+        <div class="shot"><img src="/redactly/assets/mac/02_home_1440x900.png"      alt="Redactly AI — Drop in a document and start scanning." loading="lazy"></div>
+        <div class="shot"><img src="/redactly/assets/mac/04_import_1440x900.png"    alt="Redactly AI — Import PDFs, PNGs, and JPGs from Finder." loading="lazy"></div>
+        <div class="shot"><img src="/redactly/assets/mac/05_document_1440x900.png"  alt="Redactly AI — Full document view before placing redaction bars." loading="lazy"></div>
+        <div class="shot"><img src="/redactly/assets/mac/03_copilot_1440x900.png"   alt="Redactly AI — Toggle categories: SSNs, phone numbers, account numbers, and more." loading="lazy"></div>
+        <div class="shot"><img src="/redactly/assets/mac/06_results_1440x900.png"   alt="Redactly AI — Matches found, logged, and blacked out." loading="lazy"></div>
+        <div class="shot"><img src="/redactly/assets/mac/04_tables_1440x900.png"    alt="Redactly AI — Detects content inside tables and structured layouts." loading="lazy"></div>
+        <div class="shot"><img src="/redactly/assets/mac/03_collision_1440x900.png" alt="Redactly AI — Ambiguous name matches are flagged for your review." loading="lazy"></div>
+        <div class="shot"><img src="/redactly/assets/mac/05_kyc_1440x900.png"       alt="Redactly AI — Loan packets, legal files, and case documents." loading="lazy"></div>
+        <div class="shot"><img src="/redactly/assets/mac/07_pages_1440x900.png"     alt="Redactly AI — Choose which pages to process." loading="lazy"></div>
+        <div class="shot"><img src="/redactly/assets/mac/08_export_1440x900.png"    alt="Redactly AI — Export a permanently redacted PDF." loading="lazy"></div>
+        <div class="shot"><img src="/redactly/assets/mac/08_history_1440x900.png"   alt="Redactly AI — Local scan history stored on your device." loading="lazy"></div>
       </div>
       <p class="shots-hint">← swipe to see more →</p>
     </section>
@@ -315,19 +459,19 @@
     <section id="features">
       <div class="container">
         <div class="sec-head">
-          <h2>Redaction that actually protects you</h2>
-          <p>Built for law, healthcare, government, and anyone who handles sensitive documents every day.</p>
+          <h2>What Redactly AI does</h2>
+          <p>Built for law offices, healthcare, finance, and anyone who handles sensitive documents.</p>
         </div>
         <div class="grid">
           <div class="card">
             <div class="ico">🧠</div>
-            <h3>AI Shield — one command, all pages</h3>
-            <p>Type "Redact all names" or "Redact SSNs" and the AI engine finds every match across every page simultaneously — names, numbers, addresses, any PII you specify.</p>
+            <h3>Detect and redact by category</h3>
+            <p>Toggle detection for SSNs, account numbers, card numbers, dates of birth, phone numbers, emails, addresses, driver's license numbers, and other IDs. Each category has its own switch so you control exactly what gets flagged.</p>
           </div>
           <div class="card">
             <div class="ico">🔒</div>
-            <h3>100% on-device privacy</h3>
-            <p>OCR, text extraction, and redaction happen entirely on your Mac. No cloud servers, no uploads, zero network risk. Your documents never leave your computer.</p>
+            <h3>On-device processing</h3>
+            <p>Scanning, OCR, detection, and redaction all run on your device. Documents are not uploaded to our servers. The one exception: if you choose to fax a document (mobile only), it is sent through our fax provider, Telnyx.</p>
           </div>
           <div class="card">
             <div class="ico">🔥</div>
@@ -336,29 +480,181 @@
           </div>
           <div class="card">
             <div class="ico">✏️</div>
-            <h3>Manual precision control</h3>
-            <p>Draw redaction boxes by hand on any area the AI misses — or undo specific marks the AI applied. You're always in control of exactly what gets redacted.</p>
+            <h3>Review and undo</h3>
+            <p>Tap any black box to remove just that one redaction, with full Undo/Redo support. A pre-export safety check helps you catch anything you may have missed before saving.</p>
           </div>
           <div class="card">
             <div class="ico">📄</div>
             <h3>Import PDFs, photos, or scans</h3>
-            <p>Open any PDF, import a scanned image, or capture documents with your camera. All processed locally — exported as a clean, permanently-redacted PDF.</p>
+            <p>Open a PDF, import a photo, or use your device camera to scan a paper document. All processed on-device — exported as a permanently-redacted PDF.</p>
           </div>
           <div class="card">
             <div class="ico">🎯</div>
-            <h3>Plain-language commands</h3>
-            <p>No complex rules to configure. Type what you want hidden — "Redact all addresses", "Redact Jonathan", "Redact all phone numbers" — and the AI handles the rest.</p>
+            <h3>Simple commands</h3>
+            <p>Tell Redactly which names to protect and it finds every variation. Use commands like "Redact all SSNs" or "Redact all phone numbers" to flag matches across every page.</p>
           </div>
           <div class="card">
             <div class="ico">🗄️</div>
             <h3>Local scan history</h3>
-            <p>Your document history stays on your Mac. No telemetry, no analytics, no sync — you own your data completely, with no subscription required to access it.</p>
+            <p>Your document library is stored on your device. Past scans are accessible without an internet connection.</p>
           </div>
           <div class="card">
             <div class="ico">📠</div>
-            <h3>Secure fax built in</h3>
-            <p>Fax a redacted document straight from the app with the mobile companion. No separate machine or service required — just enter the number and send.</p>
+            <h3>Outbound fax (mobile only)</h3>
+            <p>Fax a redacted document from the iPhone or Android app — send-only, no receiving. Enter the number and send. The document is transmitted through our fax provider, Telnyx.</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Privacy Architecture -->
+    <section id="privacy-arch">
+      <div class="container">
+        <div class="sec-head">
+          <h2>How Redactly protects your documents</h2>
+          <p>On-device processing means your sensitive documents don't pass through third-party cloud servers.</p>
+        </div>
+        <div class="compliance-grid">
+
+          <article class="compliance-card">
+            <div class="badge-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 2l7 4v6c0 5.25-3.5 9.74-7 11-3.5-1.26-7-5.75-7-11V6l7-4z"/><path d="M9 12l2 2 4-4"/></svg>
+            </div>
+            <h3>Documents stay on your device</h3>
+            <p>Scanning, OCR, detection, and redaction all happen locally. Your documents are not uploaded to our servers. If you choose to fax a document (mobile only), it is sent through our fax provider, Telnyx.</p>
+            <span class="seo-pill">On-device processing</span>
+          </article>
+
+          <article class="compliance-card">
+            <div class="badge-icon">
+              <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <h3>No third-party cloud processing</h3>
+            <p>Because Redactly processes documents locally, sensitive files don't pass through external cloud services for scanning or redaction. This helps you keep documents off third-party servers.</p>
+            <span class="seo-pill">Local processing</span>
+          </article>
+
+          <article class="compliance-card">
+            <div class="badge-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 12c2-3.5 1-6.5 0-8-1 1.5-2 4.5 0 8z" fill="rgba(16,185,129,0.3)"/><path d="M8.5 14c0 2.5 1.5 4 3.5 5 2-1 3.5-2.5 3.5-5 0-3-3.5-6-3.5-10C12 7 8.5 11 8.5 14z"/></svg>
+            </div>
+            <h3>Permanent pixel-layer redaction</h3>
+            <p>Redactly doesn't just hide text under black rectangles. Redactions are burned into the page image and the export is flattened — the underlying text is stripped and cannot be copied or recovered.</p>
+            <span class="seo-pill">Flattened PDF export</span>
+          </article>
+
+          <article class="compliance-card">
+            <div class="badge-icon">
+              <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><circle cx="12" cy="10" r="2" fill="rgba(16,185,129,0.4)" stroke="var(--emerald)"/></svg>
+            </div>
+            <h3>Optional account</h3>
+            <p>You can use Redactly without signing in. An optional account (Apple, Google, or email) syncs purchases across devices and manages fax credits. You can delete your account anytime in Settings.</p>
+            <span class="seo-pill">No account required</span>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Mobile -->
+    <section id="mobile">
+      <div class="container">
+        <div class="mobile-hero-box">
+          <h2>Redactly on iPhone &amp; Android</h2>
+          <p class="sub">Scan paper documents to PDF, redact sensitive details on-device, and fax directly from your phone.</p>
+          <div class="store-badges">
+            <a class="store-badge google" href="https://apps.apple.com/us/app/id6797546607" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="#fff" stroke="none"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+              App Store (iPhone &amp; iPad)
+            </a>
+            <a class="store-badge mac" href="https://play.google.com/store/apps/details?id=com.camlabs.redactly" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="#fff" stroke="none"><path d="M3.61 1.814L13.793 12 3.61 22.186a1.07 1.07 0 0 1-.61-.947V2.761c0-.39.222-.726.61-.947zM14.5 12.707l2.55 2.55-8.9 5.075L14.5 12.707zm3.9-2.207L16.2 9.05l-1.7 1.7 1.7 1.7 2.2-1.45a.59.59 0 0 0 0-1zm-10.25-6.425l8.9 5.075-2.55 2.55-6.35-7.625z"/></svg>
+              Google Play
+            </a>
+          </div>
+        </div>
+
+        <div class="mobile-grid">
+          <article class="mobile-card">
+            <div class="m-ico">
+              <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+            </div>
+            <h3>Camera scan-to-PDF</h3>
+            <p>Snap a photo of any paper document or ID. Redactly converts it to a PDF and redacts sensitive details on-device before you share it.</p>
+          </article>
+
+          <article class="mobile-card">
+            <div class="m-ico">
+              <svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <h3>Import photos &amp; files</h3>
+            <p>Pull documents from your device storage, photo gallery, or file manager to redact on the fly.</p>
+          </article>
+
+          <article class="mobile-card">
+            <div class="m-ico">
+              <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </div>
+            <h3>Outbound faxing (send only)</h3>
+            <p>Fax redacted documents from the app to courts, agencies, or hospitals. Send-only — no receiving. Documents are transmitted through our fax provider, Telnyx.</p>
+          </article>
+
+          <article class="mobile-card">
+            <div class="m-ico">
+              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><rect x="10" y="10" width="4" height="5" rx="1"/><path d="M10 10v-1a2 2 0 1 1 4 0v1"/></svg>
+            </div>
+            <h3>On-device processing</h3>
+            <p>OCR and redaction run on your phone. Documents are not uploaded to our servers. On mobile, Google ML Kit (on-device OCR) may send limited technical diagnostics to Google — not your document content.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Platform Comparison -->
+    <section id="platforms">
+      <div class="container">
+        <div class="sec-head">
+          <h2>Available on every platform</h2>
+          <p>Same redaction engine on desktop and mobile.</p>
+        </div>
+        <div class="platform-grid">
+
+          <div class="platform-card desktop">
+            <div class="plat-label">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              Desktop
+            </div>
+            <p class="plat-name">Mac (App Store or direct download)</p>
+            <p class="plat-desc">Also available as a direct .dmg download with its own license-key pricing.</p>
+            <p class="plat-price">App Store: $29.99/year &middot; 14-day free trial</p>
+            <ul>
+              <li>On-device scanning, OCR &amp; redaction</li>
+              <li>Category toggles for SSNs, accounts, DOB, etc.</li>
+              <li>Review, undo, and pre-export safety check</li>
+              <li>Permanent flattened PDF export</li>
+              <li>Local scan history</li>
+            </ul>
+            <a class="plat-cta" href="https://apps.apple.com/us/app/id6797546607" target="_blank" rel="noopener">App Store</a>
+          </div>
+
+          <div class="platform-card mobile">
+            <div class="plat-label">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+              Mobile
+            </div>
+            <p class="plat-name">iPhone, iPad &amp; Android</p>
+            <p class="plat-desc">Camera scanning, photo-to-PDF, on-device redaction, and outbound faxing.</p>
+            <p class="plat-price">Free download &middot; Redactly Pro $29.99/year &middot; 14-day trial</p>
+            <ul>
+              <li>Camera scan-to-PDF</li>
+              <li>On-device detection &amp; redaction</li>
+              <li>Import from gallery &amp; files</li>
+              <li>Outbound faxing (send only, via Telnyx)</li>
+              <li>Local scan history</li>
+            </ul>
+            <a class="plat-cta" href="https://apps.apple.com/us/app/id6797546607" target="_blank" rel="noopener">App Store</a>
+          </div>
+
         </div>
       </div>
     </section>
@@ -374,17 +670,17 @@
           <div class="step">
             <div class="step-num">1</div>
             <h3>Download &amp; open</h3>
-            <p><a href="/redactly/download.html" style="color:var(--violet-2);text-decoration:none;font-weight:600;">Download Redactly Pro</a> directly for Mac — drag it into Applications and open it. Your 14-day trial starts as soon as you enter a trial key — no card required.</p>
+            <p>Get Redactly AI from the <a href="https://apps.apple.com/us/app/id6797546607" style="color:var(--violet-2);text-decoration:none;font-weight:600;" target="_blank" rel="noopener">App Store</a>, <a href="https://play.google.com/store/apps/details?id=com.camlabs.redactly" style="color:var(--violet-2);text-decoration:none;font-weight:600;" target="_blank" rel="noopener">Google Play</a>, or <a href="/redactly/download.html" style="color:var(--violet-2);text-decoration:none;font-weight:600;">download for Mac</a> directly. Start your 14-day free trial from inside the app. Cancel anytime before it ends and you won't be charged.</p>
           </div>
           <div class="step">
             <div class="step-num">2</div>
             <h3>Import your document</h3>
-            <p>Drag in a PDF, import a photo, or use the document scanner. Everything stays on your Mac.</p>
+            <p>Open a PDF, import a photo, or scan a paper document with your camera. Everything is processed on your device.</p>
           </div>
           <div class="step">
             <div class="step-num">3</div>
             <h3>Redact and export</h3>
-            <p>Type what to hide, review the results, and export a permanently-redacted PDF — ready to share safely.</p>
+            <p>Toggle detection categories, review the results, and export a permanently-redacted PDF — ready to share.</p>
           </div>
         </div>
       </div>
@@ -394,8 +690,8 @@
     <section id="trial">
       <div class="container">
         <div class="trial-box">
-          <h2>Start your free trial</h2>
-          <p class="sub">Enter your email and we'll send you a 14-day trial key. No card required.</p>
+          <h2>Mac direct download — free trial</h2>
+          <p class="sub">Enter your email and we'll send you a 14-day trial license key for the Mac direct download. No card required.</p>
           <form class="trial-form" id="trialForm" onsubmit="return handleTrial(event)">
             <input type="email" id="trialEmail" placeholder="you@lawfirm.com" required autocomplete="email">
             <button type="submit" id="trialBtn">Get trial key</button>
@@ -414,41 +710,60 @@
     <section id="pricing">
       <div class="container">
         <div class="sec-head">
-          <h2>Simple, honest pricing</h2>
-          <p>14-day free trial on every plan. Cancel anytime — no hidden fees.</p>
+          <h2>Pricing</h2>
+          <p>Free download. Upgrade to Redactly Pro for full features with a 14-day free trial.</p>
         </div>
-        <div class="pricing-grid">
+        <div class="pricing-grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));max-width:920px;">
 
-          <!-- Yearly -->
+          <!-- App Store / Google Play -->
           <div class="price-card featured">
-            <div class="best-badge">Best value</div>
-            <div class="plan-name">Yearly</div>
+            <div class="best-badge">App Store &amp; Google Play</div>
+            <div class="plan-name">Redactly Pro</div>
+            <div class="amount">$29.99</div>
+            <div class="per">/year</div>
+            <div class="trial-note">14-day free trial included</div>
+            <ul>
+              <li>All detection categories</li>
+              <li>Permanent redaction &amp; flattened export</li>
+              <li>Review, undo, pre-export safety check</li>
+              <li>Camera scan-to-PDF (mobile)</li>
+              <li>Outbound faxing (mobile)</li>
+              <li>Local scan history</li>
+            </ul>
+            <a class="buy-btn" href="https://apps.apple.com/us/app/id6797546607" target="_blank" rel="noopener">
+              Get on App Store — $29.99 / year
+            </a>
+          </div>
+
+          <!-- Mac Direct Download — Yearly -->
+          <div class="price-card">
+            <div class="plan-name">Mac Direct — Yearly</div>
             <div class="amount">$350</div>
             <div class="per">/year &nbsp;·&nbsp; <span style="color:var(--ink-faint);font-size:0.85rem;">$29.17/mo billed annually</span></div>
             <div class="trial-note">14-day free trial included</div>
             <ul>
-              <li>AI Shield — full PII detection</li>
-              <li>Unlimited documents</li>
-              <li>Manual redaction canvas</li>
+              <li>All detection categories</li>
+              <li>Permanent redaction &amp; flattened export</li>
+              <li>Review, undo, pre-export safety check</li>
               <li>PDF + image export</li>
               <li>Local scan history</li>
-              <li>All future updates</li>
+              <li>License key activation</li>
             </ul>
             <a class="buy-btn" href="https://buy.stripe.com/00w8wI8jW4fz3zybIJdwc02" target="_blank" rel="noopener">
               Buy Yearly — $350 / year
             </a>
           </div>
 
-          <!-- Monthly -->
+          <!-- Mac Direct Download — Monthly -->
           <div class="price-card">
-            <div class="plan-name">Monthly</div>
+            <div class="plan-name">Mac Direct — Monthly</div>
             <div class="amount">$50</div>
             <div class="per">/month</div>
             <div class="trial-note">14-day free trial included</div>
             <ul>
-              <li>AI Shield — full PII detection</li>
-              <li>Unlimited documents</li>
-              <li>Manual redaction canvas</li>
+              <li>All detection categories</li>
+              <li>Permanent redaction &amp; flattened export</li>
+              <li>Review, undo, pre-export safety check</li>
               <li>PDF + image export</li>
               <li>Local scan history</li>
               <li>Cancel anytime</li>
@@ -461,8 +776,7 @@
         </div>
 
         <p style="text-align:center; margin-top:28px; font-size:0.88rem; color:var(--ink-faint);">
-          After purchase, you'll receive a license key by email. Open Redactly Pro, click<br>
-          <em>"Already purchased? Enter your license key"</em> on the welcome screen, paste your key, and activate.
+          App Store and Google Play purchases activate automatically. Mac direct-download purchases receive a license key by email.
         </p>
       </div>
     </section>
@@ -471,19 +785,19 @@
     <section id="privacy">
       <div class="container">
         <div class="privacy">
-          <h2>Your documents never leave your Mac.</h2>
+          <h2>Your documents stay on your device.</h2>
           <p>
-            Redactly Pro does everything — scanning, OCR text recognition, and redaction —
-            <strong>100% locally, on-device</strong>. No cloud uploads, no accounts to create, no tracking.
-            Because our redaction burns content into the pixel layer, removed text is gone from the exported file —
-            not just hidden behind a black box someone can peel away.
+            Scanning, OCR, detection, and redaction all run locally on your device — iPhone, iPad, Mac, or Android.
+            Documents are not uploaded to our servers unless you choose to fax them (mobile only, sent via Telnyx).
+            Redaction is permanent: content is burned into the pixel layer and the export is flattened,
+            so removed text cannot be copied or recovered.
           </p>
         </div>
       </div>
     </section>
 
     <footer>
-      &copy; 2026 CamLabs.ai · Redactly Pro &nbsp;·&nbsp;
+      &copy; 2026 CamLabs.ai · Redactly AI &nbsp;·&nbsp;
       <a href="/">Home</a> &nbsp;·&nbsp;
       <a href="/sentinel/">Sentinel AI</a> &nbsp;·&nbsp;
       <a href="/privacy.html">Privacy</a> &nbsp;·&nbsp;
