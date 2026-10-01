@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Redact a PDF on iPhone (and Check That It Actually Worked) | CamLabs.ai</title>
+  <meta name="description" content="Drawing a black box over text in a PDF often hides nothing. Here is how to properly redact a PDF on your iPhone, what it costs, and a 30-second test to make sure the redaction is real.">
+  <link rel="canonical" href="https://camlabs.ai/blog/how-to-redact-a-pdf-on-iphone/" />
+
+  <meta property="og:title" content="How to Redact a PDF on iPhone (and Check That It Actually Worked)" />
+  <meta property="og:description" content="Drawing a black box over text in a PDF often hides nothing. Here is how to properly redact a PDF on your iPhone, what it costs, and a 30-second test to make sure the redaction is real." />
+  <meta property="og:image" content="https://camlabs.ai/redactly/assets/ios_01_redaction_result.PNG" />
+  <meta property="og:url" content="https://camlabs.ai/blog/how-to-redact-a-pdf-on-iphone/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-09-30" />
+  <meta property="article:author" content="Bryon Hudson" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Redact a PDF on iPhone (and Check That It Actually Worked)">
+  <meta name="twitter:description" content="Drawing a black box over text in a PDF often hides nothing. Here is how to properly redact a PDF on your iPhone, what it costs, and a 30-second test to make sure the redaction is real.">
+  <meta name="twitter:image" content="https://camlabs.ai/redactly/assets/ios_01_redaction_result.PNG">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "How to Redact a PDF on iPhone (and Check That It Actually Worked)",
+    "description": "Drawing a black box over text in a PDF often hides nothing. Here is how to properly redact a PDF on your iPhone, what it costs, and a 30-second test to make sure the redaction is real.",
+    "image": "https://camlabs.ai/redactly/assets/ios_01_redaction_result.PNG",
+    "datePublished": "2026-09-30",
+    "dateModified": "2026-09-30",
+    "author": { "@type": "Person", "name": "Bryon Hudson", "url": "https://camlabs.ai/" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "CamLabs",
+      "logo": { "@type": "ImageObject", "url": "https://camlabs.ai/sentinel/assets/sentinel_logo.JPG" }
+    },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://camlabs.ai/blog/how-to-redact-a-pdf-on-iphone/" }
+  }
+  </script>
+
+  <link rel="icon" type="image/jpeg" href="/sentinel/assets/sentinel_logo.JPG">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0B0F19; --card:rgba(255,255,255,0.025); --border:rgba(255,255,255,0.08);
+      --border-strong:rgba(255,255,255,0.14); --ink:#F3F5F9; --ink-dim:#9aa4b6; --ink-faint:#6b7585;
+      --brand:#5b8cff; --brand-2:#7c5cff; --emerald:#10b981;
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0; background:var(--bg); color:var(--ink); line-height:1.7;
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; -webkit-font-smoothing:antialiased;
+    }
+    a { color:var(--brand); }
+    body::before {
+      content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+      background:radial-gradient(700px 340px at 50% -10%, rgba(124,92,255,0.16), transparent 70%);
+    }
+    .wrap { position:relative; z-index:1; }
+    nav {
+      display:flex; justify-content:center; gap:26px; align-items:center;
+      padding:18px 20px; border-bottom:1px solid var(--border);
+      backdrop-filter:blur(8px); position:sticky; top:0; background:rgba(11,15,25,0.7); z-index:5; flex-wrap:wrap;
+    }
+    nav a { color:var(--ink-dim); text-decoration:none; font-size:0.92rem; font-weight:500; }
+    nav a:hover { color:var(--ink); }
+    nav a.brand { color:var(--ink); font-weight:700; display:inline-flex; align-items:center; gap:9px; }
+    .brand-logo { width:28px; height:28px; border-radius:8px; object-fit:cover; object-position:center 26%; border:1px solid var(--border); }
+
+    .article { max-width:720px; margin:0 auto; padding:56px 22px 40px; }
+    .crumb { font-size:0.85rem; color:var(--ink-faint); margin-bottom:22px; }
+    .crumb a { color:var(--ink-dim); text-decoration:none; }
+    .article h1 {
+      font-size:clamp(1.9rem,4.6vw,2.6rem); line-height:1.14; margin:0 0 18px; font-weight:800; letter-spacing:-0.03em;
+      background:linear-gradient(180deg,#ffffff,#c3b6f5); -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .byline { display:flex; align-items:center; gap:12px; color:var(--ink-faint); font-size:0.9rem; margin-bottom:34px; padding-bottom:24px; border-bottom:1px solid var(--border); }
+    .byline .avatar { width:38px; height:38px; border-radius:50%; object-fit:cover; border:1px solid var(--border); }
+    .byline b { color:var(--ink-dim); font-weight:600; }
+    .article p { color:#c2cad8; font-size:1.06rem; margin:0 0 20px; }
+    .article h2 { font-size:1.45rem; font-weight:700; letter-spacing:-0.02em; margin:40px 0 14px; color:var(--ink); }
+    .article strong { color:var(--ink); font-weight:600; }
+    .article ul { padding-left:0; list-style:none; margin:0 0 20px; }
+    .article ul li {
+      position:relative; padding:16px 18px 16px 20px; margin-bottom:12px; border-radius:12px;
+      background:var(--card); border:1px solid var(--border); color:#c2cad8; font-size:1.02rem;
+    }
+    .article ul li strong { color:var(--ink); }
+    .lead { font-size:1.18rem !important; color:var(--ink-dim) !important; }
+
+    .cta-box {
+      margin:44px 0 8px; padding:30px 28px; text-align:center; border-radius:18px;
+      background:linear-gradient(180deg, rgba(124,92,255,0.12), rgba(91,140,255,0.04));
+      border:1px solid rgba(124,92,255,0.32);
+    }
+    .cta-box h3 { margin:0 0 8px; font-size:1.25rem; font-weight:700; color:var(--ink); }
+    .cta-box p { margin:0 0 18px; color:var(--ink-dim); font-size:1rem; }
+    .cta {
+      display:inline-flex; align-items:center; gap:8px; padding:13px 26px; border-radius:12px;
+      font-weight:600; font-size:1rem; text-decoration:none; color:#fff; border:1px solid transparent;
+      background:linear-gradient(135deg,var(--brand-2),var(--brand)); box-shadow:0 12px 34px -10px rgba(124,92,255,0.85);
+    }
+    .shot { display:block; width:100%; max-width:320px; margin:8px auto 24px; border-radius:18px; border:1px solid var(--border); }
+    .article ol { color:#c2cad8; font-size:1.04rem; padding-left:22px; margin:0 0 20px; }
+    .article ol li { margin-bottom:10px; }
+    .note { font-size:0.95rem !important; color:var(--ink-faint) !important; }
+    .cta:hover { filter:brightness(1.08); }
+
+    footer { text-align:center; padding:36px 20px; border-top:1px solid var(--border); color:var(--ink-faint); font-size:0.85rem; }
+    footer a { color:var(--ink-dim); text-decoration:none; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="/"><img class="brand-logo" src="/sentinel/assets/sentinel_logo.JPG" alt="CamLabs.ai"> CamLabs.ai</a>
+      <a href="/redactly/">Redactly AI</a>
+      <a href="/sentinel/">Sentinel AI</a>
+      <a href="/blog/">Blog</a>
+      <a href="/support.html">Support</a>
+    </nav>
+
+    <article class="article">
+      <div class="crumb"><a href="/blog/">← All posts</a></div>
+      <h1>How to Redact a PDF on iPhone (and Check That It Actually Worked)</h1>
+      <div class="byline">
+        <img class="avatar" src="/sentinel/assets/sentinel_logo.JPG" alt="CamLabs">
+        <div>By <b>Bryon Hudson</b> · Founder, CamLabs<br>September 30, 2026 · 5 min read</div>
+      </div>
+
+      <p class="lead">You need to send a bank statement, a tax form or a court filing from your phone, and a few things on it can't be seen: an SSN, an account number, a date of birth. The obvious move is to mark them up with a black box. That is also the move that gets people in trouble.</p>
+
+      <h2>Why a black box usually isn't redaction</h2>
+      <p>Most iPhone markup tools add a shape <em>on top of</em> the page. The text underneath is still in the file. Anyone who receives it can often select the "hidden" text, copy it, and paste it somewhere else, or simply remove the shape.</p>
+      <p>Real redaction removes the information from the file itself. Once it's done, there is nothing under the black bar to recover. Keep that difference in mind as you pick a tool, because both kinds of tool put a black bar on your screen.</p>
+
+      <h2>Option 1: Adobe Acrobat Pro</h2>
+      <p>Acrobat's true Redact tool is part of <strong>Acrobat Pro</strong>; Acrobat Standard doesn't include it. As of mid-2026, Pro runs about <strong>$19.99 a month on an annual plan</strong>, or about $29.99 month to month (<a href="https://redresscompliance.com/adobe-acrobat-pro-current-pricing-2026" rel="noopener">pricing summary</a>, <a href="https://saferedact.app/insights/how-to-redact-in-adobe-acrobat" rel="noopener">which plans include Redact</a>). Check Adobe's own pricing page before you buy, since plans change.</p>
+      <p>If your office already pays for Acrobat Pro, it's a solid choice. If you only redact now and then, or mostly from your phone, it's a lot to pay for one feature.</p>
+
+      <h2>Option 2: an on-device redaction app</h2>
+      <p>The other route is an app built just for redaction. I built one, <a href="/redactly/">Redactly AI</a>, so take this section knowing I'm biased. Here is how it works on iPhone:</p>
+      <ol>
+        <li><strong>Bring in the document.</strong> Scan paper with the camera, or open a PDF or photo you already have.</li>
+        <li><strong>Tell it what to hide.</strong> Ask the copilot something like "Redact all PII," or pick a category such as SSNs, account numbers, phone numbers, emails, dates of birth or addresses. It checks every page, including scanned ones, using on-device text recognition. AI name detection is available too and needs a free Redactly account.</li>
+        <li><strong>Review every page.</strong> Tap a black bar to remove it, or draw your own bar over anything it missed.</li>
+        <li><strong>Export.</strong> The exported PDF is flattened: the black bars are burned into the page image and the original text layer is gone.</li>
+      </ol>
+      <img class="shot" src="/redactly/assets/ios_01_redaction_result.PNG" alt="Redactly on iPhone showing a sample meeting-minutes document with names blacked out" loading="lazy">
+      <p class="note">Screenshot uses a made-up sample document.</p>
+      <p>Scanning, text recognition and redaction run on your phone, and your documents aren't uploaded to our servers. The one exception is fax: if you choose to fax a document from the app, it goes through our fax provider.</p>
+      <p>Redactly is free to download with a 14-day free trial. After that, Redactly Pro for iPhone and iPad is $29.99 a year.</p>
+
+      <h2>How to check the result before you send it</h2>
+      <p>Whatever tool you use, take 30 seconds to test the exported file, not the version on your screen:</p>
+      <ol>
+        <li><strong>The copy test.</strong> Open the exported PDF, press and hold on a black bar, and try to select the text. Paste whatever you get into Notes. If any hidden words show up, the redaction failed.</li>
+        <li><strong>The search test.</strong> Search the PDF for a word you know you hid, like the last four of an account number. It should not be found. (A flattened export has no searchable text at all, which is expected.)</li>
+        <li><strong>The page-by-page look.</strong> Zoom in on every page. Watch for a number that wraps onto the next line, a name in a header or footer, and anything in a stamp or handwritten note.</li>
+      </ol>
+      <p>No automated tool is perfect, including mine. Use the tool to do the heavy lifting, then make the last check yourself.</p>
+
+      <h2>The short version</h2>
+      <p>A black shape is not redaction. Use Acrobat Pro if you already have it, or an on-device app if you want to do it from your phone without uploading the document anywhere. Either way, run the copy test before you hit send.</p>
+
+      <div class="cta-box">
+        <h3>Try Redactly AI free for 14 days</h3>
+        <p>Scan or open a PDF, black out SSNs, account numbers and other personal details, and export a flattened file, all on your iPhone.</p>
+        <a class="cta" href="https://apps.apple.com/us/app/id6797546607">Get it on the App Store →</a>
+      </div>
+    </article>
+
+    <footer>
+      &copy; 2026 CamLabs.ai · <a href="/blog/">Blog</a> · <a href="/redactly/">Redactly AI</a> · <a href="/privacy.html">Privacy</a> · <a href="/support.html">Support</a>
+    </footer>
+  </div>
+</body>
+</html>

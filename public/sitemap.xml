@@ -26,9 +26,15 @@
   </url>
   <url>
     <loc>https://camlabs.ai/blog/</loc>
-    <lastmod>2026-06-24</lastmod>
+    <lastmod>2026-09-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://camlabs.ai/blog/how-to-redact-a-pdf-on-iphone/</loc>
+    <lastmod>2026-09-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://camlabs.ai/blog/ai-redaction-for-legal-documents/</loc>
