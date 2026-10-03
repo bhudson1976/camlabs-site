@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Redact a Scanned PDF on a Mac (Without Uploading It Anywhere) | CamLabs.ai</title>
+  <meta name="description" content="Mac Preview can redact text, but scanned pages and long documents make it slow and easy to miss things. Here are your options on a Mac, what each costs, and how to check the result before you send it.">
+  <link rel="canonical" href="https://camlabs.ai/blog/how-to-redact-a-scanned-pdf-on-mac/" />
+
+  <meta property="og:title" content="How to Redact a Scanned PDF on a Mac (Without Uploading It Anywhere)" />
+  <meta property="og:description" content="Mac Preview can redact text, but scanned pages and long documents make it slow and easy to miss things. Here are your options on a Mac, what each costs, and how to check the result before you send it." />
+  <meta property="og:image" content="https://camlabs.ai/redactly/assets/mac/08_export_1440x900.png" />
+  <meta property="og:url" content="https://camlabs.ai/blog/how-to-redact-a-scanned-pdf-on-mac/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-10-03" />
+  <meta property="article:author" content="Bryon Hudson" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Redact a Scanned PDF on a Mac (Without Uploading It Anywhere)">
+  <meta name="twitter:description" content="Mac Preview can redact text, but scanned pages and long documents make it slow and easy to miss things. Here are your options on a Mac, what each costs, and how to check the result before you send it.">
+  <meta name="twitter:image" content="https://camlabs.ai/redactly/assets/mac/08_export_1440x900.png">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "How to Redact a Scanned PDF on a Mac (Without Uploading It Anywhere)",
+    "description": "Mac Preview can redact text, but scanned pages and long documents make it slow and easy to miss things. Here are your options on a Mac, what each costs, and how to check the result before you send it.",
+    "image": "https://camlabs.ai/redactly/assets/mac/08_export_1440x900.png",
+    "datePublished": "2026-10-03",
+    "dateModified": "2026-10-03",
+    "author": { "@type": "Person", "name": "Bryon Hudson", "url": "https://camlabs.ai/" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "CamLabs",
+      "logo": { "@type": "ImageObject", "url": "https://camlabs.ai/sentinel/assets/sentinel_logo.JPG" }
+    },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://camlabs.ai/blog/how-to-redact-a-scanned-pdf-on-mac/" }
+  }
+  </script>
+
+  <link rel="icon" type="image/jpeg" href="/sentinel/assets/sentinel_logo.JPG">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0B0F19; --card:rgba(255,255,255,0.025); --border:rgba(255,255,255,0.08);
+      --border-strong:rgba(255,255,255,0.14); --ink:#F3F5F9; --ink-dim:#9aa4b6; --ink-faint:#6b7585;
+      --brand:#5b8cff; --brand-2:#7c5cff; --emerald:#10b981;
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0; background:var(--bg); color:var(--ink); line-height:1.7;
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; -webkit-font-smoothing:antialiased;
+    }
+    a { color:var(--brand); }
+    body::before {
+      content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+      background:radial-gradient(700px 340px at 50% -10%, rgba(124,92,255,0.16), transparent 70%);
+    }
+    .wrap { position:relative; z-index:1; }
+    nav {
+      display:flex; justify-content:center; gap:26px; align-items:center;
+      padding:18px 20px; border-bottom:1px solid var(--border);
+      backdrop-filter:blur(8px); position:sticky; top:0; background:rgba(11,15,25,0.7); z-index:5; flex-wrap:wrap;
+    }
+    nav a { color:var(--ink-dim); text-decoration:none; font-size:0.92rem; font-weight:500; }
+    nav a:hover { color:var(--ink); }
+    nav a.brand { color:var(--ink); font-weight:700; display:inline-flex; align-items:center; gap:9px; }
+    .brand-logo { width:28px; height:28px; border-radius:8px; object-fit:cover; object-position:center 26%; border:1px solid var(--border); }
+
+    .article { max-width:720px; margin:0 auto; padding:56px 22px 40px; }
+    .crumb { font-size:0.85rem; color:var(--ink-faint); margin-bottom:22px; }
+    .crumb a { color:var(--ink-dim); text-decoration:none; }
+    .article h1 {
+      font-size:clamp(1.9rem,4.6vw,2.6rem); line-height:1.14; margin:0 0 18px; font-weight:800; letter-spacing:-0.03em;
+      background:linear-gradient(180deg,#ffffff,#c3b6f5); -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .byline { display:flex; align-items:center; gap:12px; color:var(--ink-faint); font-size:0.9rem; margin-bottom:34px; padding-bottom:24px; border-bottom:1px solid var(--border); }
+    .byline .avatar { width:38px; height:38px; border-radius:50%; object-fit:cover; border:1px solid var(--border); }
+    .byline b { color:var(--ink-dim); font-weight:600; }
+    .article p { color:#c2cad8; font-size:1.06rem; margin:0 0 20px; }
+    .article h2 { font-size:1.45rem; font-weight:700; letter-spacing:-0.02em; margin:40px 0 14px; color:var(--ink); }
+    .article strong { color:var(--ink); font-weight:600; }
+    .article ul { padding-left:0; list-style:none; margin:0 0 20px; }
+    .article ul li {
+      position:relative; padding:16px 18px 16px 20px; margin-bottom:12px; border-radius:12px;
+      background:var(--card); border:1px solid var(--border); color:#c2cad8; font-size:1.02rem;
+    }
+    .article ul li strong { color:var(--ink); }
+    .lead { font-size:1.18rem !important; color:var(--ink-dim) !important; }
+
+    .cta-box {
+      margin:44px 0 8px; padding:30px 28px; text-align:center; border-radius:18px;
+      background:linear-gradient(180deg, rgba(124,92,255,0.12), rgba(91,140,255,0.04));
+      border:1px solid rgba(124,92,255,0.32);
+    }
+    .cta-box h3 { margin:0 0 8px; font-size:1.25rem; font-weight:700; color:var(--ink); }
+    .cta-box p { margin:0 0 18px; color:var(--ink-dim); font-size:1rem; }
+    .cta {
+      display:inline-flex; align-items:center; gap:8px; padding:13px 26px; border-radius:12px;
+      font-weight:600; font-size:1rem; text-decoration:none; color:#fff; border:1px solid transparent;
+      background:linear-gradient(135deg,var(--brand-2),var(--brand)); box-shadow:0 12px 34px -10px rgba(124,92,255,0.85);
+    }
+    .shot { display:block; width:100%; max-width:720px; margin:8px auto 24px; border-radius:18px; border:1px solid var(--border); }
+    .article ol { color:#c2cad8; font-size:1.04rem; padding-left:22px; margin:0 0 20px; }
+    .article ol li { margin-bottom:10px; }
+    .note { font-size:0.95rem !important; color:var(--ink-faint) !important; }
+    .cta:hover { filter:brightness(1.08); }
+
+    footer { text-align:center; padding:36px 20px; border-top:1px solid var(--border); color:var(--ink-faint); font-size:0.85rem; }
+    footer a { color:var(--ink-dim); text-decoration:none; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="/"><img class="brand-logo" src="/sentinel/assets/sentinel_logo.JPG" alt="CamLabs.ai"> CamLabs.ai</a>
+      <a href="/redactly/">Redactly AI</a>
+      <a href="/sentinel/">Sentinel AI</a>
+      <a href="/blog/">Blog</a>
+      <a href="/support.html">Support</a>
+    </nav>
+
+    <article class="article">
+      <div class="crumb"><a href="/blog/">← All posts</a></div>
+      <h1>How to Redact a Scanned PDF on a Mac (Without Uploading It Anywhere)</h1>
+      <div class="byline">
+        <img class="avatar" src="/sentinel/assets/sentinel_logo.JPG" alt="CamLabs">
+        <div>By <b>Bryon Hudson</b> · Founder, CamLabs AI<br>October 3, 2026 · 5 min read</div>
+      </div>
+
+      <p class="lead">A client sends you a scanned bank statement, a signed form or a stack of photos turned into a PDF. Before it goes anywhere else, the SSNs, account numbers and birth dates have to come out. On a Mac you have three real options, and one trap.</p>
+
+      <h2>The trap: shapes and highlights</h2>
+      <p>Drawing a black rectangle or a thick highlight with a markup tool puts a shape on top of the page. Whatever is underneath can often still be selected, copied or uncovered by removing the shape. It looks redacted on your screen, and it isn't.</p>
+
+      <h2>Option 1: Preview's Redact tool (free, built in)</h2>
+      <p>Recent versions of Preview include a real redaction tool. Open the PDF, choose <strong>Tools &gt; Redact</strong> (or click Markup, then the Redact button), select the text you want gone and save. Once saved, the redaction is permanent, so work on a copy (<a href="https://www.intego.com/mac-security-blog/securely-redact-text-in-pdfs-with-apple-preview-on-mac/" rel="noopener">how-to from Intego</a>).</p>
+      <p>The catch is that it is fully manual. You find every SSN, every account number and every repeat of a name yourself, page by page. That's fine for a one-page letter. On a 30-page scanned packet, it is slow, and a single miss is a disclosure.</p>
+
+      <h2>Option 2: Adobe Acrobat Pro</h2>
+      <p>Acrobat Pro can search for patterns and redact matches across a document. Redaction is a Pro feature; Acrobat Standard doesn't include it. As of mid-2026, Pro runs about <strong>$19.99 a month on an annual plan</strong>, or about $29.99 month to month (<a href="https://redresscompliance.com/adobe-acrobat-pro-current-pricing-2026" rel="noopener">pricing summary</a>, <a href="https://saferedact.app/insights/how-to-redact-in-adobe-acrobat" rel="noopener">which plans include Redact</a>). Check Adobe's own pricing page before you buy. For scans, you'll need to run text recognition first so the search has words to find.</p>
+
+      <h2>Option 3: an on-device redaction app</h2>
+      <p>This is the one we make at CamLabs AI, <a href="/redactly/">Redactly AI</a>, so read this part knowing we're biased. Here's how it works on a Mac:</p>
+      <ol>
+        <li><strong>Open the PDF or image.</strong> Scanned pages are read with on-device text recognition, so there's no separate OCR step.</li>
+        <li><strong>Tell it what to remove.</strong> Ask for "Redact all PII," or pick a category: SSNs, account and card numbers, phone numbers, emails, dates of birth, addresses and more. AI name detection is available too and needs a free Redactly account.</li>
+        <li><strong>Review every page.</strong> Click a black bar to undo it, or draw your own over anything it missed.</li>
+        <li><strong>Export.</strong> The exported PDF is flattened: the bars are burned into the page image and the original text layer is gone. Export, print and share stay locked until every page has finished processing.</li>
+      </ol>
+      <img class="shot" src="/redactly/assets/mac/08_export_1440x900.png" alt="Redactly on Mac showing a sample account application with names, SSNs and dates of birth blacked out and the Export Redacted PDF menu open" loading="lazy">
+      <p class="note">Screenshot uses a made-up sample document.</p>
+      <p>Text recognition and redaction run on your Mac, and your documents aren't uploaded to our servers. Redactly is a free download with a 14-day trial; Desktop Pro is $149 a year or $19 a month and also covers iPhone and iPad.</p>
+
+      <h2>Check the result before you send it</h2>
+      <p>Whichever option you use, test the exported file, not what's on your screen:</p>
+      <ol>
+        <li><strong>The copy test.</strong> Open the exported PDF, drag across a black bar and press Command-C. Paste into a blank note. If any hidden text appears, the redaction failed.</li>
+        <li><strong>The search test.</strong> Press Command-F and search for something you removed, like the last four of an account number. It should not be found.</li>
+        <li><strong>The page-by-page look.</strong> Zoom in on every page. Watch for numbers that wrap to the next line, names in headers and footers, and anything inside stamps or handwriting.</li>
+      </ol>
+      <p>No automated tool is perfect, including ours. Let the tool do the searching, then make the final check yourself.</p>
+
+      <h2>The short version</h2>
+      <p>For a page or two, Preview's Redact tool is free and does the job. For long or scanned documents, use a tool that finds the items for you, and pick one that keeps the files on your Mac. Either way, run the copy test before you hit send.</p>
+
+      <div class="cta-box">
+        <h3>Try Redactly AI on your Mac, free for 14 days</h3>
+        <p>Open a scan or PDF, black out SSNs, account numbers and other personal details, and export a flattened file. Nothing is uploaded.</p>
+        <a class="cta" href="/redactly/download.html">Download for Mac →</a>
+      </div>
+    </article>
+
+    <footer>
+      &copy; 2026 CamLabs.ai · <a href="/blog/">Blog</a> · <a href="/redactly/">Redactly AI</a> · <a href="/privacy.html">Privacy</a> · <a href="/support.html">Support</a>
+    </footer>
+  </div>
+</body>
+</html>
