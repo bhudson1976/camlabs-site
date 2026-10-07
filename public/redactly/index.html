@@ -158,6 +158,27 @@
     }
     .shot img { display:block; height:480px; width:auto; }
     .shots-hint { text-align:center; color:var(--ink-faint); font-size:0.83rem; margin-top:8px; }
+    .shots-wrap { position:relative; }
+    .shots-btn {
+      position:absolute; top:calc(50% - 10px); transform:translateY(-50%); z-index:2;
+      width:52px; height:52px; border-radius:50%; cursor:pointer; font-size:1.5rem; line-height:1;
+      display:flex; align-items:center; justify-content:center; color:#fff;
+      background:rgba(11,15,25,0.82); border:1px solid var(--border-strong);
+      box-shadow:0 10px 30px -8px rgba(0,0,0,0.7); backdrop-filter:blur(6px); transition:background .15s, opacity .15s;
+    }
+    .shots-btn:hover { background:rgba(124,92,255,0.85); }
+    .shots-btn:focus-visible { outline:2px solid var(--violet-2, #8b7bff); outline-offset:3px; }
+    .shots-btn[disabled] { opacity:0; pointer-events:none; }
+    .shots-btn.prev { left:16px; }
+    .shots-btn.next { right:16px; }
+    .hint-touch { display:none; }
+    @media (hover:none) { .shots-btn { display:none; } .hint-touch { display:inline; } .hint-mouse { display:none; } }
+    .checker-box {
+      display:flex; gap:22px; align-items:center; justify-content:space-between; flex-wrap:wrap;
+      padding:26px 28px; border-radius:var(--radius); background:var(--card); border:1px solid var(--border-strong);
+    }
+    .checker-box h3 { margin:0 0 6px; font-size:1.2rem; font-weight:700; letter-spacing:-0.01em; }
+    .checker-box p { margin:0; color:var(--ink-dim); font-size:0.97rem; max-width:560px; }
 
     /* Feature grid */
     .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:18px; }
@@ -439,7 +460,10 @@
 
     <!-- Screenshot gallery -->
     <section id="screens" style="padding:40px 0 20px;">
-      <div class="shots">
+      <div class="shots-wrap">
+      <button class="shots-btn prev" type="button" aria-label="Previous screenshot" disabled>&#8592;</button>
+      <button class="shots-btn next" type="button" aria-label="Next screenshot">&#8594;</button>
+      <div class="shots" tabindex="0" aria-label="Redactly screenshots">
         <div class="shot"><img src="/redactly/assets/mac/02_home_1440x900.png"      alt="Redactly AI — Drop in a document and start scanning." loading="lazy"></div>
         <div class="shot"><img src="/redactly/assets/mac/04_import_1440x900.png"    alt="Redactly AI — Import PDFs, PNGs, and JPGs from Finder." loading="lazy"></div>
         <div class="shot"><img src="/redactly/assets/mac/05_document_1440x900.png"  alt="Redactly AI — Full document view before placing redaction bars." loading="lazy"></div>
@@ -452,7 +476,8 @@
         <div class="shot"><img src="/redactly/assets/mac/08_export_1440x900.png"    alt="Redactly AI — Export a permanently redacted PDF." loading="lazy"></div>
         <div class="shot"><img src="/redactly/assets/mac/08_history_1440x900.png"   alt="Redactly AI — Local scan history stored on your device." loading="lazy"></div>
       </div>
-      <p class="shots-hint">← swipe to see more →</p>
+      </div>
+      <p class="shots-hint"><span class="hint-touch">← swipe to see more →</span><span class="hint-mouse">Use the arrows to see more screens</span></p>
     </section>
 
     <!-- Features -->
@@ -686,6 +711,19 @@
       </div>
     </section>
 
+    <!-- Free redaction checker -->
+    <section id="checker" style="padding:10px 0 40px;">
+      <div class="container">
+        <div class="checker-box">
+          <div>
+            <h3>Already redacted a PDF somewhere else?</h3>
+            <p>Our free redaction checker shows whether text is still hiding under the black boxes. It runs in your browser and the file is never uploaded.</p>
+          </div>
+          <a class="cta ghost" href="/redaction-checker/">Check a PDF free →</a>
+        </div>
+      </div>
+    </section>
+
     <!-- Trial signup -->
     <section id="trial">
       <div class="container">
@@ -800,11 +838,34 @@
       &copy; 2026 CamLabs.ai · Redactly AI &nbsp;·&nbsp;
       <a href="/">Home</a> &nbsp;·&nbsp;
       <a href="/sentinel/">Sentinel AI</a> &nbsp;·&nbsp;
+      <a href="/redaction-checker/">Free redaction checker</a> &nbsp;·&nbsp;
       <a href="/privacy.html">Privacy</a> &nbsp;·&nbsp;
       <a href="/support.html">Support</a>
     </footer>
   </div>
   <script>
+    (function () {
+      var track = document.querySelector('#screens .shots');
+      var prev = document.querySelector('#screens .shots-btn.prev');
+      var next = document.querySelector('#screens .shots-btn.next');
+      if (!track || !prev || !next) return;
+      function step() { var s = track.querySelector('.shot'); return s ? s.getBoundingClientRect().width + 20 : track.clientWidth * 0.8; }
+      function update() {
+        prev.disabled = track.scrollLeft <= 4;
+        next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 4;
+      }
+      prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
+      next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: 'smooth' }); });
+      track.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight') { e.preventDefault(); next.click(); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); prev.click(); }
+      });
+      track.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      window.addEventListener('load', update);
+      update();
+    })();
+
     async function handleTrial(e) {
       e.preventDefault();
       const email = document.getElementById('trialEmail').value.trim();
