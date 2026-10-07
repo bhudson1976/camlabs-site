@@ -284,7 +284,7 @@
     function analyze(bytes) {
       return pdfjsLib.getDocument({ data: bytes, isEvalSupported: false, disableFontFace: false }).promise.then(function (pdf) {
         var total = pdf.numPages, pages = Math.min(total, MAX_PAGES);
-        var report = { total: total, checked: pages, hidden: [], redactMarks: [], signTags: 0, textPages: 0, textItems: 0, meta: {} };
+        var report = { total: total, checked: pages, hidden: [], redactMarks: [], signTags: 0, boxes: 0, boxPages: 0, textPages: 0, textItems: 0, meta: {} };
         var chain = pdf.getMetadata().then(function (m) { report.meta = (m && m.info) || {}; }).catch(function () {});
         for (var p = 1; p <= pages; p++) {
           (function (pn) {
@@ -350,10 +350,53 @@
             if (isSignTag(text)) { report.signTags++; return; }
             report.hidden.push({ page: pn, dark: l.dark, text: text });
           });
+          var nb = countBoxes(ctx, canvas.width, canvas.height);
+          report.boxes += nb; if (nb) report.boxPages++;
           canvas.width = canvas.height = 0;
           page.cleanup();
         });
       });
+    }
+
+    // Count solid black rectangles on the rendered page (the visible redaction boxes).
+    // Works on a coarse grid so normal text, even bold, doesn't count.
+    function countBoxes(ctx, cw, ch) {
+      var cell = 4, gw = Math.floor(cw / cell), gh = Math.floor(ch / cell);
+      if (gw < 4 || gh < 4) return 0;
+      var data = ctx.getImageData(0, 0, gw * cell, gh * cell).data, rowLen = gw * cell * 4;
+      var dark = new Uint8Array(gw * gh);
+      for (var gy = 0; gy < gh; gy++) for (var gx = 0; gx < gw; gx++) {
+        var sum = 0, spread = 0;
+        for (var y = 0; y < cell; y++) for (var x = 0; x < cell; x++) {
+          var k = (gy * cell + y) * rowLen + (gx * cell + x) * 4;
+          var R = data[k], G = data[k + 1], B = data[k + 2];
+          sum += 0.299 * R + 0.587 * G + 0.114 * B;
+          spread += Math.max(R, G, B) - Math.min(R, G, B);
+        }
+        // near-black and not coloured (skips navy header bars and the like)
+        if (sum / (cell * cell) < 45 && spread / (cell * cell) < 30) dark[gy * gw + gx] = 1;
+      }
+      var seen = new Uint8Array(gw * gh), count = 0, stack = [];
+      for (var i = 0; i < dark.length; i++) {
+        if (!dark[i] || seen[i]) continue;
+        var minX = gw, minY = gh, maxX = 0, maxY = 0, n = 0;
+        stack.push(i); seen[i] = 1;
+        while (stack.length) {
+          var c = stack.pop(), cx = c % gw, cy = (c - cx) / gw; n++;
+          if (cx < minX) minX = cx; if (cx > maxX) maxX = cx; if (cy < minY) minY = cy; if (cy > maxY) maxY = cy;
+          var nbr = [c - 1, c + 1, c - gw, c + gw];
+          for (var j = 0; j < 4; j++) {
+            var q = nbr[j];
+            if (q < 0 || q >= dark.length || seen[q] || !dark[q]) continue;
+            if ((j === 0 && cx === 0) || (j === 1 && cx === gw - 1)) continue;
+            seen[q] = 1; stack.push(q);
+          }
+        }
+        var bw = maxX - minX + 1, bh = maxY - minY + 1;
+        // a box: at least ~16x8 px, mostly filled, and not the whole page
+        if (bw >= 4 && bh >= 2 && n / (bw * bh) >= 0.85 && bw * bh < gw * gh * 0.5) count++;
+      }
+      return count;
     }
 
     function isSignTag(text) {
@@ -404,15 +447,16 @@
           ' selectable without being visible on ' + pagesList(other) + '. Check that nothing below is private.</p>';
       } else if (r.textItems === 0) {
         html += 'ok"><div class="fname">' + esc(name) + '</div><h2>Passed: nothing can be copied out of this file</h2>' +
-          '<p>Every page is a flat image with no text layer behind it, which is how a properly redacted PDF should look. Nobody can select, copy or search for what\'s under the black boxes. This checker can\'t tell whether the right things were blacked out, so give each page a final look before you send it.</p>';
+          '<p>' + boxLine(r) + 'Every page is a flat image with no text layer behind it, which is how a properly redacted PDF should look. Nobody can select, copy or search for what\'s under the black boxes. This checker can\'t tell whether the right things were blacked out, so give each page a final look before you send it.</p>';
       } else {
         html += 'ok"><div class="fname">' + esc(name) + '</div><h2>Passed: no text hiding under boxes</h2>' +
-          '<p>This file has selectable text, but all of it is visible on the page. Nothing is hiding under a black box. Anyone can still copy the visible text, so make sure everything private was covered before you send it.</p>';
+          '<p>' + boxLine(r) + 'This file has selectable text, but all of it is visible on the page. Nothing is hiding under a black box. Anyone can still copy the visible text, so make sure everything private was covered before you send it.</p>';
       }
       html += '</div>';
 
       html += '<div class="stats">' +
         stat(r.checked + (r.checked < r.total ? ' of ' + r.total : ''), 'pages checked') +
+        stat(r.boxes, 'black boxes found') +
         stat(r.textPages, 'pages with copyable text') +
         stat(dark.length, 'lines under dark boxes') +
         stat(r.redactMarks.length, 'unapplied redaction marks') + '</div>';
@@ -454,6 +498,10 @@
       });
       document.getElementById('again').addEventListener('click', function () { fileInput.click(); });
       resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    function boxLine(r) {
+      if (!r.boxes) return '';
+      return 'We found ' + r.boxes + ' black box' + (r.boxes === 1 ? '' : 'es') + ' on ' + r.boxPages + ' page' + (r.boxPages === 1 ? '' : 's') + ', and nothing is hiding under them. ';
     }
     function stat(v, l) { return '<div class="stat"><b>' + esc(v) + '</b><span>' + esc(l) + '</span></div>'; }
   })();
