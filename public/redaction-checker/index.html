@@ -284,7 +284,7 @@
     function analyze(bytes) {
       return pdfjsLib.getDocument({ data: bytes, isEvalSupported: false, disableFontFace: false }).promise.then(function (pdf) {
         var total = pdf.numPages, pages = Math.min(total, MAX_PAGES);
-        var report = { total: total, checked: pages, hidden: [], redactMarks: [], textPages: 0, textItems: 0, meta: {} };
+        var report = { total: total, checked: pages, hidden: [], redactMarks: [], signTags: 0, textPages: 0, textItems: 0, meta: {} };
         var chain = pdf.getMetadata().then(function (m) { report.meta = (m && m.info) || {}; }).catch(function () {});
         for (var p = 1; p <= pages; p++) {
           (function (pn) {
@@ -331,6 +331,8 @@
             var info = regionInfo(ctx, canvas.width, canvas.height, t[4], t[5], dx, dy, ux, uy, w, fh);
             if (!info) return;
             if (info.flat >= 0.985) {
+              // Lines of dashes, underscores or dots are form rules, not content.
+              if (!/[\p{L}\p{N}]/u.test(it.str)) return;
               runs.push({ str: it.str, dark: info.median < 90, y: Math.round(t[5]), x: t[4] });
             }
           });
@@ -342,10 +344,23 @@
             if (last && Math.abs(last.y - r.y) <= 3 && last.dark === r.dark) last.text += ' ' + r.str.trim();
             else lines.push({ y: r.y, dark: r.dark, text: r.str.trim() });
           });
-          lines.forEach(function (l) { report.hidden.push({ page: pn, dark: l.dark, text: l.text.replace(/\s+/g, ' ') }); });
+          lines.forEach(function (l) {
+            var text = l.text.replace(/\s+/g, ' ');
+            // Hidden placement markers left by e-signature software, e.g. [def:$in1|initial|req|signer1]
+            if (isSignTag(text)) { report.signTags++; return; }
+            report.hidden.push({ page: pn, dark: l.dark, text: text });
+          });
           canvas.width = canvas.height = 0;
           page.cleanup();
         });
+      });
+    }
+
+    function isSignTag(text) {
+      var parts = text.trim().split(/\s+(?=[\[{\\])/);
+      return parts.every(function (p) {
+        return /^(\[[^\]]{1,80}\]|\{\{[^}]{1,80}\}\}|\\[a-z]{1,10}\d*\\)$/i.test(p) &&
+          /(signer|signature|\bsig\b|initial|def:|\|req\||date_?signed|\\[sdi]\d+\\)/i.test(p);
       });
     }
 
@@ -426,6 +441,8 @@
         metaRows.forEach(function (k) { html += '<li><strong>' + k[1] + ':</strong> ' + esc(r.meta[k[0]]) + '</li>'; });
         html += '</ul><p class="note" style="margin:8px 0 0">Anyone who opens the file can see these. Make sure none of them name someone you meant to hide.</p></div>';
       }
+      if (r.signTags) html += '<p class="note">We also skipped ' + r.signTags + ' hidden e-signature marker' + (r.signTags === 1 ? '' : 's') +
+        ' (like <code>[def:…|signer1]</code>). Signing software leaves these in the file to place signature and initial fields. They are normal and don\'t contain personal details.</p>';
       if (r.checked < r.total) html += '<p class="note">Only the first ' + r.checked + ' pages were checked.</p>';
       html += '<div class="center"><button class="btn ghost" type="button" id="again">Check another PDF</button></div>';
 
