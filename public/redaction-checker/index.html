@@ -388,17 +388,17 @@
           '<p>No text is hiding under black boxes, but ' + other.length + ' line' + (other.length === 1 ? ' is' : 's are') +
           ' selectable without being visible on ' + pagesList(other) + '. Check that nothing below is private.</p>';
       } else if (r.textItems === 0) {
-        html += 'ok"><div class="fname">' + esc(name) + '</div><h2>No hidden text found</h2>' +
-          '<p>This file has no selectable text at all; the pages are images. Nothing can be copied out as text. Images under boxes can\'t be checked here, so give it a final look before you send it.</p>';
+        html += 'ok"><div class="fname">' + esc(name) + '</div><h2>Passed: nothing can be copied out of this file</h2>' +
+          '<p>Every page is a flat image with no text layer behind it, which is how a properly redacted PDF should look. Nobody can select, copy or search for what\'s under the black boxes. This checker can\'t tell whether the right things were blacked out, so give each page a final look before you send it.</p>';
       } else {
-        html += 'ok"><div class="fname">' + esc(name) + '</div><h2>No text found under the boxes</h2>' +
-          '<p>Every piece of selectable text we found is visible on the page. Make sure everything private was covered before you send it.</p>';
+        html += 'ok"><div class="fname">' + esc(name) + '</div><h2>Passed: no text hiding under boxes</h2>' +
+          '<p>This file has selectable text, but all of it is visible on the page. Nothing is hiding under a black box. Anyone can still copy the visible text, so make sure everything private was covered before you send it.</p>';
       }
       html += '</div>';
 
       html += '<div class="stats">' +
         stat(r.checked + (r.checked < r.total ? ' of ' + r.total : ''), 'pages checked') +
-        stat(r.textPages, 'pages with selectable text') +
+        stat(r.textPages, 'pages with copyable text') +
         stat(dark.length, 'lines under dark boxes') +
         stat(r.redactMarks.length, 'unapplied redaction marks') + '</div>';
 
