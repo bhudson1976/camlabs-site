@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free PDF Redaction Checker: Is Text Hiding Under the Black Boxes? | CamLabs.ai</title>
+  <meta name="description" content="Drop in a redacted PDF and see if the text under the black boxes can still be copied out. Free, runs entirely in your browser, and the file is never uploaded.">
+  <link rel="canonical" href="https://camlabs.ai/redaction-checker/" />
+
+  <meta property="og:title" content="Is this PDF really redacted? Free checker" />
+  <meta property="og:description" content="See if the text under the black boxes can still be copied out. Runs in your browser. Nothing is uploaded." />
+  <meta property="og:image" content="https://camlabs.ai/redactly/assets/mac/08_export_1440x900.png" />
+  <meta property="og:url" content="https://camlabs.ai/redaction-checker/" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Is this PDF really redacted? Free checker">
+  <meta name="twitter:description" content="See if the text under the black boxes can still be copied out. Runs in your browser. Nothing is uploaded.">
+  <meta name="twitter:image" content="https://camlabs.ai/redactly/assets/mac/08_export_1440x900.png">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "PDF Redaction Checker",
+    "url": "https://camlabs.ai/redaction-checker/",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any (runs in the browser)",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Checks a redacted PDF for text that is still present under black boxes, invisible text and unapplied redaction marks. Runs locally in the browser; the file is never uploaded.",
+    "publisher": { "@type": "Organization", "name": "CamLabs", "url": "https://camlabs.ai/" }
+  }
+  </script>
+
+  <link rel="icon" type="image/jpeg" href="/sentinel/assets/sentinel_logo.JPG">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0B0F19; --card:rgba(255,255,255,0.025); --border:rgba(255,255,255,0.08);
+      --border-strong:rgba(255,255,255,0.14); --ink:#F3F5F9; --ink-dim:#9aa4b6; --ink-faint:#6b7585;
+      --brand:#5b8cff; --brand-2:#7c5cff; --emerald:#10b981; --red:#f05252; --amber:#f5a524;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0; background:var(--bg); color:var(--ink); line-height:1.65;
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; -webkit-font-smoothing:antialiased;
+    }
+    a { color:var(--brand); }
+    body::before {
+      content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+      background:radial-gradient(700px 340px at 50% -10%, rgba(124,92,255,0.16), transparent 70%);
+    }
+    .wrap { position:relative; z-index:1; }
+    nav {
+      display:flex; justify-content:center; gap:26px; align-items:center;
+      padding:18px 20px; border-bottom:1px solid var(--border);
+      backdrop-filter:blur(8px); position:sticky; top:0; background:rgba(11,15,25,0.7); z-index:5; flex-wrap:wrap;
+    }
+    nav a { color:var(--ink-dim); text-decoration:none; font-size:0.92rem; font-weight:500; }
+    nav a:hover { color:var(--ink); }
+    nav a.brand { color:var(--ink); font-weight:700; display:inline-flex; align-items:center; gap:9px; }
+    .brand-logo { width:28px; height:28px; border-radius:8px; object-fit:cover; object-position:center 26%; border:1px solid var(--border); }
+
+    main { max-width:760px; margin:0 auto; padding:52px 18px 40px; }
+    h1 {
+      font-size:clamp(1.9rem,4.6vw,2.7rem); line-height:1.12; margin:0 0 14px; font-weight:800; letter-spacing:-0.03em; text-align:center;
+      background:linear-gradient(180deg,#ffffff,#c3b6f5); -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .sub { text-align:center; color:var(--ink-dim); font-size:1.1rem; margin:0 auto 30px; max-width:600px; }
+    .pill { display:inline-flex; gap:8px; align-items:center; font-size:0.85rem; color:var(--emerald); border:1px solid rgba(16,185,129,0.35); background:rgba(16,185,129,0.08); padding:5px 12px; border-radius:999px; }
+    .center { text-align:center; }
+
+    .drop {
+      margin:22px 0 0; border:2px dashed var(--border-strong); border-radius:18px; padding:44px 20px; text-align:center;
+      background:var(--card); cursor:pointer; transition:border-color .15s, background .15s;
+    }
+    .drop:hover, .drop.over { border-color:var(--brand-2); background:rgba(124,92,255,0.07); }
+    .drop:focus-visible { outline:2px solid var(--brand); outline-offset:3px; }
+    .drop b { font-size:1.15rem; display:block; margin-bottom:6px; }
+    .drop span { color:var(--ink-faint); font-size:0.92rem; }
+    .btn {
+      display:inline-flex; align-items:center; gap:8px; padding:12px 24px; border-radius:12px; margin-top:16px;
+      font-weight:600; font-size:1rem; text-decoration:none; color:#fff; border:0; cursor:pointer; font-family:inherit;
+      background:linear-gradient(135deg,var(--brand-2),var(--brand)); box-shadow:0 12px 34px -10px rgba(124,92,255,0.85);
+    }
+    .btn.ghost { background:transparent; border:1px solid var(--border-strong); box-shadow:none; color:var(--ink); }
+    input[type=file] { display:none; }
+
+    .progress { display:none; margin-top:22px; }
+    .bar { height:8px; border-radius:99px; background:var(--border); overflow:hidden; }
+    .bar i { display:block; height:100%; width:0; background:linear-gradient(90deg,var(--brand-2),var(--brand)); transition:width .15s; }
+    .progress p { color:var(--ink-dim); font-size:0.92rem; margin:8px 0 0; }
+
+    #result { display:none; margin-top:26px; scroll-margin-top:90px; }
+    .verdict { border-radius:18px; padding:24px 22px; border:1px solid var(--border); }
+    .verdict h2 { margin:0 0 6px; font-size:1.4rem; letter-spacing:-0.02em; }
+    .verdict p { margin:0; color:#c2cad8; }
+    .verdict.bad { background:rgba(240,82,82,0.09); border-color:rgba(240,82,82,0.45); }
+    .verdict.bad h2 { color:#ff8a8a; }
+    .verdict.warn { background:rgba(245,165,36,0.08); border-color:rgba(245,165,36,0.45); }
+    .verdict.warn h2 { color:#ffc764; }
+    .verdict.ok { background:rgba(16,185,129,0.08); border-color:rgba(16,185,129,0.4); }
+    .verdict.ok h2 { color:#5fe0b3; }
+    .fname { font-family:'JetBrains Mono',monospace; font-size:0.85rem; color:var(--ink-faint); word-break:break-all; margin-bottom:8px; }
+
+    .section { margin-top:18px; border:1px solid var(--border); border-radius:14px; background:var(--card); padding:16px 18px; }
+    .section h3 { margin:0 0 10px; font-size:1.02rem; }
+    .finding { border-top:1px solid var(--border); padding:10px 0; }
+    .finding:first-of-type { border-top:0; padding-top:0; }
+    .finding .pg { font-size:0.8rem; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.06em; }
+    .finding code {
+      display:block; margin-top:4px; font-family:'JetBrains Mono',monospace; font-size:0.9rem; color:#ffd2d2;
+      background:rgba(240,82,82,0.08); border-radius:8px; padding:8px 10px; white-space:pre-wrap; word-break:break-word;
+    }
+    .finding .why { font-size:0.85rem; color:var(--ink-dim); margin-top:4px; }
+    .blur code { filter:blur(5px); user-select:none; }
+    .toggle { font-size:0.85rem; background:none; border:1px solid var(--border-strong); color:var(--ink-dim); border-radius:8px; padding:4px 10px; cursor:pointer; font-family:inherit; float:right; }
+    .stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); gap:10px; margin-top:18px; }
+    .stat { border:1px solid var(--border); border-radius:12px; padding:12px 14px; background:var(--card); }
+    .stat b { display:block; font-size:1.3rem; }
+    .stat span { color:var(--ink-faint); font-size:0.82rem; }
+    ul.plain { margin:0; padding-left:18px; color:#c2cad8; }
+    ul.plain li { margin-bottom:6px; }
+
+    .cta-box {
+      margin:26px 0 8px; padding:28px 24px; text-align:center; border-radius:18px;
+      background:linear-gradient(180deg, rgba(124,92,255,0.12), rgba(91,140,255,0.04));
+      border:1px solid rgba(124,92,255,0.32);
+    }
+    .cta-box h3 { margin:0 0 8px; font-size:1.25rem; }
+    .cta-box p { margin:0; color:var(--ink-dim); }
+
+    .info h2 { font-size:1.4rem; margin:48px 0 12px; letter-spacing:-0.02em; }
+    .info p, .info li { color:#c2cad8; font-size:1.02rem; }
+    .info ol { padding-left:22px; }
+    .info li { margin-bottom:8px; }
+    .note { font-size:0.9rem !important; color:var(--ink-faint) !important; }
+
+    footer { text-align:center; padding:36px 20px; border-top:1px solid var(--border); color:var(--ink-faint); font-size:0.85rem; }
+    footer a { color:var(--ink-dim); text-decoration:none; }
+    @media (max-width:520px) { nav { gap:16px; } .drop { padding:34px 14px; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="/"><img class="brand-logo" src="/sentinel/assets/sentinel_logo.JPG" alt="CamLabs.ai"> CamLabs.ai</a>
+      <a href="/redactly/">Redactly AI</a>
+      <a href="/sentinel/">Sentinel AI</a>
+      <a href="/blog/">Blog</a>
+      <a href="/support.html">Support</a>
+    </nav>
+
+    <main>
+      <h1>Is this PDF really redacted?</h1>
+      <p class="sub">Black boxes drawn on top of a PDF often leave the words underneath. Drop in a file to see if anything can still be copied out.</p>
+      <div class="center"><span class="pill">&#128274; Runs in your browser. Your file is never uploaded.</span></div>
+
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose a PDF to check">
+        <b>Drop a PDF here</b>
+        <span>or click to choose a file</span><br>
+        <button class="btn" type="button" id="pick">Choose PDF</button>
+      </div>
+      <input type="file" id="file" accept="application/pdf,.pdf">
+
+      <div class="progress" id="progress">
+        <div class="bar"><i id="barfill"></i></div>
+        <p id="ptext">Reading file…</p>
+      </div>
+
+      <div id="result"></div>
+
+      <div class="cta-box">
+        <h3>Want redactions that can't be undone?</h3>
+        <p>Redactly AI finds SSNs, account numbers, names and other personal details, blacks them out, and exports a flattened PDF with the text underneath removed. It runs on your Mac and nothing is uploaded.</p>
+        <a class="btn" href="/redactly/download.html">Try Redactly free for 14 days →</a>
+        <p class="note" style="margin-top:10px">Also on iPhone and Android. <a href="/redactly/">Learn more</a></p>
+      </div>
+
+      <section class="info">
+        <h2>What this checks</h2>
+        <ol>
+          <li><strong>Text under boxes.</strong> We draw each page the way a PDF viewer would, then look at every piece of selectable text. If a word sits under a solid box, it's still in the file and anyone can copy it out.</li>
+          <li><strong>Invisible text.</strong> Text that is selectable but can't be seen on the page, such as white text or a hidden OCR layer over a blacked-out area.</li>
+          <li><strong>Unapplied redaction marks.</strong> Some editors let you mark areas for redaction but only remove the content when you click "Apply." Marks that were never applied are flagged.</li>
+          <li><strong>Document info.</strong> The title, author and other details saved inside the file, which can give away names.</li>
+        </ol>
+
+        <h2>What it can't check</h2>
+        <ul class="plain">
+          <li>Pictures under a box. If a scanned image sits under a black rectangle, the original image may still be in the file. This tool only reads text.</li>
+          <li>Whether you blacked out the right things. A clean result means nothing is hiding under the boxes, not that every SSN or name on the page was covered.</li>
+          <li>Password-protected files. Remove the password first, then check the copy.</li>
+        </ul>
+        <p class="note">No checker is perfect, including this one. For anything important, also open the file, select all the text (Command-A or Ctrl-A), copy it, and paste it into a blank note to see what comes out.</p>
+
+        <h2>How it stays private</h2>
+        <p>The checker is a single web page. Your PDF is opened by code running in your own browser tab and is never sent to CamLabs or anyone else. You can turn off Wi-Fi after the page loads and it still works.</p>
+      </section>
+    </main>
+
+    <footer>
+      &copy; 2026 CamLabs.ai · <a href="/blog/">Blog</a> · <a href="/redactly/">Redactly AI</a> · <a href="/privacy.html">Privacy</a> · <a href="/support.html">Support</a>
+    </footer>
+  </div>
+
+  <script src="/redaction-checker/vendor/pdf.min.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    var pdfjsLib = window.pdfjsLib;
+    pdfjsLib.GlobalWorkerOptions.workerSrc = '/redaction-checker/vendor/pdf.worker.min.js';
+
+    var MAX_PAGES = 500;
+    var drop = document.getElementById('drop');
+    var fileInput = document.getElementById('file');
+    var progress = document.getElementById('progress');
+    var barfill = document.getElementById('barfill');
+    var ptext = document.getElementById('ptext');
+    var resultEl = document.getElementById('result');
+    var busy = false;
+
+    drop.addEventListener('click', function () { if (!busy) fileInput.click(); });
+    drop.addEventListener('keydown', function (e) { if ((e.key === 'Enter' || e.key === ' ') && !busy) { e.preventDefault(); fileInput.click(); } });
+    fileInput.addEventListener('change', function () { if (fileInput.files[0]) handle(fileInput.files[0]); fileInput.value = ''; });
+    ['dragenter', 'dragover'].forEach(function (t) { drop.addEventListener(t, function (e) { e.preventDefault(); drop.classList.add('over'); }); });
+    ['dragleave', 'drop'].forEach(function (t) { drop.addEventListener(t, function (e) { e.preventDefault(); drop.classList.remove('over'); }); });
+    drop.addEventListener('drop', function (e) { var f = e.dataTransfer.files[0]; if (f && !busy) handle(f); });
+
+    function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+    function setProgress(frac, msg) { barfill.style.width = Math.round(frac * 100) + '%'; ptext.textContent = msg; }
+
+    function handle(file) {
+      if (!/\.pdf$/i.test(file.name) && file.type !== 'application/pdf') { showError(file.name, 'That doesn\'t look like a PDF. Please choose a .pdf file.'); return; }
+      busy = true;
+      resultEl.style.display = 'none';
+      progress.style.display = 'block';
+      setProgress(0, 'Reading file…');
+      file.arrayBuffer().then(function (buf) {
+        return analyze(new Uint8Array(buf));
+      }).then(function (report) {
+        render(file.name, report);
+      }).catch(function (err) {
+        var msg = 'This file couldn\'t be opened. It may be damaged or not a real PDF.';
+        if (err && err.name === 'PasswordException') msg = 'This PDF is password-protected. Remove the password, save a copy, and check that copy.';
+        showError(file.name, msg);
+        if (window.console) console.error(err);
+      }).then(function () { busy = false; progress.style.display = 'none'; });
+    }
+
+    // Pixel test: is the area where this text is drawn a flat, single colour?
+    // Visible text makes the area uneven (glyph strokes). Text that is covered by a
+    // box, or drawn invisibly, leaves the area flat. Works for rotated text too:
+    // we sample inside the text's own (possibly tilted) box.
+    function regionInfo(ctx, cw, ch, ox, oy, dx, dy, ux, uy, w, h) {
+      var pts = [], minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+      // roughly one sample per pixel, capped for very long lines
+      var us = Math.min(400, Math.max(1, Math.floor(w))), vs = Math.min(60, Math.max(1, Math.floor(h)));
+      for (var a = 0; a <= us; a++) {
+        var u = w * (0.03 + 0.94 * a / us);
+        for (var b = 0; b <= vs; b++) {
+          var v = h * (0.1 + 0.65 * b / vs);
+          var px = Math.round(ox + dx * u + ux * v), py = Math.round(oy + dy * u + uy * v);
+          if (px < 0 || py < 0 || px >= cw || py >= ch) continue;
+          pts.push(px, py);
+          if (px < minX) minX = px; if (py < minY) minY = py; if (px > maxX) maxX = px; if (py > maxY) maxY = py;
+        }
+      }
+      var n = pts.length / 2;
+      if (n < 12) return null;
+      var bw = maxX - minX + 1, data = ctx.getImageData(minX, minY, bw, maxY - minY + 1).data;
+      var lums = new Array(n);
+      for (var i = 0; i < n; i++) {
+        var k = ((pts[2 * i + 1] - minY) * bw + (pts[2 * i] - minX)) * 4;
+        lums[i] = 0.299 * data[k] + 0.587 * data[k + 1] + 0.114 * data[k + 2];
+      }
+      var sorted = lums.slice().sort(function (x, y) { return x - y; });
+      var median = sorted[Math.floor(n / 2)], near = 0;
+      for (var j = 0; j < n; j++) if (Math.abs(lums[j] - median) <= 14) near++;
+      return { flat: near / n, median: median };
+    }
+
+    function analyze(bytes) {
+      return pdfjsLib.getDocument({ data: bytes, isEvalSupported: false, disableFontFace: false }).promise.then(function (pdf) {
+        var total = pdf.numPages, pages = Math.min(total, MAX_PAGES);
+        var report = { total: total, checked: pages, hidden: [], redactMarks: [], textPages: 0, textItems: 0, meta: {} };
+        var chain = pdf.getMetadata().then(function (m) { report.meta = (m && m.info) || {}; }).catch(function () {});
+        for (var p = 1; p <= pages; p++) {
+          (function (pn) {
+            chain = chain.then(function () {
+              setProgress((pn - 1) / pages, 'Checking page ' + pn + ' of ' + pages + '…');
+              return checkPage(pdf, pn, report);
+            });
+          })(p);
+        }
+        return chain.then(function () { pdf.destroy(); return report; });
+      });
+    }
+
+    function checkPage(pdf, pn, report) {
+      return pdf.getPage(pn).then(function (page) {
+        var base = page.getViewport({ scale: 1 });
+        var scale = Math.min(2, 2400 / Math.max(base.width, base.height));
+        var vp = page.getViewport({ scale: scale });
+        var canvas = document.createElement('canvas');
+        canvas.width = Math.ceil(vp.width); canvas.height = Math.ceil(vp.height);
+        var ctx = canvas.getContext('2d', { willReadFrequently: true });
+        ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+        return Promise.all([
+          page.getTextContent(),
+          page.getAnnotations().catch(function () { return []; }),
+          page.render({ canvasContext: ctx, viewport: vp, annotationMode: pdfjsLib.AnnotationMode.ENABLE }).promise
+        ]).then(function (res) {
+          var tc = res[0], annots = res[1];
+          annots.forEach(function (a) {
+            if (a.subtype === 'Redact') report.redactMarks.push({ page: pn, text: textInRect(tc, a.rect) });
+          });
+          var items = tc.items.filter(function (it) { return it.str && it.str.trim(); });
+          if (items.length) report.textPages++;
+          report.textItems += items.length;
+          var runs = [];
+          items.forEach(function (it) {
+            var t = pdfjsLib.Util.transform(vp.transform, it.transform);
+            var fh = Math.hypot(t[2], t[3]);
+            var fw = Math.hypot(t[0], t[1]);
+            var w = (it.width || 0) * vp.scale;
+            if (fh < 3 || w < 2 || fw === 0) return;
+            // baseline direction and "up" direction of the text on the canvas
+            var dx = t[0] / fw, dy = t[1] / fw, ux = t[2] / fh, uy = t[3] / fh;
+            var info = regionInfo(ctx, canvas.width, canvas.height, t[4], t[5], dx, dy, ux, uy, w, fh);
+            if (!info) return;
+            if (info.flat >= 0.985) {
+              runs.push({ str: it.str, dark: info.median < 90, y: Math.round(t[5]), x: t[4] });
+            }
+          });
+          // group hidden pieces on the same line
+          runs.sort(function (a, b) { return a.y - b.y || a.x - b.x; });
+          var lines = [];
+          runs.forEach(function (r) {
+            var last = lines[lines.length - 1];
+            if (last && Math.abs(last.y - r.y) <= 3 && last.dark === r.dark) last.text += ' ' + r.str.trim();
+            else lines.push({ y: r.y, dark: r.dark, text: r.str.trim() });
+          });
+          lines.forEach(function (l) { report.hidden.push({ page: pn, dark: l.dark, text: l.text.replace(/\s+/g, ' ') }); });
+          canvas.width = canvas.height = 0;
+          page.cleanup();
+        });
+      });
+    }
+
+    function textInRect(tc, rect) {
+      if (!rect) return '';
+      var out = [];
+      tc.items.forEach(function (it) {
+        if (!it.str || !it.str.trim()) return;
+        var x = it.transform[4], y = it.transform[5];
+        if (x >= rect[0] - 2 && x <= rect[2] + 2 && y >= rect[1] - 2 && y <= rect[3] + 2) out.push(it.str.trim());
+      });
+      return out.join(' ');
+    }
+
+    function showError(name, msg) {
+      resultEl.innerHTML = '<div class="verdict warn"><div class="fname">' + esc(name) + '</div><h2>Couldn\'t check this file</h2><p>' + esc(msg) + '</p></div>';
+      resultEl.style.display = 'block';
+    }
+
+    function pagesList(arr) {
+      var s = {}; arr.forEach(function (h) { s[h.page] = 1; });
+      var ks = Object.keys(s).map(Number).sort(function (a, b) { return a - b; });
+      return (ks.length === 1 ? 'page ' : 'pages ') + ks.join(', ');
+    }
+
+    function render(name, r) {
+      var dark = r.hidden.filter(function (h) { return h.dark; });
+      var other = r.hidden.filter(function (h) { return !h.dark; });
+      var html = '<div class="verdict ';
+      if (dark.length) {
+        html += 'bad"><div class="fname">' + esc(name) + '</div><h2>Not redacted: text is still under the boxes</h2>' +
+          '<p>We found ' + dark.length + ' line' + (dark.length === 1 ? '' : 's') + ' of text hidden under dark boxes on ' + pagesList(dark) +
+          '. Anyone can copy it out of this file. Don\'t send it.</p>';
+      } else if (r.redactMarks.length) {
+        html += 'bad"><div class="fname">' + esc(name) + '</div><h2>Redactions were marked but never applied</h2>' +
+          '<p>This file has ' + r.redactMarks.length + ' redaction mark' + (r.redactMarks.length === 1 ? '' : 's') + ' on ' + pagesList(r.redactMarks) +
+          '. Until they are applied, the content underneath is still in the file.</p>';
+      } else if (other.length) {
+        html += 'warn"><div class="fname">' + esc(name) + '</div><h2>Hidden text found</h2>' +
+          '<p>No text is hiding under black boxes, but ' + other.length + ' line' + (other.length === 1 ? ' is' : 's are') +
+          ' selectable without being visible on ' + pagesList(other) + '. Check that nothing below is private.</p>';
+      } else if (r.textItems === 0) {
+        html += 'ok"><div class="fname">' + esc(name) + '</div><h2>No hidden text found</h2>' +
+          '<p>This file has no selectable text at all; the pages are images. Nothing can be copied out as text. Images under boxes can\'t be checked here, so give it a final look before you send it.</p>';
+      } else {
+        html += 'ok"><div class="fname">' + esc(name) + '</div><h2>No text found under the boxes</h2>' +
+          '<p>Every piece of selectable text we found is visible on the page. Make sure everything private was covered before you send it.</p>';
+      }
+      html += '</div>';
+
+      html += '<div class="stats">' +
+        stat(r.checked + (r.checked < r.total ? ' of ' + r.total : ''), 'pages checked') +
+        stat(r.textPages, 'pages with selectable text') +
+        stat(dark.length, 'lines under dark boxes') +
+        stat(r.redactMarks.length, 'unapplied redaction marks') + '</div>';
+
+      if (r.hidden.length) {
+        html += '<div class="section blur" id="found"><button class="toggle" type="button" id="reveal">Show text</button><h3>Text you can still copy out</h3>';
+        r.hidden.slice(0, 300).forEach(function (h) {
+          html += '<div class="finding"><div class="pg">Page ' + h.page + '</div><code>' + esc(h.text) + '</code><div class="why">' +
+            (h.dark ? 'Covered by a dark box, but still in the file.' : 'Selectable, but not visible on the page (covered or invisible text).') + '</div></div>';
+        });
+        if (r.hidden.length > 300) html += '<p class="note">…and ' + (r.hidden.length - 300) + ' more.</p>';
+        html += '</div>';
+      }
+      if (r.redactMarks.length) {
+        html += '<div class="section"><h3>Unapplied redaction marks</h3>';
+        r.redactMarks.slice(0, 100).forEach(function (m) {
+          html += '<div class="finding"><div class="pg">Page ' + m.page + '</div><div class="why">' +
+            (m.text ? 'Content under the mark: ' : 'Marked for redaction, not applied.') + '</div>' + (m.text ? '<code>' + esc(m.text) + '</code>' : '') + '</div>';
+        });
+        html += '</div>';
+      }
+      var metaKeys = [['Title', 'Title'], ['Author', 'Author'], ['Subject', 'Subject'], ['Keywords', 'Keywords'], ['Creator', 'Created with'], ['Producer', 'Saved with']];
+      var metaRows = metaKeys.filter(function (k) { return r.meta[k[0]] && String(r.meta[k[0]]).trim(); });
+      if (metaRows.length) {
+        html += '<div class="section"><h3>Document info saved in the file</h3><ul class="plain">';
+        metaRows.forEach(function (k) { html += '<li><strong>' + k[1] + ':</strong> ' + esc(r.meta[k[0]]) + '</li>'; });
+        html += '</ul><p class="note" style="margin:8px 0 0">Anyone who opens the file can see these. Make sure none of them name someone you meant to hide.</p></div>';
+      }
+      if (r.checked < r.total) html += '<p class="note">Only the first ' + r.checked + ' pages were checked.</p>';
+      html += '<div class="center"><button class="btn ghost" type="button" id="again">Check another PDF</button></div>';
+
+      resultEl.innerHTML = html;
+      resultEl.style.display = 'block';
+      var rev = document.getElementById('reveal');
+      if (rev) rev.addEventListener('click', function () {
+        var f = document.getElementById('found'); var on = f.classList.toggle('blur'); rev.textContent = on ? 'Show text' : 'Hide text';
+      });
+      document.getElementById('again').addEventListener('click', function () { fileInput.click(); });
+      resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    function stat(v, l) { return '<div class="stat"><b>' + esc(v) + '</b><span>' + esc(l) + '</span></div>'; }
+  })();
+  </script>
+</body>
+</html>
