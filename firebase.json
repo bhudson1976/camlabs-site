@@ -27,6 +27,32 @@
               "value": "application/xml"
             }
           ]
+        },
+        {
+          "source": "/redaction-checker/sw.js",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, must-revalidate"
+            },
+            {
+              "key": "Service-Worker-Allowed",
+              "value": "/redaction-checker/"
+            }
+          ]
+        },
+        {
+          "source": "**/*.webmanifest",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/manifest+json"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache"
+            }
+          ]
         }
       ],
       "rewrites": [

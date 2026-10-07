@@ -1,0 +1,20 @@
+{
+  "name": "Redaction Checker by CamLabs",
+  "short_name": "Redaction Checker",
+  "description": "Check whether a redacted PDF still has text hiding under the black boxes. Free, works offline, files never leave your device.",
+  "id": "/redaction-checker/",
+  "start_url": "/redaction-checker/?source=app",
+  "scope": "/redaction-checker/",
+  "display": "standalone",
+  "background_color": "#0B0F19",
+  "theme_color": "#0B0F19",
+  "categories": ["productivity", "utilities"],
+  "icons": [
+    { "src": "/redaction-checker/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/redaction-checker/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/redaction-checker/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "file_handlers": [
+    { "action": "/redaction-checker/?source=file", "accept": { "application/pdf": [".pdf"] } }
+  ]
+}

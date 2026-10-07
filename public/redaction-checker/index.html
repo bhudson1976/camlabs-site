@@ -31,7 +31,14 @@
   }
   </script>
 
-  <link rel="icon" type="image/jpeg" href="/sentinel/assets/sentinel_logo.JPG">
+  <link rel="icon" type="image/png" href="/redaction-checker/icons/favicon-64.png">
+  <link rel="manifest" href="/redaction-checker/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/redaction-checker/icons/apple-touch-icon.png">
+  <meta name="theme-color" content="#0B0F19">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Redaction Checker">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
@@ -137,6 +144,11 @@
     .info li { margin-bottom:8px; }
     .note { font-size:0.9rem !important; color:var(--ink-faint) !important; }
 
+    .install { margin:16px auto 0; max-width:560px; text-align:center; display:none; }
+    .install.show { display:block; }
+    .install .btn { margin-top:0; }
+    .install p { color:var(--ink-faint); font-size:0.88rem; margin:8px 0 0; }
+    .standalone nav a:not(.brand) { display:none; }
     footer { text-align:center; padding:36px 20px; border-top:1px solid var(--border); color:var(--ink-faint); font-size:0.85rem; }
     footer a { color:var(--ink-dim); text-decoration:none; }
     @media (max-width:520px) { nav { gap:16px; } .drop { padding:34px 14px; } }
@@ -156,6 +168,10 @@
       <h1>Is this PDF really redacted?</h1>
       <p class="sub">Black boxes drawn on top of a PDF often leave the words underneath. Drop in a file to see if anything can still be copied out.</p>
       <div class="center"><span class="pill">&#128274; Runs in your browser. Your file is never uploaded.</span></div>
+      <div class="install" id="install">
+        <button class="btn ghost" type="button" id="installBtn" hidden>Install as a free app</button>
+        <p id="installHint"></p>
+      </div>
 
       <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose a PDF to check">
         <b>Drop a PDF here</b>
@@ -213,6 +229,39 @@
     pdfjsLib.GlobalWorkerOptions.workerSrc = '/redaction-checker/vendor/pdf.worker.min.js';
 
     var MAX_PAGES = 500;
+
+    // ---- Install as an app (works offline afterwards) ----
+    var standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    if (standalone) document.documentElement.classList.add('standalone');
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () { navigator.serviceWorker.register('/redaction-checker/sw.js', { scope: '/redaction-checker/' }).catch(function () {}); });
+    }
+    (function () {
+      if (standalone) return;
+      var box = document.getElementById('install'), btn = document.getElementById('installBtn'), hint = document.getElementById('installHint');
+      var ua = navigator.userAgent, deferred = null;
+      var isIOS = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      var isSafariMac = /Macintosh/.test(ua) && /Safari/.test(ua) && !/Chrome|Chromium|Edg|Firefox/.test(ua) && !isIOS;
+      window.addEventListener('beforeinstallprompt', function (e) {
+        e.preventDefault(); deferred = e;
+        btn.hidden = false; hint.textContent = 'Free. Opens in its own window and works with no internet.'; box.classList.add('show');
+      });
+      btn.addEventListener('click', function () {
+        if (!deferred) return;
+        deferred.prompt();
+        deferred.userChoice.then(function (c) { if (c.outcome === 'accepted') { box.classList.remove('show'); } deferred = null; });
+      });
+      window.addEventListener('appinstalled', function () { box.classList.remove('show'); });
+      if (isIOS) { hint.innerHTML = 'Want it as an app? Tap <strong>Share</strong>, then <strong>Add to Home Screen</strong>. Free, and it works with no internet.'; box.classList.add('show'); }
+      else if (isSafariMac) { hint.innerHTML = 'Want it as an app? In Safari, choose <strong>File &gt; Add to Dock</strong>. Free, and it works with no internet.'; box.classList.add('show'); }
+    })();
+
+    // Opened by double-clicking a PDF (installed app on Chrome/Edge)
+    if ('launchQueue' in window) {
+      window.launchQueue.setConsumer(function (params) {
+        if (params.files && params.files.length) params.files[0].getFile().then(function (f) { handle(f); });
+      });
+    }
     var drop = document.getElementById('drop');
     var fileInput = document.getElementById('file');
     var progress = document.getElementById('progress');
