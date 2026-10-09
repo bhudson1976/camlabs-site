@@ -31,6 +31,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://camlabs.ai/blog/how-to-tell-if-pdf-redactions-are-fake/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://camlabs.ai/blog/how-to-redact-a-scanned-pdf-on-mac/</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>

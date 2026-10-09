@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Tell If a PDF&#39;s Redactions Are Fake (Before Someone Else Does) | CamLabs.ai</title>
+  <meta name="description" content="A black box on a PDF often hides nothing. The words can still be copied out from underneath. Here's how it keeps happening, three ways to check a file, and a free checker that runs in your browser.">
+  <link rel="canonical" href="https://camlabs.ai/blog/how-to-tell-if-pdf-redactions-are-fake/" />
+
+  <meta property="og:title" content="How to Tell If a PDF&#39;s Redactions Are Fake (Before Someone Else Does)" />
+  <meta property="og:description" content="A black box on a PDF often hides nothing. The words can still be copied out from underneath. Here's how it keeps happening, three ways to check a file, and a free checker that runs in your browser." />
+  <meta property="og:image" content="https://camlabs.ai/redaction-checker/icons/icon-512.png" />
+  <meta property="og:url" content="https://camlabs.ai/blog/how-to-tell-if-pdf-redactions-are-fake/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-10-09" />
+  <meta property="article:author" content="Bryon Hudson" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Tell If a PDF&#39;s Redactions Are Fake (Before Someone Else Does)">
+  <meta name="twitter:description" content="A black box on a PDF often hides nothing. The words can still be copied out from underneath. Here's how it keeps happening, three ways to check a file, and a free checker that runs in your browser.">
+  <meta name="twitter:image" content="https://camlabs.ai/redaction-checker/icons/icon-512.png">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "How to Tell If a PDF's Redactions Are Fake (Before Someone Else Does)",
+    "description": "A black box on a PDF often hides nothing. The words can still be copied out from underneath. Here's how it keeps happening, three ways to check a file, and a free checker that runs in your browser.",
+    "image": "https://camlabs.ai/redaction-checker/icons/icon-512.png",
+    "datePublished": "2026-10-09",
+    "dateModified": "2026-10-09",
+    "author": { "@type": "Person", "name": "Bryon Hudson", "url": "https://camlabs.ai/" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "CamLabs",
+      "logo": { "@type": "ImageObject", "url": "https://camlabs.ai/sentinel/assets/sentinel_logo.JPG" }
+    },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://camlabs.ai/blog/how-to-tell-if-pdf-redactions-are-fake/" }
+  }
+  </script>
+
+  <link rel="icon" type="image/jpeg" href="/sentinel/assets/sentinel_logo.JPG">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0B0F19; --card:rgba(255,255,255,0.025); --border:rgba(255,255,255,0.08);
+      --border-strong:rgba(255,255,255,0.14); --ink:#F3F5F9; --ink-dim:#9aa4b6; --ink-faint:#6b7585;
+      --brand:#5b8cff; --brand-2:#7c5cff; --emerald:#10b981;
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0; background:var(--bg); color:var(--ink); line-height:1.7;
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; -webkit-font-smoothing:antialiased;
+    }
+    a { color:var(--brand); }
+    body::before {
+      content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+      background:radial-gradient(700px 340px at 50% -10%, rgba(124,92,255,0.16), transparent 70%);
+    }
+    .wrap { position:relative; z-index:1; }
+    nav {
+      display:flex; justify-content:center; gap:26px; align-items:center;
+      padding:18px 20px; border-bottom:1px solid var(--border);
+      backdrop-filter:blur(8px); position:sticky; top:0; background:rgba(11,15,25,0.7); z-index:5; flex-wrap:wrap;
+    }
+    nav a { color:var(--ink-dim); text-decoration:none; font-size:0.92rem; font-weight:500; }
+    nav a:hover { color:var(--ink); }
+    nav a.brand { color:var(--ink); font-weight:700; display:inline-flex; align-items:center; gap:9px; }
+    .brand-logo { width:28px; height:28px; border-radius:8px; object-fit:cover; object-position:center 26%; border:1px solid var(--border); }
+
+    .article { max-width:720px; margin:0 auto; padding:56px 22px 40px; }
+    .crumb { font-size:0.85rem; color:var(--ink-faint); margin-bottom:22px; }
+    .crumb a { color:var(--ink-dim); text-decoration:none; }
+    .article h1 {
+      font-size:clamp(1.9rem,4.6vw,2.6rem); line-height:1.14; margin:0 0 18px; font-weight:800; letter-spacing:-0.03em;
+      background:linear-gradient(180deg,#ffffff,#c3b6f5); -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .byline { display:flex; align-items:center; gap:12px; color:var(--ink-faint); font-size:0.9rem; margin-bottom:34px; padding-bottom:24px; border-bottom:1px solid var(--border); }
+    .byline .avatar { width:38px; height:38px; border-radius:50%; object-fit:cover; border:1px solid var(--border); }
+    .byline b { color:var(--ink-dim); font-weight:600; }
+    .article p { color:#c2cad8; font-size:1.06rem; margin:0 0 20px; }
+    .article h2 { font-size:1.45rem; font-weight:700; letter-spacing:-0.02em; margin:40px 0 14px; color:var(--ink); }
+    .article strong { color:var(--ink); font-weight:600; }
+    .article ul { padding-left:0; list-style:none; margin:0 0 20px; }
+    .article ul li {
+      position:relative; padding:16px 18px 16px 20px; margin-bottom:12px; border-radius:12px;
+      background:var(--card); border:1px solid var(--border); color:#c2cad8; font-size:1.02rem;
+    }
+    .article ul li strong { color:var(--ink); }
+    .lead { font-size:1.18rem !important; color:var(--ink-dim) !important; }
+
+    .cta-box {
+      margin:44px 0 8px; padding:30px 28px; text-align:center; border-radius:18px;
+      background:linear-gradient(180deg, rgba(124,92,255,0.12), rgba(91,140,255,0.04));
+      border:1px solid rgba(124,92,255,0.32);
+    }
+    .cta-box h3 { margin:0 0 8px; font-size:1.25rem; font-weight:700; color:var(--ink); }
+    .cta-box p { margin:0 0 18px; color:var(--ink-dim); font-size:1rem; }
+    .cta {
+      display:inline-flex; align-items:center; gap:8px; padding:13px 26px; border-radius:12px;
+      font-weight:600; font-size:1rem; text-decoration:none; color:#fff; border:1px solid transparent;
+      background:linear-gradient(135deg,var(--brand-2),var(--brand)); box-shadow:0 12px 34px -10px rgba(124,92,255,0.85);
+    }
+    .shot { display:block; width:100%; max-width:720px; margin:8px auto 24px; border-radius:18px; border:1px solid var(--border); }
+    .article ol { color:#c2cad8; font-size:1.04rem; padding-left:22px; margin:0 0 20px; }
+    .article ol li { margin-bottom:10px; }
+    .note { font-size:0.95rem !important; color:var(--ink-faint) !important; }
+    .cta:hover { filter:brightness(1.08); }
+
+    footer { text-align:center; padding:36px 20px; border-top:1px solid var(--border); color:var(--ink-faint); font-size:0.85rem; }
+    footer a { color:var(--ink-dim); text-decoration:none; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="/"><img class="brand-logo" src="/sentinel/assets/sentinel_logo.JPG" alt="CamLabs.ai"> CamLabs.ai</a>
+      <a href="/redactly/">Redactly AI</a>
+      <a href="/sentinel/">Sentinel AI</a>
+      <a href="/blog/">Blog</a>
+      <a href="/support.html">Support</a>
+    </nav>
+
+    <article class="article">
+      <div class="crumb"><a href="/blog/">&larr; All posts</a></div>
+      <h1>How to Tell If a PDF&#39;s Redactions Are Fake (Before Someone Else Does)</h1>
+      <div class="byline">
+        <img class="avatar" src="/sentinel/assets/sentinel_logo.JPG" alt="CamLabs">
+        <div>By <b>Bryon Hudson</b> · Founder, CamLabs AI<br>October 9, 2026 · 4 min read</div>
+      </div>
+
+      <p class="lead">A redacted PDF can look perfect on screen and still hand over every word you meant to hide. If the black boxes were drawn on top of the text instead of replacing it, anyone can select the "blacked out" area, copy it and paste it somewhere else.</p>
+
+      <h2>It happens to courts, agencies and big firms</h2>
+      <p>This isn't a rookie mistake that only happens to small offices. A few public examples:</p>
+      <ul>
+        <li><strong>Federal court filings, 2019.</strong> Lawyers for Paul Manafort filed a response with black boxes over sensitive passages. Reporters copied and pasted the text and read what was underneath. The filing was pulled and replaced (<a href="https://www.americanbar.org/groups/judicial/resources/judges-journal/archive/embarrassing-redaction-failures/" rel="noopener">ABA Judges' Journal</a>).</li>
+        <li><strong>A federal judge's opinion, 2011.</strong> Redacted parts of an opinion in Apple v. Samsung could be copied out, revealing business details. The court sealed it and posted a fixed version within hours (same source).</li>
+        <li><strong>Court records at scale.</strong> A Princeton researcher scanned 1.8 million documents on PACER, the federal court records system, and found 194 with redactions that didn't work. He estimated thousands more across the full system (<a href="https://www.abajournal.com/news/article/tens_of_thousands_of_pacer_documents_could_have_failed_redactions_study_sug" rel="noopener">ABA Journal</a>).</li>
+        <li><strong>Government releases, 2025.</strong> After the Justice Department released the Epstein files, people found that some redactions could be bypassed by copying the blacked-out text and pasting it into a document (<a href="https://dailydot.com/viral-politics/epstein-files-copy-paste/" rel="noopener">Daily Dot</a>).</li>
+      </ul>
+
+      <h2>Why a black box isn't a redaction</h2>
+      <p>A PDF is built in layers. The words sit in one layer, and anything you draw, like a black rectangle or a thick highlight, sits in a layer on top. Drawing a box covers the words for your eyes. It doesn't remove them from the file. A true redaction deletes the text and anything else under the box, then saves a file where that content no longer exists.</p>
+      <p>The trap is that both look exactly the same on screen. You can't tell them apart by looking.</p>
+
+      <h2>Three ways to check a PDF</h2>
+      <ol>
+        <li><strong>The copy test.</strong> Open the exported PDF, drag across a black bar and copy (Command-C on a Mac, Ctrl-C on Windows). Paste into a blank note. If any words show up, the redaction failed.</li>
+        <li><strong>The search test.</strong> Press Command-F or Ctrl-F and search for something you removed, like the last four digits of an account number. If the viewer finds it, it's still in the file.</li>
+        <li><strong>The free checker.</strong> Drop the PDF into our <a href="/redaction-checker/">PDF redaction checker</a>. It looks at every page, lists any text still hiding under dark boxes, flags redaction marks that were never applied, and shows the author and title saved inside the file. It runs in your browser and the file is never uploaded.</li>
+      </ol>
+      <p>The first two tests only check the spot you test. The checker goes through every page, which matters on a 40-page filing.</p>
+
+      <h2>Don't forget what's hiding in the file itself</h2>
+      <p>Even a properly redacted PDF can carry details in its document info, like the original file name, the author's name or the title. Open the file's properties (File &gt; Get Info or Document Properties) and check them before you send it. The checker shows these too.</p>
+
+      <h2>What to do if a file fails</h2>
+      <p>Don't try to patch the bad file. Go back to the original, redact it with a tool that actually removes the text, and export a new copy. Then check the new copy again. No automated tool is perfect, including ours, so a final look at every page is still worth it.</p>
+
+      <div class="cta-box">
+        <h3>Check a PDF free, right now</h3>
+        <p>Find text hiding under black boxes in seconds. Nothing is uploaded.</p>
+        <a class="cta" href="/redaction-checker/">Open the redaction checker &rarr;</a>
+        <p class="note" style="margin-top:14px">Need to redact documents properly? <a href="/redactly/">Redactly AI</a> finds SSNs, account numbers and names for you and exports a flattened PDF with the text underneath removed. Free for 14 days on Mac.</p>
+      </div>
+    </article>
+
+    <footer>
+      &copy; 2026 CamLabs.ai · <a href="/blog/">Blog</a> · <a href="/redactly/">Redactly AI</a> · <a href="/redaction-checker/">Free redaction checker</a> · <a href="/privacy.html">Privacy</a> · <a href="/support.html">Support</a>
+    </footer>
+  </div>
+</body>
+</html>
