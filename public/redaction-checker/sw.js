@@ -1,10 +1,11 @@
 // Redaction Checker offline support. Caches only the app's own files.
 // PDFs you check are never cached, stored or sent anywhere.
-const CACHE = 'redaction-checker-v1';
+const CACHE = 'redaction-checker-v2';
 const CORE = [
   '/redaction-checker/',
   '/redaction-checker/vendor/pdf.min.js',
   '/redaction-checker/vendor/pdf.worker.min.js',
+  '/redaction-checker/vendor/pdf-lib.min.js',
   '/redaction-checker/manifest.webmanifest',
   '/redaction-checker/icons/icon-192.png',
   '/redaction-checker/icons/icon-512.png',

@@ -149,6 +149,12 @@
     .install .btn { margin-top:0; }
     .install p { color:var(--ink-faint); font-size:0.88rem; margin:8px 0 0; }
     .standalone nav a:not(.brand) { display:none; }
+    .opt { display:flex; gap:10px; align-items:flex-start; color:#c2cad8; margin:8px 0; cursor:pointer; }
+    .opt input { margin-top:4px; width:16px; height:16px; accent-color:#7c5cff; }
+    .cleanok { margin:14px 0 0; color:#5fe0b3; }
+    .btn[disabled] { opacity:.6; cursor:default; }
+    .hidnote { margin:10px 0 0 !important; color:#ffc764 !important; font-weight:500; }
+    .hidh { font-size:1.2rem; margin:28px 0 6px; letter-spacing:-0.01em; }
     footer { text-align:center; padding:36px 20px; border-top:1px solid var(--border); color:var(--ink-faint); font-size:0.85rem; }
     footer a { color:var(--ink-dim); text-decoration:none; }
     @media (max-width:520px) { nav { gap:16px; } .drop { padding:34px 14px; } }
@@ -200,7 +206,9 @@
           <li><strong>Text under boxes.</strong> We draw each page the way a PDF viewer would, then look at every piece of selectable text. If a word sits under a solid box, it's still in the file and anyone can copy it out.</li>
           <li><strong>Invisible text.</strong> Text that is selectable but can't be seen on the page, such as white text or a hidden OCR layer over a blacked-out area.</li>
           <li><strong>Unapplied redaction marks.</strong> Some editors let you mark areas for redaction but only remove the content when you click "Apply." Marks that were never applied are flagged.</li>
-          <li><strong>Document info.</strong> The title, author and other details saved inside the file, which can give away names. To see everything hidden in a PDF and remove it, use our <a href="/pdf-metadata-checker/">PDF hidden info checker</a>.</li>
+          <li><strong>Hidden details.</strong> The title, author and other document info (the title is often the original file name), a second copy of those details called XMP metadata, comments with their authors' names, attached files, filled-in form values and scripts.</li>
+          <li><strong>Earlier versions.</strong> Many editors save changes by adding to the end of the file, so earlier drafts can still be inside. The checker counts them.</li>
+          <li><strong>A cleaned copy.</strong> If hidden details are found, you can download a copy with them removed. It does not change what's on the pages, so it won't fix a failed redaction.</li>
         </ol>
 
         <h2>What it can't check</h2>
@@ -222,6 +230,7 @@
   </div>
 
   <script src="/redaction-checker/vendor/pdf.min.js"></script>
+  <script src="/redaction-checker/vendor/pdf-lib.min.js"></script>
   <script>
   (function () {
     'use strict';
@@ -229,6 +238,10 @@
     pdfjsLib.GlobalWorkerOptions.workerSrc = '/redaction-checker/vendor/pdf.worker.min.js';
 
     var MAX_PAGES = 500;
+    var L = window.PDFLib;
+    var PDFDocument = L && L.PDFDocument, PDFName = L && L.PDFName, PDFDict = L && L.PDFDict, PDFArray = L && L.PDFArray,
+        PDFRef = L && L.PDFRef, PDFString = L && L.PDFString, PDFHexString = L && L.PDFHexString;
+    var current = null;
 
     // ---- Install as an app (works offline afterwards) ----
     var standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
@@ -287,7 +300,13 @@
       progress.style.display = 'block';
       setProgress(0, 'Reading file…');
       file.arrayBuffer().then(function (buf) {
-        return analyze(new Uint8Array(buf));
+        var bytes = new Uint8Array(buf);
+        // pdf.js takes ownership of the buffer it is given, so it gets a copy
+        return analyze(bytes.slice()).then(function (report) {
+          setProgress(1, 'Looking for hidden details…');
+          var hid = L ? inspectHidden(bytes).catch(function () { return null; }) : Promise.resolve(null);
+          return hid.then(function (h) { report.extra = h; current = { name: file.name, bytes: bytes, report: h }; return report; });
+        });
       }).then(function (report) {
         render(file.name, report);
       }).catch(function (err) {
@@ -467,6 +486,258 @@
       return out.join(' ');
     }
 
+    function txt(v) {
+      if (!v) return '';
+      try { if (v instanceof PDFString || v instanceof PDFHexString) return v.decodeText(); } catch (e) {}
+      try { if (v instanceof PDFName) return v.decodeText ? v.decodeText() : String(v).replace(/^\//, ''); } catch (e) {}
+      return '';
+    }
+    function fmtDate(d) { try { return d ? d.toLocaleString() : ''; } catch (e) { return ''; } }
+
+    // ---------- reading ----------
+    function countRevisions(bytes) {
+      var s = '', n = 0, lin = false, i;
+      // latin1 view of the bytes, in chunks to keep memory sane
+      for (i = 0; i < bytes.length; i += 65536) s += String.fromCharCode.apply(null, bytes.subarray(i, Math.min(bytes.length, i + 65536)));
+      var re = /%%EOF/g; while (re.exec(s)) n++;
+      lin = /\/Linearized/.test(s.slice(0, 2048));
+      return Math.max(1, n - (lin ? 1 : 0));
+    }
+
+    function nameTreeEntries(ctx, node, out, depth) {
+      if (!node || depth > 20) return;
+      node = ctx.lookup(node);
+      if (!(node instanceof PDFDict)) return;
+      var names = ctx.lookup(node.get(PDFName.of('Names')));
+      if (names instanceof PDFArray) {
+        for (var i = 0; i + 1 < names.size(); i += 2) out.push({ key: txt(ctx.lookup(names.get(i))), val: names.get(i + 1) });
+      }
+      var kids = ctx.lookup(node.get(PDFName.of('Kids')));
+      if (kids instanceof PDFArray) for (var k = 0; k < kids.size(); k++) nameTreeEntries(ctx, kids.get(k), out, depth + 1);
+    }
+
+    function fileSpecName(ctx, fs) {
+      fs = ctx.lookup(fs);
+      if (!(fs instanceof PDFDict)) return txt(fs) || 'unnamed file';
+      return txt(ctx.lookup(fs.get(PDFName.of('UF')))) || txt(ctx.lookup(fs.get(PDFName.of('F')))) || 'unnamed file';
+    }
+
+    function readXmp(ctx, catalog) {
+      var md = catalog.lookup(PDFName.of('Metadata'));
+      if (!md) return null;
+      var text = '';
+      try { text = new TextDecoder('utf-8').decode(L.decodePDFRawStream(md).decode()); } catch (e) {
+        try { text = new TextDecoder('utf-8').decode(md.getContents()); } catch (e2) { text = ''; }
+      }
+      function grab(tag) {
+        var m = text.match(new RegExp('<' + tag + '[^>]*>([\\s\\S]*?)</' + tag + '>'));
+        if (!m) { m = text.match(new RegExp(tag + '="([^"]*)"')); return m ? m[1] : ''; }
+        var lis = m[1].match(/<rdf:li[^>]*>([\s\S]*?)<\/rdf:li>/g);
+        if (lis) return lis.map(function (x) { return x.replace(/<[^>]+>/g, ''); }).join(', ');
+        return m[1].replace(/<[^>]+>/g, '').trim();
+      }
+      var fields = [
+        ['Title', grab('dc:title')], ['Author', grab('dc:creator')], ['Description', grab('dc:description')],
+        ['Created with', grab('xmp:CreatorTool')], ['Saved with', grab('pdf:Producer')], ['Keywords', grab('pdf:Keywords')]
+      ].filter(function (f) { return f[1] && f[1].trim(); });
+      var history = (text.match(/stEvt:action/g) || []).length;
+      return { fields: fields, history: history, bytes: text.length };
+    }
+
+    function inspectHidden(bytes) {
+      return PDFDocument.load(bytes, { ignoreEncryption: true, updateMetadata: false, throwOnInvalidObject: false }).then(function (pdf) {
+        if (pdf.isEncrypted) { var e = new Error('encrypted'); e.encrypted = true; throw e; }
+        var ctx = pdf.context, catalog = pdf.catalog, r = {};
+        r.pages = pdf.getPageCount();
+        r.info = [
+          ['Title', pdf.getTitle()], ['Author', pdf.getAuthor()], ['Subject', pdf.getSubject()], ['Keywords', pdf.getKeywords()],
+          ['Created with', pdf.getCreator()], ['Saved with', pdf.getProducer()],
+          ['Created', fmtDate(pdf.getCreationDate())], ['Last changed', fmtDate(pdf.getModificationDate())]
+        ].filter(function (f) { return f[1] && String(f[1]).trim(); });
+        r.xmp = readXmp(ctx, catalog);
+        r.revisions = countRevisions(bytes);
+
+        r.comments = []; r.attachments = [];
+        pdf.getPages().forEach(function (page, pi) {
+          var annots = page.node.Annots();
+          if (!annots) return;
+          for (var i = 0; i < annots.size(); i++) {
+            var a = ctx.lookup(annots.get(i));
+            if (!(a instanceof PDFDict)) continue;
+            var st = txt(a.get(PDFName.of('Subtype')));
+            if (st === 'Link' || st === 'Widget' || st === 'Popup') continue;
+            if (st === 'FileAttachment') { r.attachments.push({ name: fileSpecName(ctx, a.get(PDFName.of('FS'))), where: 'page ' + (pi + 1) }); continue; }
+            r.comments.push({ page: pi + 1, type: st || 'Annotation', author: txt(ctx.lookup(a.get(PDFName.of('T')))), text: txt(ctx.lookup(a.get(PDFName.of('Contents')))) });
+          }
+        });
+
+        var names = catalog.lookup(PDFName.of('Names'));
+        r.js = false;
+        if (names instanceof PDFDict) {
+          var ef = [];
+          nameTreeEntries(ctx, names.get(PDFName.of('EmbeddedFiles')), ef, 0);
+          ef.forEach(function (x) { r.attachments.push({ name: fileSpecName(ctx, x.val) || x.key, where: 'document' }); });
+          if (names.get(PDFName.of('JavaScript'))) r.js = true;
+        }
+        var oa = catalog.lookup(PDFName.of('OpenAction'));
+        if (oa instanceof PDFDict && txt(oa.get(PDFName.of('S'))) === 'JavaScript') r.js = true;
+        if (catalog.get(PDFName.of('AA'))) r.js = true;
+
+        r.fields = [];
+        try {
+          pdf.getForm().getFields().forEach(function (f) {
+            var v = '';
+            try {
+              if (f.getText) v = f.getText() || '';
+              else if (f.isChecked) v = f.isChecked() ? 'checked' : '';
+              else if (f.getSelected) v = (f.getSelected() || []).join(', ');
+            } catch (e) {}
+            r.fields.push({ name: f.getName(), value: v });
+          });
+        } catch (e) {}
+        r.filledFields = r.fields.filter(function (f) { return f.value; });
+        return r;
+      });
+    }
+
+    // ---------- cleaning ----------
+    function pruneUnreachable(pdf) {
+      var ctx = pdf.context, seen = new Set(), stack = [];
+      function visit(o) {
+        if (!o) return;
+        if (o instanceof PDFRef) { var k = o.tag || o.toString(); if (seen.has(k)) return; seen.add(k); stack.push(ctx.lookup(o)); return; }
+        stack.push(o);
+      }
+      visit(ctx.trailerInfo.Root); visit(ctx.trailerInfo.Info);
+      while (stack.length) {
+        var o = stack.pop();
+        if (!o) continue;
+        if (o instanceof PDFDict) { o.entries().forEach(function (e) { visit(e[1]); }); }
+        else if (o instanceof PDFArray) { for (var i = 0; i < o.size(); i++) visit(o.get(i)); }
+        else if (o.dict instanceof PDFDict) { o.dict.entries().forEach(function (e) { visit(e[1]); }); }
+      }
+      var removed = 0;
+      ctx.enumerateIndirectObjects().forEach(function (pair) {
+        var ref = pair[0], k = ref.tag || ref.toString();
+        if (!seen.has(k)) { ctx.delete(ref); removed++; }
+      });
+      return removed;
+    }
+
+    function clean(bytes, opt) {
+      return PDFDocument.load(bytes, { ignoreEncryption: true, updateMetadata: false, throwOnInvalidObject: false }).then(function (pdf) {
+        var ctx = pdf.context, catalog = pdf.catalog;
+        if (opt.info) { ctx.trailerInfo.Info = undefined; }
+        if (opt.xmp) {
+          catalog.delete(PDFName.of('Metadata'));
+          catalog.delete(PDFName.of('PieceInfo'));
+          pdf.getPages().forEach(function (p) { p.node.delete(PDFName.of('Metadata')); p.node.delete(PDFName.of('PieceInfo')); });
+        }
+        if (opt.forms) { try { pdf.getForm().flatten(); } catch (e) {} }
+        pdf.getPages().forEach(function (page) {
+          var annots = page.node.Annots();
+          if (!annots) return;
+          var keep = [];
+          for (var i = 0; i < annots.size(); i++) {
+            var ref = annots.get(i), a = ctx.lookup(ref);
+            var st = a instanceof PDFDict ? txt(a.get(PDFName.of('Subtype'))) : '';
+            var drop = (opt.comments && st !== 'Link' && st !== 'Widget' && st !== 'FileAttachment') ||
+                       (opt.attachments && st === 'FileAttachment') ||
+                       (opt.comments && st === 'Popup');
+            if (!drop) keep.push(ref);
+          }
+          if (keep.length) page.node.set(PDFName.of('Annots'), ctx.obj(keep)); else page.node.delete(PDFName.of('Annots'));
+        });
+        var names = catalog.lookup(PDFName.of('Names'));
+        if (names instanceof PDFDict) {
+          if (opt.attachments) names.delete(PDFName.of('EmbeddedFiles'));
+          if (opt.js) names.delete(PDFName.of('JavaScript'));
+        }
+        if (opt.js) {
+          var oa = catalog.lookup(PDFName.of('OpenAction'));
+          if (oa instanceof PDFDict && txt(oa.get(PDFName.of('S'))) === 'JavaScript') catalog.delete(PDFName.of('OpenAction'));
+          catalog.delete(PDFName.of('AA'));
+        }
+        pruneUnreachable(pdf);
+        return pdf.save({ useObjectStreams: false, updateFieldAppearances: false });
+      });
+    }
+
+    function rows(list) { return '<ul class="plain">' + list.map(function (f) { return '<li><strong>' + esc(f[0]) + ':</strong> ' + esc(f[1]) + '</li>'; }).join('') + '</ul>'; }
+    function opt(id, label, show, on) {
+      if (!show) return '';
+      return '<label class="opt"><input type="checkbox" id="o_' + id + '"' + (on ? ' checked' : '') + '> ' + esc(label) + '</label>';
+    }
+    function checked(id) { var el = document.getElementById('o_' + id); return !!(el && el.checked); }
+
+    function doClean() {
+      var btn = document.getElementById('doclean'), out = document.getElementById('cleanres');
+      btn.disabled = true; btn.textContent = 'Cleaning…';
+      var o = { info: checked('info'), xmp: checked('xmp'), comments: checked('comments'), attachments: checked('attachments'), js: checked('js'), forms: checked('forms') };
+      clean(current.bytes, o).then(function (cleaned) {
+        return inspectHidden(cleaned).then(function (after) {
+          var blob = new Blob([cleaned], { type: 'application/pdf' });
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement('a');
+          a.href = url; a.download = 'cleaned_' + current.name.replace(/\.pdf$/i, '') + '.pdf';
+          document.body.appendChild(a); a.click(); a.remove();
+          setTimeout(function () { URL.revokeObjectURL(url); }, 60000);
+          var left = [];
+          if (after.info.length) left.push('document info: ' + after.info.map(function (f) { return f[0]; }).join(', '));
+          if (after.xmp && after.xmp.fields.length) left.push('XMP metadata');
+          if (after.comments.length) left.push(after.comments.length + ' comments');
+          if (after.attachments.length) left.push(after.attachments.length + ' attachments');
+          if (after.js) left.push('scripts');
+          out.innerHTML = '<p class="cleanok">Downloaded <strong>' + esc(a.download) + '</strong>. We re-checked the cleaned copy: ' +
+            (left.length ? 'still contains ' + esc(left.join('; ')) + ' (the options you left unticked).' : 'nothing from the list above remains.') +
+            ' It was saved as one version. ' + (after.filledFields.length ? 'Filled form fields are still there because you didn\'t flatten them.' : '') + '</p>';
+          btn.disabled = false; btn.textContent = 'Download cleaned PDF';
+        });
+      }).catch(function (err) {
+        out.innerHTML = '<p class="note">Sorry, this file couldn\'t be cleaned. It may use features this tool doesn\'t support.</p>';
+        btn.disabled = false; btn.textContent = 'Download cleaned PDF';
+        if (window.console) console.error(err);
+      });
+    }
+
+
+    function hasHidden(x) {
+      return !!(x && (x.info.length || (x.xmp && x.xmp.fields.length) || x.revisions > 1 || x.comments.length || x.attachments.length || x.filledFields.length || x.js));
+    }
+    function hiddenHtml(r) {
+      var x = r.extra, h = '';
+      if (!x) {
+        var metaKeys = [['Title', 'Title'], ['Author', 'Author'], ['Subject', 'Subject'], ['Keywords', 'Keywords'], ['Creator', 'Created with'], ['Producer', 'Saved with']];
+        var metaRows = metaKeys.filter(function (k) { return r.meta[k[0]] && String(r.meta[k[0]]).trim(); });
+        if (metaRows.length) h += '<div class="section"><h3>Document info saved in the file</h3>' + rows(metaRows.map(function (k) { return [k[1], r.meta[k[0]]]; })) + '</div>';
+        return h;
+      }
+      if (!hasHidden(x)) return '<p class="note">No hidden details found: no document info, metadata, comments, attachments, filled form fields, scripts or earlier versions.</p>';
+      h += '<h2 class="hidh">Hidden details in this file</h2><p class="note" style="margin-top:0">Anyone who opens the file can see these. Check that none of them name someone you meant to hide.</p>';
+      if (x.info.length) h += '<div class="section"><h3>Document info</h3>' + rows(x.info) + '<p class="note" style="margin:8px 0 0">The title is often the original file name, which can include a client\'s name.</p></div>';
+      if (x.xmp && x.xmp.fields.length) h += '<div class="section"><h3>XMP metadata (a second, separate copy)</h3>' + rows(x.xmp.fields) + (x.xmp.history ? '<p class="note" style="margin:8px 0 0">Also holds an edit history with ' + x.xmp.history + (x.xmp.history === 1 ? ' entry.' : ' entries.') + '</p>' : '') + '</div>';
+      if (x.revisions > 1) h += '<div class="section"><h3>Earlier versions inside the file</h3><p style="margin:0;color:#c2cad8">This file was saved ' + x.revisions + ' times by adding changes to the end. Earlier versions, including text that was later deleted or covered, may still be recoverable. The cleaned copy leaves them out.</p></div>';
+      if (x.comments.length) {
+        h += '<div class="section"><h3>Comments and markups</h3>';
+        x.comments.slice(0, 100).forEach(function (c) {
+          h += '<div class="finding"><div class="pg">Page ' + c.page + ' · ' + esc(c.type) + (c.author ? ' · by ' + esc(c.author) : '') + '</div>' + (c.text ? '<code>' + esc(c.text) + '</code>' : '') + '</div>';
+        });
+        h += '</div>';
+      }
+      if (x.attachments.length) h += '<div class="section"><h3>Attached files</h3><ul class="plain">' + x.attachments.map(function (a) { return '<li>' + esc(a.name) + ' <span class="note">(' + esc(a.where) + ')</span></li>'; }).join('') + '</ul></div>';
+      if (x.filledFields.length) h += '<div class="section"><h3>Filled-in form fields</h3><ul class="plain">' + x.filledFields.slice(0, 100).map(function (f) { return '<li><strong>' + esc(f.name) + ':</strong> ' + esc(f.value) + '</li>'; }).join('') + '</ul></div>';
+      if (x.js) h += '<div class="section"><h3>Scripts</h3><p style="margin:0;color:#c2cad8">This file contains JavaScript that can run when it is opened.</p></div>';
+      h += '<div class="section" id="cleanbox"><h3>Download a cleaned copy</h3>' +
+        opt('info', 'Remove document info (title, author, dates, apps)', x.info.length > 0, true) +
+        opt('xmp', 'Remove XMP metadata', !!x.xmp, true) +
+        opt('comments', 'Remove comments and markups', x.comments.length > 0, true) +
+        opt('attachments', 'Remove attached files', x.attachments.length > 0, true) +
+        opt('js', 'Remove scripts', x.js, true) +
+        opt('forms', 'Flatten form fields (keeps what\'s typed, removes the editable fields)', x.fields.length > 0, false) +
+        '<p class="note" style="margin:6px 0 12px">Earlier saved versions are always left out. Text and images on the pages are not changed, so this does not fix failed redactions.</p>' +
+        '<button class="btn" type="button" id="doclean">Download cleaned PDF</button><div id="cleanres"></div></div>';
+      return h;
+    }
     function showError(name, msg) {
       resultEl.innerHTML = '<div class="verdict warn"><div class="fname">' + esc(name) + '</div><h2>Couldn\'t check this file</h2><p>' + esc(msg) + '</p></div>';
       resultEl.style.display = 'block';
@@ -501,6 +772,7 @@
         html += 'ok"><div class="fname">' + esc(name) + '</div><h2>Passed: no text hiding under boxes</h2>' +
           '<p>' + boxLine(r) + 'This file has selectable text, but all of it is visible on the page. Nothing is hiding under a black box. Anyone can still copy the visible text, so make sure everything private was covered before you send it.</p>';
       }
+      if (hasHidden(r.extra)) html += '<p class="hidnote">This file also carries hidden details, like names in its properties. See them below and download a cleaned copy.</p>';
       html += '</div>';
 
       html += '<div class="stats">' +
@@ -526,13 +798,7 @@
         });
         html += '</div>';
       }
-      var metaKeys = [['Title', 'Title'], ['Author', 'Author'], ['Subject', 'Subject'], ['Keywords', 'Keywords'], ['Creator', 'Created with'], ['Producer', 'Saved with']];
-      var metaRows = metaKeys.filter(function (k) { return r.meta[k[0]] && String(r.meta[k[0]]).trim(); });
-      if (metaRows.length) {
-        html += '<div class="section"><h3>Document info saved in the file</h3><ul class="plain">';
-        metaRows.forEach(function (k) { html += '<li><strong>' + k[1] + ':</strong> ' + esc(r.meta[k[0]]) + '</li>'; });
-        html += '</ul><p class="note" style="margin:8px 0 0">Anyone who opens the file can see these. Make sure none of them name someone you meant to hide.</p></div>';
-      }
+      html += hiddenHtml(r);
       if (r.signTags) html += '<p class="note">We also skipped ' + r.signTags + ' hidden e-signature marker' + (r.signTags === 1 ? '' : 's') +
         ' (like <code>[def:…|signer1]</code>). Signing software leaves these in the file to place signature and initial fields. They are normal and don\'t contain personal details.</p>';
       if (r.checked < r.total) html += '<p class="note">Only the first ' + r.checked + ' pages were checked.</p>';
@@ -545,6 +811,7 @@
         var f = document.getElementById('found'); var on = f.classList.toggle('blur'); rev.textContent = on ? 'Show text' : 'Hide text';
       });
       document.getElementById('again').addEventListener('click', function () { fileInput.click(); });
+      var cb = document.getElementById('doclean'); if (cb) cb.addEventListener('click', doClean);
       resultEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
     function boxLine(r) {
