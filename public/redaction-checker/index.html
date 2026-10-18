@@ -155,6 +155,17 @@
     .btn[disabled] { opacity:.6; cursor:default; }
     .hidnote { margin:10px 0 0 !important; color:#ffc764 !important; font-weight:500; }
     .hidh { font-size:1.2rem; margin:28px 0 6px; letter-spacing:-0.01em; }
+    .signup { margin:18px 0 8px; padding:24px 22px; border-radius:18px; border:1px solid var(--border); background:var(--card); }
+    .signup h3 { margin:0 0 6px; font-size:1.15rem; }
+    .signup p { margin:0; color:var(--ink-dim); }
+    .signup form { display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; }
+    .signup input[type=email] { flex:1 1 220px; min-width:0; padding:12px 14px; border-radius:12px; border:1px solid var(--border-strong); background:rgba(255,255,255,0.04); color:var(--ink); font:inherit; font-size:1rem; }
+    .signup input[type=email]:focus { outline:2px solid var(--brand); outline-offset:1px; }
+    .signup .btn { margin-top:0; }
+    .signup .fine { font-size:0.82rem; color:var(--ink-faint); margin-top:10px; }
+    .signup .msg { margin-top:10px; font-weight:500; }
+    .signup .msg.ok { color:#5fe0b3; } .signup .msg.err { color:#ff8a8a; }
+    .hp { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
     footer { text-align:center; padding:36px 20px; border-top:1px solid var(--border); color:var(--ink-faint); font-size:0.85rem; }
     footer a { color:var(--ink-dim); text-decoration:none; }
     @media (max-width:520px) { nav { gap:16px; } .drop { padding:34px 14px; } }
@@ -195,9 +206,21 @@
 
       <div class="cta-box">
         <h3>Want redactions that can't be undone?</h3>
-        <p>Redactly AI finds SSNs, account numbers, names and other personal details, blacks them out, and exports a flattened PDF with the text underneath removed. It runs on your Mac and nothing is uploaded.</p>
+        <p>Redactly AI finds SSNs, account numbers, the names you tell it to look for and other personal details, blacks them out, and exports a flattened PDF with the text underneath removed. It runs on your Mac and nothing is uploaded.</p>
         <a class="btn" href="/redactly/download.html">Try Redactly free for 14 days →</a>
         <p class="note" style="margin-top:10px">Also on iPhone and Android. <a href="/redactly/">Learn more</a></p>
+      </div>
+
+      <div class="signup" id="signup">
+        <h3>Get the 5-minute redaction checklist</h3>
+        <p>Five quick checks to run before any redacted PDF leaves your hands. Free, sent by email.</p>
+        <form id="signupForm" novalidate>
+          <label class="hp" aria-hidden="true">Leave this empty <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+          <input type="email" name="email" id="signupEmail" placeholder="you@example.com" autocomplete="email" required aria-label="Email address">
+          <button class="btn" type="submit" id="signupBtn">Send me the checklist</button>
+        </form>
+        <p class="msg" id="signupMsg" role="status" aria-live="polite"></p>
+        <p class="fine">Only your email address is sent, to our email provider MailerLite. Your PDFs never leave your browser. You'll get the checklist and occasional Redactly updates; unsubscribe anytime. <a href="/privacy.html">Privacy policy</a></p>
       </div>
 
       <section class="info">
@@ -710,6 +733,40 @@
       return 'We found ' + r.boxes + ' black box' + (r.boxes === 1 ? '' : 'es') + ' on ' + r.boxPages + ' page' + (r.boxPages === 1 ? '' : 's') + ', and nothing is hiding under them. ';
     }
     function stat(v, l) { return '<div class="stat"><b>' + esc(v) + '</b><span>' + esc(l) + '</span></div>'; }
+  })();
+  </script>
+  <script>
+  (function () {
+    var form = document.getElementById('signupForm');
+    if (!form) return;
+    var email = document.getElementById('signupEmail');
+    var btn = document.getElementById('signupBtn');
+    var msg = document.getElementById('signupMsg');
+    var URL = 'https://assets.mailerlite.com/jsonp/2707933/forms/201268022260794936/subscribe';
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      msg.className = 'msg'; msg.textContent = '';
+      if (form.website.value) return;
+      var v = (email.value || '').trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) { msg.className = 'msg err'; msg.textContent = 'Please enter a valid email address.'; return; }
+      btn.disabled = true; btn.textContent = 'Sending…';
+      var fd = new FormData();
+      fd.append('fields[email]', v); fd.append('ml-submit', '1'); fd.append('anticsrf', 'true');
+      fetch(URL, { method: 'POST', body: fd })
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          if (d && d.success) {
+            form.style.display = 'none';
+            msg.className = 'msg ok';
+            msg.textContent = "Check your inbox. Your checklist is on its way. If you don't see it in a few minutes, check your spam or promotions folder.";
+          } else { throw new Error('rejected'); }
+        })
+        .catch(function () {
+          msg.className = 'msg err';
+          msg.textContent = 'Something went wrong. Please try again, or email bryon@camlabs.ai.';
+          btn.disabled = false; btn.textContent = 'Send me the checklist';
+        });
+    });
   })();
   </script>
 </body>
