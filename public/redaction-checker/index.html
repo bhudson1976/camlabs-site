@@ -99,7 +99,7 @@
     .bar i { display:block; height:100%; width:0; background:linear-gradient(90deg,var(--brand-2),var(--brand)); transition:width .15s; }
     .progress p { color:var(--ink-dim); font-size:0.92rem; margin:8px 0 0; }
 
-    #result { display:none; margin-top:26px; scroll-margin-top:90px; }
+    #result { display:none; margin-top:26px; scroll-margin-top:120px; }
     .verdict { border-radius:18px; padding:24px 22px; border:1px solid var(--border); }
     .verdict h2 { margin:0 0 6px; font-size:1.4rem; letter-spacing:-0.02em; }
     .verdict p { margin:0; color:#c2cad8; }
@@ -687,7 +687,7 @@
         html += 'ok"><div class="fname">' + esc(name) + '</div><h2>Passed: no text hiding under boxes</h2>' +
           '<p>' + boxLine(r) + 'This file has selectable text, but all of it is visible on the page. Nothing is hiding under a black box. Anyone can still copy the visible text, so make sure everything private was covered before you send it.</p>';
       }
-      if (hasHidden(r.extra)) html += '<p class="hidnote">This file also carries hidden details, like names in its properties. See them below.</p>';
+      if (hasHidden(r.extra)) html += '<p class="hidnote">This file also carries hidden details, such as document properties. Check them below.</p>';
       html += '</div>';
 
       html += '<div class="stats">' +
