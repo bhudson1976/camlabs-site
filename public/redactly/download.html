@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Download Redactly AI — Free 14-Day Trial for Mac | CamLabs.ai</title>
-  <meta name="description" content="Download Redactly AI - PDF Scanner for macOS. 14-day free trial, no credit card required. On-device AI redaction for PDFs, photos, and scans.">
+  <title>Download Redactly AI — Free 14-Day Trial for Mac &amp; Windows | CamLabs.ai</title>
+  <meta name="description" content="Download Redactly AI for Mac and Windows. 14-day free trial, no credit card required. On-device AI redaction for PDFs, photos, and scans.">
   <link rel="canonical" href="https://camlabs.ai/redactly/download.html" />
   <link rel="icon" type="image/jpeg" href="/sentinel/assets/sentinel_logo.JPG">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -116,6 +116,15 @@
     .step .txt { font-size:0.92rem; color:var(--ink-dim); padding-top:3px; }
     .step .txt strong { color:var(--ink); font-weight:600; }
 
+    .platform-switch {
+      display:flex; justify-content:center; gap:6px; margin-bottom:36px;
+    }
+    .platform-switch a {
+      padding:10px 28px; border-radius:10px; text-decoration:none; font-weight:600; font-size:0.95rem;
+      color:var(--ink-dim); border:1px solid var(--border); transition:all .15s;
+    }
+    .platform-switch a:hover { background:var(--card-hover); border-color:var(--border-strong); color:var(--ink); }
+
     footer { text-align:center; padding:34px 20px; border-top:1px solid var(--border); color:var(--ink-faint); font-size:0.85rem; }
     footer a { color:var(--ink-dim); text-decoration:none; }
     footer a:hover { color:var(--ink); }
@@ -132,12 +141,18 @@
     </nav>
 
     <header class="hero">
-      <div class="pill"><span class="dot"></span> macOS · On-device processing</div>
-      <h1>Download Redactly AI for Mac</h1>
+      <div class="pill"><span class="dot"></span> Mac · Windows · On-device processing</div>
+      <h1>Download Redactly AI</h1>
       <p>PDF scanning &amp; on-device redaction. Start your free 14-day trial in under a minute.</p>
     </header>
 
     <main>
+      <div class="platform-switch">
+        <a href="#mac">Mac</a>
+        <a href="#windows">Windows</a>
+      </div>
+
+      <section id="mac">
       <div class="dl-card">
         <div class="app-icon">🛡️</div>
         <h2>Redactly AI — PDF Scanner</h2>
@@ -174,6 +189,46 @@
           <div class="step"><div class="num">4</div><div class="txt">When your trial ends, <a href="/redactly/#pricing" style="color:var(--brand);text-decoration:none;font-weight:600;">purchase a license</a> to keep using Redactly AI — no reinstall needed, just enter your new key.</div></div>
         </div>
       </section>
+      </section><!-- /mac -->
+
+      <section id="windows" style="margin-top:48px;">
+        <div class="dl-card">
+          <div class="app-icon">🛡️</div>
+          <h2>Redactly AI — PDF Scanner</h2>
+          <p class="app-sub">Version 1.0.10 · Windows installer · 64-bit</p>
+
+          <a class="btn-download"
+             href="https://pub-10ae3ecc83a24d31961ba7a11de5255a.r2.dev/installers/Redactly_AI_Setup.exe"
+             download="Redactly_AI_Setup.exe">
+            <span class="arrow">⬇</span> Download Free Trial
+          </a>
+
+          <p class="req-line">Windows 10 or 11, 64-bit<span class="sep">·</span>~76 MB<span class="sep">·</span>No credit card required<span class="sep">·</span>14-day trial</p>
+
+          <div class="hash">
+            <b>SHA-256</b>
+            <code>3f8ef25a4c3a9c0d4768911343f87a0676661c053ced1d031ecc9a858ba68a0b</code>
+            <span style="display:block;margin-top:6px;font-size:0.72rem;">Verify in PowerShell:</span>
+            <code>Get-FileHash .\Redactly_AI_Setup.exe -Algorithm SHA256</code>
+          </div>
+        </div>
+
+        <p class="key-note">🔑 Trial starting for the first time? <a href="/redactly/#trial">Get your trial license key</a> — enter it in the app on first launch. Already purchased? Use the license key from your confirmation email.</p>
+
+        <section class="setup">
+          <div class="setup-head">
+            <h2>Install &amp; activate on Windows</h2>
+            <p>Up and running in a few minutes.</p>
+          </div>
+          <div class="panel">
+            <div class="step"><div class="num">1</div><div class="txt"><strong>Download and run Redactly_AI_Setup.exe.</strong> No admin password is needed — the installer runs for the current user.</div></div>
+            <div class="step"><div class="num">2</div><div class="txt"><strong>SmartScreen prompt.</strong> Because Redactly is new on Windows, SmartScreen may show "Windows protected your PC" at first. Click <strong>"More info"</strong> and check that the publisher is <strong>"Bryon Hudson"</strong>, then click <strong>"Run anyway"</strong>. Signed apps build reputation over time, so this goes away.</div></div>
+            <div class="step"><div class="num">3</div><div class="txt"><strong>Open Redactly</strong> from the Start menu.</div></div>
+            <div class="step"><div class="num">4</div><div class="txt"><strong>Activate:</strong> paste the license key from your purchase email, or start a 14-day trial with a key from <a href="/redactly/#trial" style="color:var(--brand);text-decoration:none;font-weight:600;">camlabs.ai/redactly/#trial</a>.</div></div>
+            <div class="step"><div class="num">5</div><div class="txt"><strong>On-device AI name detection:</strong> go to Settings → Sign in with a free Redactly account. The AI model then downloads once.</div></div>
+          </div>
+        </section>
+      </section><!-- /windows -->
     </main>
 
     <footer>
