@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Redact a Social Security Number in a PDF | CamLabs.ai</title>
+  <meta name="description" content="Black boxes don't remove SSNs from a PDF. Learn how to truly redact a Social Security number, check your work, and follow court rules.">
+  <link rel="canonical" href="https://camlabs.ai/blog/how-to-redact-social-security-number-pdf/" />
+
+  <meta property="og:title" content="How to Redact a Social Security Number in a PDF" />
+  <meta property="og:description" content="Black boxes don't remove SSNs from a PDF. Learn how to truly redact a Social Security number, check your work, and follow court rules." />
+  <meta property="og:image" content="https://camlabs.ai/redactly/assets/mac/06_results_1440x900.png" />
+  <meta property="og:url" content="https://camlabs.ai/blog/how-to-redact-social-security-number-pdf/" />
+  <meta property="og:type" content="article" />
+  <meta property="article:published_time" content="2026-10-30" />
+  <meta property="article:author" content="Bryon Hudson" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Redact a Social Security Number in a PDF">
+  <meta name="twitter:description" content="Black boxes don't remove SSNs from a PDF. Learn how to truly redact a Social Security number, check your work, and follow court rules.">
+  <meta name="twitter:image" content="https://camlabs.ai/redactly/assets/mac/06_results_1440x900.png">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "How to Redact a Social Security Number in a PDF",
+    "description": "Black boxes don't remove SSNs from a PDF. Learn how to truly redact a Social Security number, check your work, and follow court rules.",
+    "image": "https://camlabs.ai/redactly/assets/mac/06_results_1440x900.png",
+    "datePublished": "2026-10-30",
+    "dateModified": "2026-10-30",
+    "author": { "@type": "Person", "name": "Bryon Hudson", "url": "https://camlabs.ai/" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "CamLabs",
+      "logo": { "@type": "ImageObject", "url": "https://camlabs.ai/sentinel/assets/sentinel_logo.JPG" }
+    },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://camlabs.ai/blog/how-to-redact-social-security-number-pdf/" }
+  }
+  </script>
+
+  <link rel="icon" type="image/jpeg" href="/sentinel/assets/sentinel_logo.JPG">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0B0F19; --card:rgba(255,255,255,0.025); --border:rgba(255,255,255,0.08);
+      --border-strong:rgba(255,255,255,0.14); --ink:#F3F5F9; --ink-dim:#9aa4b6; --ink-faint:#6b7585;
+      --brand:#5b8cff; --brand-2:#7c5cff; --emerald:#10b981;
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0; background:var(--bg); color:var(--ink); line-height:1.7;
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; -webkit-font-smoothing:antialiased;
+    }
+    a { color:var(--brand); }
+    body::before {
+      content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+      background:radial-gradient(700px 340px at 50% -10%, rgba(124,92,255,0.16), transparent 70%);
+    }
+    .wrap { position:relative; z-index:1; }
+    nav {
+      display:flex; justify-content:center; gap:26px; align-items:center;
+      padding:18px 20px; border-bottom:1px solid var(--border);
+      backdrop-filter:blur(8px); position:sticky; top:0; background:rgba(11,15,25,0.7); z-index:5; flex-wrap:wrap;
+    }
+    nav a { color:var(--ink-dim); text-decoration:none; font-size:0.92rem; font-weight:500; }
+    nav a:hover { color:var(--ink); }
+    nav a.brand { color:var(--ink); font-weight:700; display:inline-flex; align-items:center; gap:9px; }
+    .brand-logo { width:28px; height:28px; border-radius:8px; object-fit:cover; object-position:center 26%; border:1px solid var(--border); }
+
+    .article { max-width:720px; margin:0 auto; padding:56px 22px 40px; }
+    .crumb { font-size:0.85rem; color:var(--ink-faint); margin-bottom:22px; }
+    .crumb a { color:var(--ink-dim); text-decoration:none; }
+    .article h1 {
+      font-size:clamp(1.9rem,4.6vw,2.6rem); line-height:1.14; margin:0 0 18px; font-weight:800; letter-spacing:-0.03em;
+      background:linear-gradient(180deg,#ffffff,#c3b6f5); -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .byline { display:flex; align-items:center; gap:12px; color:var(--ink-faint); font-size:0.9rem; margin-bottom:34px; padding-bottom:24px; border-bottom:1px solid var(--border); }
+    .byline .avatar { width:38px; height:38px; border-radius:50%; object-fit:cover; border:1px solid var(--border); }
+    .byline b { color:var(--ink-dim); font-weight:600; }
+    .article p { color:#c2cad8; font-size:1.06rem; margin:0 0 20px; }
+    .article h2 { font-size:1.45rem; font-weight:700; letter-spacing:-0.02em; margin:40px 0 14px; color:var(--ink); }
+    .article strong { color:var(--ink); font-weight:600; }
+    .article ul { padding-left:0; list-style:none; margin:0 0 20px; }
+    .article ul li {
+      position:relative; padding:16px 18px 16px 20px; margin-bottom:12px; border-radius:12px;
+      background:var(--card); border:1px solid var(--border); color:#c2cad8; font-size:1.02rem;
+    }
+    .article ul li strong { color:var(--ink); }
+    .lead { font-size:1.18rem !important; color:var(--ink-dim) !important; }
+
+    .cta-box {
+      margin:44px 0 8px; padding:30px 28px; text-align:center; border-radius:18px;
+      background:linear-gradient(180deg, rgba(124,92,255,0.12), rgba(91,140,255,0.04));
+      border:1px solid rgba(124,92,255,0.32);
+    }
+    .cta-box h3 { margin:0 0 8px; font-size:1.25rem; font-weight:700; color:var(--ink); }
+    .cta-box p { margin:0 0 18px; color:var(--ink-dim); font-size:1rem; }
+    .cta {
+      display:inline-flex; align-items:center; gap:8px; padding:13px 26px; border-radius:12px;
+      font-weight:600; font-size:1rem; text-decoration:none; color:#fff; border:1px solid transparent;
+      background:linear-gradient(135deg,var(--brand-2),var(--brand)); box-shadow:0 12px 34px -10px rgba(124,92,255,0.85);
+    }
+    .cta:hover { filter:brightness(1.08); }
+    .article ol { color:#c2cad8; font-size:1.04rem; padding-left:22px; margin:0 0 20px; }
+    .article ol li { margin-bottom:10px; }
+    .note { font-size:0.95rem !important; color:var(--ink-faint) !important; }
+    .sources { margin-top:40px; padding-top:24px; border-top:1px solid var(--border); }
+    .sources h2 { font-size:1.2rem; margin-bottom:12px; }
+    .sources ul li { padding:10px 18px; font-size:0.95rem; }
+
+    footer { text-align:center; padding:36px 20px; border-top:1px solid var(--border); color:var(--ink-faint); font-size:0.85rem; }
+    footer a { color:var(--ink-dim); text-decoration:none; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="/"><img class="brand-logo" src="/sentinel/assets/sentinel_logo.JPG" alt="CamLabs.ai"> CamLabs.ai</a>
+      <a href="/redactly/">Redactly AI</a>
+      <a href="/sentinel/">Sentinel AI</a>
+      <a href="/blog/">Blog</a>
+      <a href="/support.html">Support</a>
+    </nav>
+
+    <article class="article">
+      <div class="crumb"><a href="/blog/">&larr; All posts</a></div>
+      <h1>How to Redact a Social Security Number in a PDF</h1>
+      <div class="byline">
+        <img class="avatar" src="/sentinel/assets/sentinel_logo.JPG" alt="CamLabs">
+        <div>By <b>Bryon Hudson</b> &middot; CamLabs AI<br>October 30, 2026 &middot; 6 min read</div>
+      </div>
+
+      <p class="lead">A Social Security number is the one detail an identity thief needs most. Tax returns, W-2s, HR files, loan applications and court exhibits all carry them, and those files get emailed, uploaded and filed every day.</p>
+
+      <p>The problem is that most people &ldquo;redact&rdquo; by drawing a black box over the number. On screen it looks gone. In the file, it is still there. This guide shows how to remove an SSN from a PDF for real, how to prove it worked, and what federal courts require.</p>
+
+      <h2>Why a black box is not a redaction</h2>
+
+      <p>A PDF stores text and drawings in separate layers. A black rectangle, black highlighting, or a black-filled comment sits on top of the text without deleting it. Anyone can select the area, copy, and paste the hidden number into a text editor.</p>
+
+      <p>This mistake keeps happening in high-stakes places. The ABA&rsquo;s <em>Judges&rsquo; Journal</em> documented supposedly redacted filings in the Paul Manafort case and the Apple v. Samsung litigation that revealed their hidden text through simple copy and paste (<a href="https://www.americanbar.org/groups/judicial/resources/judges-journal/archive/embarrassing-redaction-failures/" rel="noopener" target="_blank">ABA</a>). In September 2025, law professor Eugene Volokh described the same failure in a filing from a large law firm, and noted that search engines can index the &ldquo;hidden&rdquo; text (<a href="https://reason.com/volokh/2025/09/23/avoid-super-embarrassing-redaction-failures-3/" rel="noopener" target="_blank">Reason / Volokh Conspiracy</a>).</p>
+
+      <p>A real redaction deletes the characters themselves, then covers the spot so readers can see something was removed.</p>
+
+      <h2>Where SSNs hide in a PDF</h2>
+
+      <p>Before you redact, know where to look. An SSN can appear in more places than the obvious form field:</p>
+
+      <ul>
+        <li><strong>Formatted three ways:</strong> 123-45-6789, 123 45 6789, or 123456789. Search for all three patterns, not just the dashed one.</li>
+        <li><strong>Headers, footers and stamps:</strong> HR and tax forms often repeat the number on every page.</li>
+        <li><strong>Scanned pages:</strong> a scan is a picture, so Ctrl+F won&rsquo;t find the number unless the page has been through OCR (text recognition).</li>
+        <li><strong>Form fields and comments:</strong> fillable fields and sticky notes can hold text that isn&rsquo;t visible in the page view.</li>
+        <li><strong>Attachments and metadata:</strong> embedded files, the document title, or bookmarks can carry a name or number.</li>
+        <li><strong>Related identifiers:</strong> the same pages usually include a date of birth, address, or account number that also needs attention.</li>
+      </ul>
+
+      <h2>How to redact an SSN in a PDF, step by step</h2>
+
+      <p>These steps work in any true redaction tool &mdash; one that deletes the underlying text, not one that only draws shapes. Adobe Acrobat Pro&rsquo;s Redact tool is one example; there are others, including free ones.</p>
+
+      <ol>
+        <li><strong>Work on a copy.</strong> Keep the original file untouched in case you need to redo the job.</li>
+        <li><strong>Make scanned pages searchable.</strong> If the PDF came from a scanner or phone camera, run OCR first so the tool can find the numbers.</li>
+        <li><strong>Search for every SSN pattern.</strong> Look for dashed, spaced and unbroken nine-digit numbers. Also search for the person&rsquo;s name and &ldquo;SSN&rdquo; or &ldquo;Social Security.&rdquo;</li>
+        <li><strong>Mark each match for redaction.</strong> Use the tool&rsquo;s redaction marker, not the highlighter, shape, or comment tools.</li>
+        <li><strong>Review every page by eye.</strong> Search misses handwriting, odd fonts and numbers split across lines. Check headers, footers, tables and signature blocks.</li>
+        <li><strong>Decide: full or partial.</strong> For court filings, federal rules allow the last four digits to stay visible (see below). Otherwise, remove the whole number.</li>
+        <li><strong>Apply the redactions.</strong> In most tools, marking is not the same as applying. Nothing is deleted until you apply or burn in the redactions.</li>
+        <li><strong>Remove hidden information.</strong> Clear metadata, comments, form data, bookmarks and attachments that could contain the number.</li>
+        <li><strong>Flatten and save as a new file.</strong> Flattening merges layers so nothing sits underneath the black box. Give the file a clear name, such as <em>Exhibit-3-redacted.pdf</em>.</li>
+      </ol>
+
+      <h2>How to check that the SSN is really gone</h2>
+
+      <p>Never send a redacted file without testing it. A column in the ABA&rsquo;s <em>Judges&rsquo; Journal</em> recommends a simple copy-paste test (<a href="https://www.americanbar.org/groups/judicial/resources/judges-journal/archive/embarrassing-redaction-failures/" rel="noopener" target="_blank">ABA</a>). It takes under two minutes:</p>
+
+      <ol>
+        <li>Open the <strong>redacted</strong> file, not the working copy.</li>
+        <li>Press Ctrl+A (Cmd+A on Mac) to select all, then copy.</li>
+        <li>Paste into a plain text editor such as Notepad or TextEdit.</li>
+        <li>Search the pasted text for the full SSN, the first five digits, and the person&rsquo;s name.</li>
+        <li>Back in the PDF, use Find for the same strings, and try clicking or dragging across each black box.</li>
+      </ol>
+
+      <p>If the number shows up anywhere, the redaction failed. Go back to the original and start again with a tool that applies redactions.</p>
+
+      <p>Want a second check? Our free <a href="/redaction-checker/">PDF redaction checker</a> looks for text still hiding under black boxes. It runs in your browser, and the file is never uploaded.</p>
+
+      <h2>SSNs in court filings: the last-four rule</h2>
+
+      <p>If you&rsquo;re filing in federal court, Federal Rule of Civil Procedure 5.2(a) says that, unless the court orders otherwise, a filing may include only the <strong>last four digits</strong> of a Social Security or taxpayer-identification number. The same rule limits birth dates to the year, minors to their initials, and financial-account numbers to the last four digits (<a href="https://www.law.cornell.edu/rules/frcp/rule_5.2" rel="noopener" target="_blank">Cornell LII, FRCP 5.2</a>). Criminal Rule 49.1 and Bankruptcy Rule 9037 contain parallel provisions (<a href="https://www.uscourts.gov/sites/default/files/document/2026-jcus-report-on-privacy-rules-final.pdf" rel="noopener" target="_blank">Judicial Conference report, 2026</a>).</p>
+
+      <p>A few points paralegals and filers should know:</p>
+
+      <ul>
+        <li><strong>The filer is responsible.</strong> Courts generally put the burden of redacting on the person filing, not the clerk.</li>
+        <li><strong>There are exemptions.</strong> Rule 5.2(b) exempts some records, such as state-court records and administrative records (<a href="https://www.law.cornell.edu/rules/frcp/rule_5.2" rel="noopener" target="_blank">Cornell LII</a>).</li>
+        <li><strong>You can waive only your own protection.</strong> Under Rule 5.2(h), filing your own information unredacted and not under seal waives protection for it.</li>
+        <li><strong>Check local rules.</strong> State courts and individual districts may have their own requirements.</li>
+      </ul>
+
+      <p><strong>A change is coming.</strong> In 2026, federal rules committees approved publishing proposed amendments that would require <em>complete</em> redaction of SSNs and ITINs in civil and criminal filings; bankruptcy filings would keep the last-four rule (<a href="https://www.uscourts.gov/sites/default/files/document/2026-jcus-report-on-privacy-rules-final.pdf" rel="noopener" target="_blank">Judicial Conference report, 2026</a>). These are proposals, not yet law. If you&rsquo;re unsure, redacting the full number is the safer choice wherever the last four digits aren&rsquo;t needed.</p>
+
+      <p class="note">This is general information, not legal advice. Confirm the rules for your court before you file.</p>
+
+      <h2>How Redactly AI handles SSNs</h2>
+
+      <p>You can follow every step above with any true redaction tool. CamLabs AI built Redactly AI to make those steps faster and harder to get wrong, especially for paralegals, tax preparers, HR teams and small businesses who handle SSNs daily.</p>
+
+      <ul>
+        <li><strong>Nothing is uploaded.</strong> Redactly AI processes PDFs and scans entirely on your device. Your files never go to a cloud server.</li>
+        <li><strong>Automatic detection.</strong> It finds Social Security numbers, account and card numbers, phone numbers, emails, dates of birth, addresses and driver&rsquo;s license numbers, plus any names you add.</li>
+        <li><strong>You stay in control.</strong> You review each match before anything is removed.</li>
+        <li><strong>Real removal on export.</strong> Redactions are burned in and the PDF is flattened, so hidden text can&rsquo;t be copied out.</li>
+        <li><strong>Built-in OCR.</strong> Scanned documents and phone photos are made searchable automatically.</li>
+        <li><strong>Redact by request on Windows.</strong> The Redactly Assistant lets you type a request such as &ldquo;redact all PII.&rdquo;</li>
+      </ul>
+
+      <p>Redactly AI is available for Windows and Mac, with a 14-day free trial and no card required. It&rsquo;s also on iPhone, iPad and Android, where the free trial runs through an App Store or Google Play subscription.</p>
+
+      <p>Whatever tool you use, run the copy-paste test before you send the file.</p>
+
+      <div class="cta-box">
+        <h3>Try Redactly AI free for 14 days</h3>
+        <p>Open a scan or PDF, black out SSNs, account numbers and other personal details, and export a flattened file. Nothing is uploaded.</p>
+        <a class="cta" href="/redactly/download.html">Download for Windows or Mac &rarr;</a>
+      </div>
+
+      <div class="sources">
+        <h2>Sources</h2>
+        <ul>
+          <li><a href="https://www.law.cornell.edu/rules/frcp/rule_5.2" rel="noopener" target="_blank">Fed. R. Civ. P. 5.2, Privacy Protection for Filings Made with the Court &mdash; Cornell LII</a></li>
+          <li><a href="https://cand.uscourts.gov/representing-yourself/privacy-protections-under-federal-rules" rel="noopener" target="_blank">Privacy protections under the federal rules &mdash; N.D. Cal.</a></li>
+          <li><a href="https://www.uscourts.gov/sites/default/files/document/2026-jcus-report-on-privacy-rules-final.pdf" rel="noopener" target="_blank">2026 Report of the Judicial Conference on the privacy rules &mdash; uscourts.gov</a></li>
+          <li><a href="https://www.americanbar.org/groups/judicial/resources/judges-journal/archive/embarrassing-redaction-failures/" rel="noopener" target="_blank">Herbert B. Dixon Jr., &ldquo;Embarrassing Redaction Failures,&rdquo; The Judges&rsquo; Journal &mdash; ABA</a></li>
+          <li><a href="https://reason.com/volokh/2025/09/23/avoid-super-embarrassing-redaction-failures-3/" rel="noopener" target="_blank">Eugene Volokh, &ldquo;Avoid Super-Embarrassing Redaction Failures&rdquo; (Sept. 2025) &mdash; Reason</a></li>
+        </ul>
+      </div>
+    </article>
+
+    <footer>
+      &copy; 2026 CamLabs.ai &middot; <a href="/blog/">Blog</a> &middot; <a href="/redactly/">Redactly AI</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/support.html">Support</a>
+    </footer>
+  </div>
+</body>
+</html>
