@@ -22,7 +22,7 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "Redactly AI",
-    "operatingSystem": "iOS, iPadOS, macOS 13+, Windows 10+, Android",
+    "operatingSystem": "iOS, iPadOS, macOS 12+, Windows 10+, Android",
     "applicationCategory": ["BusinessApplication", "SecurityApplication"],
     "url": "https://camlabs.ai/redactly/",
     "installUrl": "https://apps.apple.com/us/app/id6797546607",
@@ -440,7 +440,7 @@
       <div class="cta-row">
         <a class="cta" href="https://apps.apple.com/us/app/id6797546607" target="_blank" rel="noopener">App Store</a>
         <a class="cta" href="https://play.google.com/store/apps/details?id=com.camlabs.redactly" target="_blank" rel="noopener" style="background:linear-gradient(135deg,var(--emerald),#059669);box-shadow:0 12px 34px -10px rgba(16,185,129,0.7);">Google Play</a>
-        <a class="cta ghost" href="/redactly/download.html#mac">Mac direct download</a>
+        <a class="cta ghost" href="https://apps.apple.com/us/app/id6797546607?platform=mac" target="_blank" rel="noopener">Mac App Store</a>
         <a class="cta ghost" href="/redactly/download.html#windows">Windows download</a>
       </div>
       <div class="hero-sub">Free download · Redactly Pro $29.99/year · 14-day free trial</div>
@@ -651,8 +651,8 @@
               Desktop
             </div>
             <p class="plat-name">Mac &amp; Windows</p>
-            <p class="plat-desc">Mac via App Store or direct .dmg download. Windows via direct installer. License-key pricing for direct downloads.</p>
-            <p class="plat-price">$19/month or $149/year &middot; 14-day free trial (no card required for direct download)</p>
+            <p class="plat-desc">Mac via App Store. Windows via direct installer or Microsoft Store.</p>
+            <p class="plat-price">$19/month or $149/year &middot; 14-day free trial (no card required for Windows direct download)</p>
             <ul>
               <li>On-device scanning, OCR &amp; redaction</li>
               <li>Category toggles for SSNs, accounts, DOB, etc.</li>
@@ -661,7 +661,7 @@
               <li>Local scan history</li>
             </ul>
             <a class="plat-cta" href="https://apps.apple.com/us/app/id6797546607" target="_blank" rel="noopener">Mac App Store</a>
-            <a class="plat-cta" href="/redactly/download.html" style="margin-top:8px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.14);box-shadow:none;">Direct download (Mac &amp; Windows)</a>
+            <a class="plat-cta" href="/redactly/download.html#windows" style="margin-top:8px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.14);box-shadow:none;">Windows download</a>
             <a href="https://apps.microsoft.com/detail/XPFMHQS7VC079S?mode=direct" target="_blank" rel="noopener" style="display:inline-block;margin-top:12px;">
               <img src="/redactly/assets/ms-store-badge.svg" alt="Get Redactly AI from the Microsoft Store" height="48" style="display:block;">
             </a>
@@ -839,6 +839,20 @@
       </div>
     </section>
 
+    <!-- Checker banner -->
+    <section id="check" style="padding:48px 0 0;">
+      <div class="container" style="max-width:760px; margin:0 auto; text-align:center;">
+        <div style="background:linear-gradient(180deg, rgba(124,92,255,0.12), rgba(91,140,255,0.04)); border:1px solid rgba(124,92,255,0.32); border-radius:20px; padding:36px 32px;">
+          <h2 style="margin:0 0 10px; font-size:clamp(1.3rem,3vw,1.7rem); font-weight:700; letter-spacing:-0.02em;">Not sure your PDF is really redacted?</h2>
+          <p style="color:#c2cad8; font-size:1.02rem; margin:0 0 20px; max-width:560px; display:inline-block;">Drop it in our free Redaction Checker — it runs in your browser, never uploads, and tells you in seconds if hidden text is still there.</p>
+          <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+            <a href="/redaction-checker/" style="display:inline-block; padding:12px 24px; background:linear-gradient(135deg,#6366f1,#8b5cf6); color:#fff; border-radius:12px; text-decoration:none; font-weight:600; font-size:0.95rem;">Check a PDF free</a>
+            <a href="/redactly/download.html" style="display:inline-block; padding:12px 24px; background:rgba(255,255,255,0.08); color:#e2e8f0; border:1px solid rgba(255,255,255,0.15); border-radius:12px; text-decoration:none; font-weight:600; font-size:0.95rem;">Start 14-day free trial</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Guides -->
     <section id="guides" style="padding:48px 0 24px;">
       <div class="container" style="max-width:760px; margin:0 auto; text-align:center;">
@@ -925,5 +939,6 @@
       }
     }
   </script>
+<script src="/checker-banner.js" defer></script>
 </body>
 </html>
