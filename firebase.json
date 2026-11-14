@@ -59,26 +59,6 @@
         {
           "source": "/redactly/email-confirmed",
           "destination": "/redactly/email-confirmed.html"
-        },
-        {
-          "source": "/privacy.html",
-          "destination": "/privacy.html"
-        },
-        {
-          "source": "/terms.html",
-          "destination": "/terms.html"
-        },
-        {
-          "source": "/delete.html",
-          "destination": "/delete.html"
-        },
-        {
-          "source": "/404.html",
-          "destination": "/404.html"
-        },
-        {
-          "source": "**",
-          "destination": "/index.html"
         }
       ],
       "redirects": [
