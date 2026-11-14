@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://camlabs.ai/</loc>
-    <lastmod>2026-06-10</lastmod>
+    <lastmod>2026-11-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -26,7 +26,7 @@
   </url>
   <url>
     <loc>https://camlabs.ai/blog/</loc>
-    <lastmod>2026-10-03</lastmod>
+    <lastmod>2026-11-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -38,25 +38,25 @@
   </url>
   <url>
     <loc>https://camlabs.ai/blog/how-to-tell-if-pdf-redactions-are-fake/</loc>
-    <lastmod>2026-10-09</lastmod>
+    <lastmod>2026-11-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://camlabs.ai/blog/how-to-redact-a-scanned-pdf-on-mac/</loc>
-    <lastmod>2026-10-03</lastmod>
+    <lastmod>2026-11-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://camlabs.ai/blog/how-to-redact-a-pdf-on-iphone/</loc>
-    <lastmod>2026-09-30</lastmod>
+    <lastmod>2026-11-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://camlabs.ai/blog/ai-redaction-for-legal-documents/</loc>
-    <lastmod>2026-08-05</lastmod>
+    <lastmod>2026-11-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -127,8 +127,26 @@
     <priority>0.3</priority>
   </url>
   <url>
+    <loc>https://camlabs.ai/blog/how-to-redact-pdf-in-preview-mac/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://camlabs.ai/blog/rule-based-vs-ml-redaction-engines/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://camlabs.ai/blog/redact-bank-statements-tax-documents/</loc>
+    <lastmod>2026-11-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://camlabs.ai/redaction-checker/</loc>
-    <lastmod>2026-10-06</lastmod>
+    <lastmod>2026-11-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

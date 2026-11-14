@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redact Bank Statements and Tax Docs for Sharing | CamLabs AI</title>
+  <meta name="description" content="Accountants share bank statements, W-2s, and tax returns daily. Here's how to redact SSNs, EINs, and account numbers before they leave your desk.">
+  <link rel="canonical" href="https://camlabs.ai/blog/redact-bank-statements-tax-documents" />
+
+  <meta property="og:title" content="How Accountants Can Redact Bank Statements and Tax Documents" />
+  <meta property="og:description" content="Accountants share bank statements, W-2s, and tax returns daily. Here's how to redact SSNs, EINs, and account numbers before they leave your desk." />
+  <meta property="og:image" content="https://camlabs.ai/redactly/assets/mac/06_results_1440x900.png" />
+  <meta property="og:url" content="https://camlabs.ai/blog/redact-bank-statements-tax-documents" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="CamLabs AI" />
+  <meta property="article:published_time" content="2026-11-13" />
+  <meta property="article:author" content="CamLabs AI" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How Accountants Can Redact Bank Statements and Tax Documents">
+  <meta name="twitter:description" content="Accountants share bank statements, W-2s, and tax returns daily. Here's how to redact SSNs, EINs, and account numbers before they leave your desk.">
+  <meta name="twitter:image" content="https://camlabs.ai/redactly/assets/mac/06_results_1440x900.png">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "How Accountants Can Redact Bank Statements and Tax Documents Before Sharing",
+    "description": "Accountants share bank statements, W-2s, and tax returns daily. Here's how to redact SSNs, EINs, and account numbers before they leave your desk.",
+    "image": "https://camlabs.ai/redactly/assets/mac/06_results_1440x900.png",
+    "datePublished": "2026-11-13",
+    "dateModified": "2026-11-13",
+    "author": { "@type": "Organization", "name": "CamLabs AI", "url": "https://camlabs.ai/" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "CamLabs AI",
+      "logo": { "@type": "ImageObject", "url": "https://camlabs.ai/sentinel/assets/sentinel_logo.JPG" }
+    },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://camlabs.ai/blog/redact-bank-statements-tax-documents" }
+  }
+  </script>
+
+  <link rel="icon" type="image/jpeg" href="/sentinel/assets/sentinel_logo.JPG">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0B0F19; --card:rgba(255,255,255,0.025); --border:rgba(255,255,255,0.08);
+      --border-strong:rgba(255,255,255,0.14); --ink:#F3F5F9; --ink-dim:#9aa4b6; --ink-faint:#6b7585;
+      --brand:#5b8cff; --brand-2:#7c5cff; --emerald:#10b981;
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0; background:var(--bg); color:var(--ink); line-height:1.7;
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; -webkit-font-smoothing:antialiased;
+    }
+    a { color:var(--brand); }
+    body::before {
+      content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+      background:radial-gradient(700px 340px at 50% -10%, rgba(124,92,255,0.16), transparent 70%);
+    }
+    .wrap { position:relative; z-index:1; }
+    nav {
+      display:flex; justify-content:center; gap:26px; align-items:center;
+      padding:18px 20px; border-bottom:1px solid var(--border);
+      backdrop-filter:blur(8px); position:sticky; top:0; background:rgba(11,15,25,0.7); z-index:5; flex-wrap:wrap;
+    }
+    nav a { color:var(--ink-dim); text-decoration:none; font-size:0.92rem; font-weight:500; }
+    nav a:hover { color:var(--ink); }
+    nav a.brand { color:var(--ink); font-weight:700; display:inline-flex; align-items:center; gap:9px; }
+    .brand-logo { width:28px; height:28px; border-radius:8px; object-fit:cover; object-position:center 26%; border:1px solid var(--border); }
+    .article { max-width:720px; margin:0 auto; padding:56px 22px 40px; }
+    .crumb { font-size:0.85rem; color:var(--ink-faint); margin-bottom:22px; }
+    .crumb a { color:var(--ink-dim); text-decoration:none; }
+    .article h1 {
+      font-size:clamp(1.9rem,4.6vw,2.6rem); line-height:1.14; margin:0 0 18px; font-weight:800; letter-spacing:-0.03em;
+      background:linear-gradient(180deg,#ffffff,#c3b6f5); -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .byline { display:flex; align-items:center; gap:12px; color:var(--ink-faint); font-size:0.9rem; margin-bottom:34px; padding-bottom:24px; border-bottom:1px solid var(--border); }
+    .byline .avatar { width:38px; height:38px; border-radius:50%; object-fit:cover; border:1px solid var(--border); }
+    .byline b { color:var(--ink-dim); font-weight:600; }
+    .article p { color:#c2cad8; font-size:1.06rem; margin:0 0 20px; }
+    .article h2 { font-size:1.45rem; font-weight:700; letter-spacing:-0.02em; margin:40px 0 14px; color:var(--ink); }
+    .article strong { color:var(--ink); font-weight:600; }
+    .article ul { padding-left:0; list-style:none; margin:0 0 20px; }
+    .article ul li {
+      position:relative; padding:16px 18px 16px 20px; margin-bottom:12px; border-radius:12px;
+      background:var(--card); border:1px solid var(--border); color:#c2cad8; font-size:1.02rem;
+    }
+    .article ul li strong { color:var(--ink); }
+    .lead { font-size:1.18rem !important; color:var(--ink-dim) !important; }
+    .cta-box {
+      margin:44px 0 8px; padding:30px 28px; text-align:center; border-radius:18px;
+      background:linear-gradient(180deg, rgba(124,92,255,0.12), rgba(91,140,255,0.04));
+      border:1px solid rgba(124,92,255,0.32);
+    }
+    .cta-box h3 { margin:0 0 8px; font-size:1.25rem; font-weight:700; color:var(--ink); }
+    .cta-box p { margin:0 0 18px; color:var(--ink-dim); font-size:1rem; }
+    .cta {
+      display:inline-flex; align-items:center; gap:8px; padding:13px 26px; border-radius:12px;
+      font-weight:600; font-size:1rem; text-decoration:none; color:#fff; border:1px solid transparent;
+      background:linear-gradient(135deg,var(--brand-2),var(--brand)); box-shadow:0 12px 34px -10px rgba(124,92,255,0.85);
+    }
+    .cta:hover { filter:brightness(1.08); }
+    .article ol { color:#c2cad8; font-size:1.04rem; padding-left:22px; margin:0 0 20px; }
+    .article ol li { margin-bottom:10px; }
+    .note { font-size:0.95rem !important; color:var(--ink-faint) !important; }
+    footer { text-align:center; padding:36px 20px; border-top:1px solid var(--border); color:var(--ink-faint); font-size:0.85rem; }
+    footer a { color:var(--ink-dim); text-decoration:none; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="/"><img class="brand-logo" src="/sentinel/assets/sentinel_logo.JPG" alt="CamLabs.ai"> CamLabs.ai</a>
+      <a href="/redactly/">Redactly AI</a>
+      <a href="/sentinel/">Sentinel AI</a>
+      <a href="/blog/">Blog</a>
+      <a href="/support.html">Support</a>
+    </nav>
+
+    <article class="article">
+      <div class="crumb"><a href="/blog/">&larr; All posts</a></div>
+      <h1>How Accountants Can Redact Bank Statements and Tax Documents Before Sharing</h1>
+      <div class="byline">
+        <img class="avatar" src="/sentinel/assets/sentinel_logo.JPG" alt="CamLabs AI">
+        <div>By <b>CamLabs AI</b><br>November 13, 2026 &middot; 5 min read</div>
+      </div>
+
+      <p class="lead">Accountants, bookkeepers, and tax preparers handle some of the most sensitive documents that exist. Bank statements, W-2s, 1099s, tax returns, K-1s &mdash; every one of them is packed with PII that could cause serious harm if it landed in the wrong hands.</p>
+
+      <p>Sharing those documents is unavoidable. Lenders need them for loan underwriting. Auditors need them for review. Opposing counsel needs them in litigation. The question isn&rsquo;t whether to share, it&rsquo;s how to share safely &mdash; and that means redacting before the file leaves your desk.</p>
+
+      <h2>What PII lives in financial documents</h2>
+
+      <p>Before you can redact, you need to know what you&rsquo;re looking for. Financial documents tend to carry a dense concentration of sensitive identifiers:</p>
+
+      <ul>
+        <li><strong>Social Security Numbers (SSNs):</strong> Appear on W-2s, 1099s, individual tax returns (Form 1040), and K-1s. They may be formatted as 123-45-6789, 123 45 6789, or as a nine-digit run with no separators.</li>
+        <li><strong>Employer Identification Numbers (EINs) and Taxpayer Identification Numbers (TINs):</strong> Found on business returns, 1099s, and K-1s. Format mirrors the SSN &mdash; nine digits, often dashed as 12-3456789.</li>
+        <li><strong>Bank account numbers:</strong> Printed on every page of a bank statement. May also appear on direct-deposit authorizations embedded in a payroll file.</li>
+        <li><strong>Routing numbers:</strong> Almost always accompany account numbers on statements and ACH forms. By themselves they identify the bank; together with an account number they enable ACH transfers.</li>
+        <li><strong>Credit and debit card numbers:</strong> May appear on personal financial statements or expense reports attached to a return.</li>
+        <li><strong>Dates of birth:</strong> Common on identity-verification pages, prior-year returns, and estate documents.</li>
+        <li><strong>Addresses and phone numbers:</strong> Header fields on nearly every IRS form and statement.</li>
+      </ul>
+
+      <h2>When and why accountants need to redact</h2>
+
+      <p>Client confidentiality is the baseline obligation for every CPA and enrolled agent &mdash; but specific sharing scenarios create distinct risks:</p>
+
+      <ul>
+        <li><strong>Sharing with lenders:</strong> A lender underwriting a mortgage or business loan needs to verify income and assets, not obtain a client&rsquo;s full account numbers. Sharing unredacted statements exposes account details that have no bearing on the approval decision.</li>
+        <li><strong>Responding to audits:</strong> When producing documents to an IRS examiner or state revenue authority, information not covered by the information document request (IDR) should be withheld or masked. Over-producing sensitive data creates unnecessary exposure.</li>
+        <li><strong>Litigation and subpoenas:</strong> Opposing counsel, mediators, and courts may receive financial records as exhibits. Federal Rule of Civil Procedure 5.2 limits financial-account numbers in court filings to their last four digits and SSNs to their last four digits as well.</li>
+        <li><strong>Client portals and email:</strong> Even when sent to the client themselves, a document that passes through an email server or a third-party portal is potentially accessible to others. Redacting before upload reduces exposure from a breach.</li>
+        <li><strong>Referrals to other professionals:</strong> Sending a portion of a return to an attorney or financial planner often means more of the file goes along than is strictly necessary. Strip what isn&rsquo;t needed.</li>
+      </ul>
+
+      <h2>Why cloud-based redaction tools are a problem for financial documents</h2>
+
+      <p>Many quick-and-easy PDF tools work by uploading your file to a server, processing it there, and returning the result. For a document containing a client&rsquo;s SSN, EIN, and full account numbers, that upload is itself a data handling event &mdash; one your engagement letter probably didn&rsquo;t contemplate, and one that falls outside your direct control.</p>
+
+      <p>On-device processing eliminates that risk. The file never leaves your machine during redaction; nothing is transmitted to a third-party server. For accountants working under state confidentiality statutes or firm data-handling policies, that distinction matters.</p>
+
+      <h2>Step-by-step: redacting a bank statement or tax document</h2>
+
+      <ol>
+        <li><strong>Keep the original.</strong> Always work on a copy. Rename the working file clearly (e.g., <em>ClientName_BankStatement_REDACTED.pdf</em>) so there is no confusion about which version gets sent.</li>
+        <li><strong>Run OCR if the document is a scan.</strong> A scanned bank statement or a photographed W-2 is an image, not a text file. Without OCR, automated detection can&rsquo;t find the numbers. Any tool that does on-device OCR will convert the image to searchable text as a first step.</li>
+        <li><strong>Enable detection for the PII types relevant to the document.</strong> For a bank statement: account numbers, routing numbers, and addresses at minimum. For a W-2 or 1040: SSNs, EINs, dates of birth, and addresses. For a 1099: EINs and SSNs (or ITINs). Using toggles for each category means you turn on only what applies and avoid spurious matches.</li>
+        <li><strong>Review every flagged match before confirming.</strong> Automated detection is fast but not infallible. A nine-digit number that looks like an SSN might be a file reference or a client ID. Confirm each match is actually sensitive before it gets redacted.</li>
+        <li><strong>Check headers, footers, and every page.</strong> Banks often repeat the account number in the header of every page. Tax preparers sometimes stamp the SSN at the top of each page of a return. A single-pass search can miss these if they appear in a different font or layout.</li>
+        <li><strong>Apply the redactions and flatten the PDF on export.</strong> Marking a region is not the same as redacting it. A real redaction tool deletes the underlying text and burns a black box into the pixel layer, then flattens the document so there are no selectable layers underneath. If you can still copy text from the redacted area after export, the tool didn&rsquo;t actually redact &mdash; it only drew a shape on top.</li>
+        <li><strong>Verify before sending.</strong> Open the exported file, select all, and paste into a plain text editor. Search for the SSN, account number, or EIN you intended to remove. If it appears in the pasted text, the redaction failed and you need to start over with the original.</li>
+      </ol>
+
+      <p>You can also use the free <a href="/redaction-checker/">Redaction Checker</a> at CamLabs AI to test whether a PDF&rsquo;s redactions hold up. It checks for text hidden under black boxes and returns a pass/fail result without uploading your file.</p>
+
+      <h2>Document-specific notes</h2>
+
+      <p><strong>Bank statements</strong> repeat the account number and routing number on every page, often in a header or footer. Check all pages, not just the first one. Statement summaries may also include partial card numbers for linked accounts.</p>
+
+      <p><strong>W-2s</strong> carry both the employee&rsquo;s SSN and the employer&rsquo;s EIN, plus the employee&rsquo;s address. All three need attention depending on the audience. When sharing for income verification only, the EIN and address can usually be removed.</p>
+
+      <p><strong>1099s</strong> (1099-INT, 1099-DIV, 1099-NEC, 1099-MISC, 1099-B) identify both payer and recipient with EINs or SSNs. The payer&rsquo;s EIN is often less sensitive in the context of sharing with a lender, but the recipient&rsquo;s SSN or ITIN almost always needs to go.</p>
+
+      <p><strong>Schedule K-1s</strong> carry the partnership or S-corp EIN, the partner&rsquo;s SSN or EIN, and sometimes an address. When forwarding a K-1 to a third party for a specific purpose (say, a lender verifying self-employment income), redact everything except what&rsquo;s strictly needed for that purpose.</p>
+
+      <p><strong>Financial statements</strong> (balance sheets, income statements, statements of cash flows) prepared for a business may contain the EIN or bank account numbers in footnotes or schedules. Review the full document, not just the face statements.</p>
+
+      <h2>How Redactly AI fits into an accounting workflow</h2>
+
+      <p>Redactly AI is designed for exactly this kind of document work. It runs entirely on your device &mdash; iPhone, iPad, Mac, Windows, or Android &mdash; so financial documents are never uploaded to a server during the redaction process.</p>
+
+      <ul>
+        <li><strong>Per-category detection toggles:</strong> Turn on SSNs, EINs/account numbers, card numbers, dates of birth, phone numbers, emails, addresses, and driver&rsquo;s license numbers independently. Enable the ones relevant to the document type you&rsquo;re processing, and leave the others off to reduce noise.</li>
+        <li><strong>On-device OCR:</strong> Scanned statements and photographed documents are converted to searchable text locally before detection runs. No upload required.</li>
+        <li><strong>Camera scan to PDF:</strong> Useful when a client hands you a paper statement or a physical W-2. Scan it directly within the app and it arrives as a searchable, redactable PDF.</li>
+        <li><strong>Permanent pixel-layer redaction:</strong> On export, redacted regions are burned into the image layer and the PDF is flattened. The underlying text is gone, not hidden.</li>
+        <li><strong>14-day free trial, no card required:</strong> You can process real documents before committing to a subscription.</li>
+      </ul>
+
+      <p>Redactly AI is also listed on <a href="https://www.aitoolsforaccounting.com/tools/redactly-ai/" target="_blank" rel="noopener">AI Tools for Accounting</a>, a directory of AI-powered tools evaluated for accounting and finance use cases.</p>
+
+      <p>For a deeper look at SSN redaction specifically &mdash; including how to verify that a redaction actually worked and what the federal court rules require &mdash; see the related post: <a href="/blog/how-to-redact-social-security-number-pdf/">How to Redact a Social Security Number in a PDF</a>.</p>
+
+      <div class="cta-box">
+        <h3>Redact financial documents on your device</h3>
+        <p>No uploads. No cloud processing. SSNs, EINs, account numbers, and more &mdash; detected and permanently removed before you share.</p>
+        <a class="cta" href="/redactly/">Try Redactly AI Free &rarr;</a>
+      </div>
+
+    </article>
+
+    <footer>
+      &copy; 2026 CamLabs.ai &middot; <a href="/blog/">Blog</a> &middot; <a href="/redactly/">Redactly AI</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/support.html">Support</a>
+    </footer>
+  </div>
+<script src="/checker-banner.js" defer></script>
+</body>
+</html>

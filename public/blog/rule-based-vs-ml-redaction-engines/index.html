@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rule-Based vs ML-Based Redaction Engines | CamLabs AI</title>
+  <meta name="description" content="Rule-based redaction catches formats like SSNs reliably. ML-based redaction reads context but can miss or hallucinate. Here's how to choose.">
+  <link rel="canonical" href="https://camlabs.ai/blog/rule-based-vs-ml-redaction-engines" />
+
+  <meta property="og:title" content="Rule-Based vs ML-Based Redaction Engines: Which Is Safer?" />
+  <meta property="og:description" content="Rule-based redaction catches formats like SSNs reliably. ML-based redaction reads context but can miss or hallucinate. Here's how to choose." />
+  <meta property="og:image" content="https://camlabs.ai/redactly/assets/mac/06_results_1440x900.png" />
+  <meta property="og:url" content="https://camlabs.ai/blog/rule-based-vs-ml-redaction-engines" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="CamLabs AI" />
+  <meta property="article:published_time" content="2026-11-13" />
+  <meta property="article:author" content="CamLabs AI" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Rule-Based vs ML-Based Redaction Engines: Which Is Safer?">
+  <meta name="twitter:description" content="Rule-based redaction catches formats like SSNs reliably. ML-based redaction reads context but can miss or hallucinate. Here's how to choose.">
+  <meta name="twitter:image" content="https://camlabs.ai/redactly/assets/mac/06_results_1440x900.png">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Rule-Based vs ML-Based Redaction Engines: Which Is Safer?",
+    "description": "Rule-based redaction catches formats like SSNs reliably. ML-based redaction reads context but can miss or hallucinate. Here's how to choose.",
+    "image": "https://camlabs.ai/redactly/assets/mac/06_results_1440x900.png",
+    "datePublished": "2026-11-13",
+    "dateModified": "2026-11-13",
+    "author": { "@type": "Organization", "name": "CamLabs AI", "url": "https://camlabs.ai/" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "CamLabs AI",
+      "logo": { "@type": "ImageObject", "url": "https://camlabs.ai/sentinel/assets/sentinel_logo.JPG" }
+    },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://camlabs.ai/blog/rule-based-vs-ml-redaction-engines" }
+  }
+  </script>
+
+  <link rel="icon" type="image/jpeg" href="/sentinel/assets/sentinel_logo.JPG">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0B0F19; --card:rgba(255,255,255,0.025); --border:rgba(255,255,255,0.08);
+      --border-strong:rgba(255,255,255,0.14); --ink:#F3F5F9; --ink-dim:#9aa4b6; --ink-faint:#6b7585;
+      --brand:#5b8cff; --brand-2:#7c5cff; --emerald:#10b981;
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0; background:var(--bg); color:var(--ink); line-height:1.7;
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; -webkit-font-smoothing:antialiased;
+    }
+    a { color:var(--brand); }
+    body::before {
+      content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+      background:radial-gradient(700px 340px at 50% -10%, rgba(124,92,255,0.16), transparent 70%);
+    }
+    .wrap { position:relative; z-index:1; }
+    nav {
+      display:flex; justify-content:center; gap:26px; align-items:center;
+      padding:18px 20px; border-bottom:1px solid var(--border);
+      backdrop-filter:blur(8px); position:sticky; top:0; background:rgba(11,15,25,0.7); z-index:5; flex-wrap:wrap;
+    }
+    nav a { color:var(--ink-dim); text-decoration:none; font-size:0.92rem; font-weight:500; }
+    nav a:hover { color:var(--ink); }
+    nav a.brand { color:var(--ink); font-weight:700; display:inline-flex; align-items:center; gap:9px; }
+    .brand-logo { width:28px; height:28px; border-radius:8px; object-fit:cover; object-position:center 26%; border:1px solid var(--border); }
+    .article { max-width:720px; margin:0 auto; padding:56px 22px 40px; }
+    .crumb { font-size:0.85rem; color:var(--ink-faint); margin-bottom:22px; }
+    .crumb a { color:var(--ink-dim); text-decoration:none; }
+    .article h1 {
+      font-size:clamp(1.9rem,4.6vw,2.6rem); line-height:1.14; margin:0 0 18px; font-weight:800; letter-spacing:-0.03em;
+      background:linear-gradient(180deg,#ffffff,#c3b6f5); -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .byline { display:flex; align-items:center; gap:12px; color:var(--ink-faint); font-size:0.9rem; margin-bottom:34px; padding-bottom:24px; border-bottom:1px solid var(--border); }
+    .byline .avatar { width:38px; height:38px; border-radius:50%; object-fit:cover; border:1px solid var(--border); }
+    .byline b { color:var(--ink-dim); font-weight:600; }
+    .article p { color:#c2cad8; font-size:1.06rem; margin:0 0 20px; }
+    .article h2 { font-size:1.45rem; font-weight:700; letter-spacing:-0.02em; margin:40px 0 14px; color:var(--ink); }
+    .article strong { color:var(--ink); font-weight:600; }
+    .article ul { padding-left:0; list-style:none; margin:0 0 20px; }
+    .article ul li {
+      position:relative; padding:16px 18px 16px 20px; margin-bottom:12px; border-radius:12px;
+      background:var(--card); border:1px solid var(--border); color:#c2cad8; font-size:1.02rem;
+    }
+    .article ul li strong { color:var(--ink); }
+    .lead { font-size:1.18rem !important; color:var(--ink-dim) !important; }
+    .cta-box {
+      margin:44px 0 8px; padding:30px 28px; text-align:center; border-radius:18px;
+      background:linear-gradient(180deg, rgba(124,92,255,0.12), rgba(91,140,255,0.04));
+      border:1px solid rgba(124,92,255,0.32);
+    }
+    .cta-box h3 { margin:0 0 8px; font-size:1.25rem; font-weight:700; color:var(--ink); }
+    .cta-box p { margin:0 0 18px; color:var(--ink-dim); font-size:1rem; }
+    .cta {
+      display:inline-flex; align-items:center; gap:8px; padding:13px 26px; border-radius:12px;
+      font-weight:600; font-size:1rem; text-decoration:none; color:#fff; border:1px solid transparent;
+      background:linear-gradient(135deg,var(--brand-2),var(--brand)); box-shadow:0 12px 34px -10px rgba(124,92,255,0.85);
+    }
+    .cta:hover { filter:brightness(1.08); }
+    .article ol { color:#c2cad8; font-size:1.04rem; padding-left:22px; margin:0 0 20px; }
+    .article ol li { margin-bottom:10px; }
+    .note { font-size:0.95rem !important; color:var(--ink-faint) !important; }
+    footer { text-align:center; padding:36px 20px; border-top:1px solid var(--border); color:var(--ink-faint); font-size:0.85rem; }
+    footer a { color:var(--ink-dim); text-decoration:none; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="/"><img class="brand-logo" src="/sentinel/assets/sentinel_logo.JPG" alt="CamLabs.ai"> CamLabs.ai</a>
+      <a href="/redactly/">Redactly AI</a>
+      <a href="/sentinel/">Sentinel AI</a>
+      <a href="/blog/">Blog</a>
+      <a href="/support.html">Support</a>
+    </nav>
+
+    <article class="article">
+      <div class="crumb"><a href="/blog/">&larr; All posts</a></div>
+      <h1>Rule-Based vs ML-Based Redaction Engines: Which Is Safer?</h1>
+      <div class="byline">
+        <img class="avatar" src="/sentinel/assets/sentinel_logo.JPG" alt="CamLabs AI">
+        <div>By <b>CamLabs AI</b><br>November 13, 2026 &middot; 5 min read</div>
+      </div>
+
+      <p class="lead">When you pick a redaction tool, you&rsquo;re implicitly choosing a detection strategy. Rule-based engines match patterns. ML-based engines read context. Each approach has real strengths &mdash; and real failure modes. Knowing the difference helps you choose the right tool for the job and understand what to verify before you send a document.</p>
+
+      <h2>How rule-based redaction works</h2>
+
+      <p>A rule-based engine looks for text that matches a known pattern. Social Security numbers, for example, follow the format <code>XXX-XX-XXXX</code> &mdash; three digits, a dash, two digits, a dash, four digits. The engine encodes that pattern as a regular expression and scans the document for every match.</p>
+
+      <p>The same approach covers most structured PII: credit card numbers follow the Luhn algorithm and standard grouping patterns; phone numbers match a handful of North American and international formats; dates of birth, email addresses, and driver&rsquo;s license numbers each have recognizable shapes. For this category of data, rule-based detection is fast, deterministic, and auditable &mdash; you can inspect exactly what pattern fired on exactly what text.</p>
+
+      <p>The key strengths:</p>
+
+      <ul>
+        <li><strong>Predictable.</strong> The same input always produces the same output. There is no probability score, no model drift, and no threshold to tune. If the text matches the pattern, it is flagged.</li>
+        <li><strong>No false positives on exact matches.</strong> A regex for <code>XXX-XX-XXXX</code> will not accidentally flag a person&rsquo;s name. The match either fits the format or it doesn&rsquo;t.</li>
+        <li><strong>Lightweight and on-device friendly.</strong> Pattern matching requires no large model files, no GPU, and no network connection. It runs quickly even on older hardware.</li>
+        <li><strong>Easy to audit.</strong> A compliance review can inspect the pattern library and confirm that every SSN format is covered. There is no black-box model to explain.</li>
+      </ul>
+
+      <p>The key limitation: rule-based engines can only detect what has a known format. A person&rsquo;s name in running text &mdash; &ldquo;John Smith signed the agreement&rdquo; &mdash; has no reliable pattern. Neither does a job title, a medical diagnosis, or a free-text description of a location. For unstructured PII that relies on meaning rather than format, rules alone are not enough.</p>
+
+      <h2>How ML-based (NER) redaction works</h2>
+
+      <p>Machine-learning approaches to PII detection typically use Named Entity Recognition (NER) &mdash; a type of model trained to label spans of text with categories like PERSON, ORG, DATE, or LOCATION. Rather than matching a fixed pattern, a NER model reads the sentence around a word and predicts what kind of entity it is based on context.</p>
+
+      <p>This unlocks detection of things rules can&rsquo;t reach: a person&rsquo;s name in a letter, a company name in a contract, an informal address written as a paragraph rather than a standard postal format.</p>
+
+      <p>The key strengths:</p>
+
+      <ul>
+        <li><strong>Context-aware.</strong> &ldquo;Apple&rdquo; might be a company or a fruit; a NER model can usually tell from context. Rules cannot.</li>
+        <li><strong>Covers unstructured PII.</strong> Names, organizations, and free-text locations are within reach without maintaining an exhaustive list of every possible value.</li>
+        <li><strong>Handles variation.</strong> A model trained on many address formats may generalize to formats that a rule set hasn&rsquo;t anticipated.</li>
+      </ul>
+
+      <p>The key limitations are significant for high-stakes redaction work:</p>
+
+      <ul>
+        <li><strong>Probabilistic, not deterministic.</strong> Every prediction carries a confidence score below 100%. The model can miss entities (false negatives) or flag text that isn&rsquo;t sensitive (false positives). Both types of error are possible in the same document.</li>
+        <li><strong>Hallucination risk.</strong> Large language models used for PII extraction can occasionally identify entities that are not present in the document at all. This is rare but non-zero, and it is difficult to audit systematically.</li>
+        <li><strong>Harder to audit.</strong> When a model misses a name, it is not easy to explain why or guarantee it won&rsquo;t happen again on a similar document. Rule sets can be patched; models must be retrained or fine-tuned.</li>
+        <li><strong>Heavier infrastructure.</strong> NER models require more memory and compute than pattern matching. On-device deployment is possible &mdash; several capable models are small enough to run locally &mdash; but the resource requirement is higher, and cloud-based NER services require sending your documents off-device.</li>
+        <li><strong>Training data dependency.</strong> A model is only as good as what it was trained on. Unusual document formats, specialized domains (medical, legal, financial), or non-English text may perform worse than the benchmark numbers suggest.</li>
+      </ul>
+
+      <h2>The hybrid approach</h2>
+
+      <p>In practice, most serious redaction pipelines use both. The common pattern is straightforward: use rules for structured data where format is known and reliability is paramount, and use ML for unstructured text where context matters.</p>
+
+      <p>A hybrid engine might apply regex patterns to catch every SSN, card number, and phone number with high confidence, then run a NER pass to surface names and organizations that have no fixed format. The results of both passes are surfaced for human review before anything is permanently removed.</p>
+
+      <p>Human review remains important in either case. Even a perfect rule set can miss an SSN handwritten in an unusual format or split across a line break. Even a strong NER model can miss a name it has not encountered before. The safety net is a reviewer who checks the results before the redactions are applied.</p>
+
+      <h2>Privacy implications: on-device vs cloud</h2>
+
+      <p>The choice of detection strategy intersects with where the processing happens.</p>
+
+      <p>Rule-based engines have a natural fit for on-device processing. The pattern library is a small file; the matching logic is minimal code. There is no reason to send a document to a server just to run a regex.</p>
+
+      <p>ML models can also run on-device, but the tradeoff changes. A capable NER model might be tens to hundreds of megabytes. It runs on-device without sending data anywhere, but it requires more storage and may be slower on low-end hardware. Cloud-based NER services shift that compute cost off the device &mdash; but then your document leaves the device entirely, which raises its own compliance questions for sensitive documents.</p>
+
+      <p>For documents containing financial records, medical information, legal exhibits, or other regulated data, on-device processing is often the only defensible choice regardless of detection approach.</p>
+
+      <h2>How Redactly AI approaches detection</h2>
+
+      <p><a href="/redactly/">Redactly AI</a> uses category-based detection with individual toggles for each entity type: SSNs, account numbers, card numbers, dates of birth, phone numbers, email addresses, physical addresses, driver&rsquo;s license numbers, and other ID formats. Each category has its own on/off switch, so you flag exactly what matters for a given document and nothing else.</p>
+
+      <p>This is a rule-based and pattern-driven approach for structured PII &mdash; the category where deterministic detection is strongest. Every detection decision can be reviewed before anything is permanently removed.</p>
+
+      <ul>
+        <li><strong>Toggleable by category.</strong> Turn on SSN detection for a tax document; turn on account numbers for a bank statement. You control what gets flagged.</li>
+        <li><strong>Entirely on-device.</strong> OCR, detection, and redaction all run locally. Documents are never uploaded to a cloud server.</li>
+        <li><strong>Permanent pixel-layer redaction.</strong> Redactions are burned into the PDF and the file is flattened on export, so there is no hidden text layer to copy from.</li>
+        <li><strong>Same engine on desktop and mobile.</strong> The detection logic is consistent whether you&rsquo;re on Windows, Mac, iPhone, iPad, or Android. Mobile uses Google ML Kit for on-device OCR on scanned pages.</li>
+        <li><strong>Redactly Assistant on Windows.</strong> Windows users can type a natural-language request &mdash; such as &ldquo;redact all PII&rdquo; &mdash; and the Redactly Assistant will interpret that request and configure the detection run accordingly. This is the one AI/LLM feature in the product; detection itself still runs on-device.</li>
+      </ul>
+
+      <p>Redactly AI does not currently offer NER-based name detection. If your workflow requires redacting names or organizations in free-running text, you would need to identify and mark those manually or use a tool that adds NER on top of pattern detection. For structured PII &mdash; the category most commonly at issue in tax documents, HR files, financial records, and court filings &mdash; pattern-based detection run entirely on your device is both reliable and auditable.</p>
+
+      <p>Not sure if your existing redactions are holding up? The <a href="/redaction-checker/">free Redaction Checker</a> lets you test a PDF to see whether any text is still recoverable under a black box.</p>
+
+      <p>For a deeper look at how to redact SSNs specifically, see <a href="/blog/how-to-redact-social-security-number-pdf/">How to Redact a Social Security Number in a PDF</a>.</p>
+
+      <div class="cta-box">
+        <h3>Try Redactly AI free for 14 days</h3>
+        <p>On-device detection and permanent redaction for Windows, Mac, iPhone, iPad, and Android. No card required to start.</p>
+        <a class="cta" href="/redactly/">Download Redactly AI &rarr;</a>
+      </div>
+    </article>
+
+    <footer>
+      &copy; 2026 CamLabs.ai &middot; <a href="/blog/">Blog</a> &middot; <a href="/redactly/">Redactly AI</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/support.html">Support</a>
+    </footer>
+  </div>
+<script src="/checker-banner.js" defer></script>
+</body>
+</html>
