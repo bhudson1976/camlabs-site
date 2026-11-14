@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Is Your Redaction Really a Redaction? | CamLabs AI</title>
+  <meta name="description" content="A black box over an SSN in a PDF often hides nothing. Here's a 10-second test for tax and accounting offices, and how to redact so it holds.">
+  <link rel="canonical" href="https://camlabs.ai/blog/is-your-redaction-really-a-redaction/" />
+
+  <meta property="og:title" content="Is Your Redaction Really a Redaction?" />
+  <meta property="og:description" content="A black box over an SSN in a PDF often hides nothing. Here's a 10-second test for tax and accounting offices, and how to redact so it holds." />
+  <meta property="og:image" content="https://camlabs.ai/redactly/assets/redactly-ai-logo-1024.png" />
+  <meta property="og:url" content="https://camlabs.ai/blog/is-your-redaction-really-a-redaction/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="CamLabs AI" />
+  <meta property="article:published_time" content="2026-11-14" />
+  <meta property="article:author" content="Bryon Hudson" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Is Your Redaction Really a Redaction?">
+  <meta name="twitter:description" content="A black box over an SSN in a PDF often hides nothing. Here's a 10-second test for tax and accounting offices, and how to redact so it holds.">
+  <meta name="twitter:image" content="https://camlabs.ai/redactly/assets/redactly-ai-logo-1024.png">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Is Your Redaction Really a Redaction?",
+    "description": "A black box over an SSN in a PDF often hides nothing. Here's a 10-second test for tax and accounting offices, and how to redact so it holds.",
+    "image": "https://camlabs.ai/redactly/assets/redactly-ai-logo-1024.png",
+    "datePublished": "2026-11-14",
+    "dateModified": "2026-11-14",
+    "author": { "@type": "Person", "name": "Bryon Hudson", "url": "https://camlabs.ai/" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "CamLabs AI",
+      "logo": { "@type": "ImageObject", "url": "https://camlabs.ai/assets/camlabs-logo.png" }
+    },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://camlabs.ai/blog/is-your-redaction-really-a-redaction/" }
+  }
+  </script>
+
+  <link rel="icon" type="image/png" href="/assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#0B0F19; --card:rgba(255,255,255,0.025); --border:rgba(255,255,255,0.08);
+      --border-strong:rgba(255,255,255,0.14); --ink:#F3F5F9; --ink-dim:#9aa4b6; --ink-faint:#6b7585;
+      --brand:#5b8cff; --brand-2:#7c5cff; --emerald:#10b981;
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0; background:var(--bg); color:var(--ink); line-height:1.7;
+      font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; -webkit-font-smoothing:antialiased;
+    }
+    a { color:var(--brand); }
+    body::before {
+      content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+      background:radial-gradient(700px 340px at 50% -10%, rgba(124,92,255,0.16), transparent 70%);
+    }
+    .wrap { position:relative; z-index:1; }
+    nav {
+      display:flex; justify-content:center; gap:26px; align-items:center;
+      padding:18px 20px; border-bottom:1px solid var(--border);
+      backdrop-filter:blur(8px); position:sticky; top:0; background:rgba(11,15,25,0.7); z-index:5; flex-wrap:wrap;
+    }
+    nav a { color:var(--ink-dim); text-decoration:none; font-size:0.92rem; font-weight:500; }
+    nav a:hover { color:var(--ink); }
+    nav a.brand { color:var(--ink); font-weight:700; display:inline-flex; align-items:center; gap:9px; }
+    .brand-logo { width:28px; height:28px; border-radius:8px; object-fit:cover; object-position:center 26%; border:1px solid var(--border); }
+
+    .article { max-width:720px; margin:0 auto; padding:56px 22px 40px; }
+    .crumb { font-size:0.85rem; color:var(--ink-faint); margin-bottom:22px; }
+    .crumb a { color:var(--ink-dim); text-decoration:none; }
+    .article h1 {
+      font-size:clamp(1.9rem,4.6vw,2.6rem); line-height:1.14; margin:0 0 18px; font-weight:800; letter-spacing:-0.03em;
+      background:linear-gradient(180deg,#ffffff,#c3b6f5); -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .byline { display:flex; align-items:center; gap:12px; color:var(--ink-faint); font-size:0.9rem; margin-bottom:34px; padding-bottom:24px; border-bottom:1px solid var(--border); }
+    .byline .avatar { width:38px; height:38px; border-radius:50%; object-fit:cover; border:1px solid var(--border); }
+    .byline b { color:var(--ink-dim); font-weight:600; }
+    .article p { color:#c2cad8; font-size:1.06rem; margin:0 0 20px; }
+    .article h2 { font-size:1.45rem; font-weight:700; letter-spacing:-0.02em; margin:40px 0 14px; color:var(--ink); }
+    .article strong { color:var(--ink); font-weight:600; }
+    .article ul { padding-left:0; list-style:none; margin:0 0 20px; }
+    .article ul li {
+      position:relative; padding:16px 18px 16px 20px; margin-bottom:12px; border-radius:12px;
+      background:var(--card); border:1px solid var(--border); color:#c2cad8; font-size:1.02rem;
+    }
+    .article ul li strong { color:var(--ink); }
+    .lead { font-size:1.18rem !important; color:var(--ink-dim) !important; }
+
+    .cta-box {
+      margin:44px 0 8px; padding:30px 28px; text-align:center; border-radius:18px;
+      background:linear-gradient(180deg, rgba(124,92,255,0.12), rgba(91,140,255,0.04));
+      border:1px solid rgba(124,92,255,0.32);
+    }
+    .cta-box h3 { margin:0 0 8px; font-size:1.25rem; font-weight:700; color:var(--ink); }
+    .cta-box p { margin:0 0 18px; color:var(--ink-dim); font-size:1rem; }
+    .cta {
+      display:inline-flex; align-items:center; gap:8px; padding:13px 26px; border-radius:12px;
+      font-weight:600; font-size:1rem; text-decoration:none; color:#fff; border:1px solid transparent;
+      background:linear-gradient(135deg,var(--brand-2),var(--brand)); box-shadow:0 12px 34px -10px rgba(124,92,255,0.85);
+    }
+    .cta:hover { filter:brightness(1.08); }
+    .article ol { color:#c2cad8; font-size:1.04rem; padding-left:22px; margin:0 0 20px; }
+    .article ol li { margin-bottom:10px; }
+    .note { font-size:0.95rem !important; color:var(--ink-faint) !important; }
+    .sources { margin-top:40px; padding-top:24px; border-top:1px solid var(--border); }
+    .sources h2 { font-size:1.2rem; margin-bottom:12px; }
+    .sources ul li { padding:10px 18px; font-size:0.95rem; }
+
+    footer { text-align:center; padding:36px 20px; border-top:1px solid var(--border); color:var(--ink-faint); font-size:0.85rem; }
+    footer a { color:var(--ink-dim); text-decoration:none; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="/"><img class="brand-logo" src="/assets/camlabs-logo.png" alt="CamLabs AI"> CamLabs.ai</a>
+      <a href="/redactly/">Redactly AI</a>
+      <a href="/sentinel/">Sentinel AI</a>
+      <a href="/blog/">Blog</a>
+      <a href="/support.html">Support</a>
+    </nav>
+
+    <article class="article">
+      <div class="crumb"><a href="/blog/">&larr; All posts</a></div>
+      <h1>Is Your Redaction Really a Redaction?</h1>
+      <div class="byline">
+        <img class="avatar" src="/assets/camlabs-logo.png" alt="CamLabs AI">
+        <div>By <b>Bryon Hudson</b><br>November 14, 2026 &middot; 5 min read</div>
+      </div>
+
+      <p class="lead">A black box over an SSN in a PDF often hides nothing: the number is still in the file, and anyone can copy it back out in seconds. Here is how to check your own files before tax season, and how to redact so it holds.</p>
+
+      <h2>Why black boxes fail</h2>
+
+      <p>Most PDF editors let you draw a filled rectangle over text. On screen the text looks gone, but it is still in the file underneath the shape. Anyone who selects it, copies it and pastes it somewhere else can read every word.</p>
+
+      <p>This catches experienced professionals, not just beginners. In January 2019, Paul Manafort&rsquo;s defense team filed a response <a href="https://abovethelaw.com/2019/01/paul-manaforts-lawyers-learn-that-obvious-thing-you-learned-as-a-summer-associate/" target="_blank" rel="noopener">with passages blacked out this way</a>. Reporters copied the hidden text and published it the same day. In December 2025, some of the Justice Department&rsquo;s Epstein files <a href="https://gvwire.com/2025/12/24/redacted-material-in-some-epstein-files-is-easily-recovered/" target="_blank" rel="noopener">were recovered the same way</a>: copy the blacked-out section, paste it into another document, read it.</p>
+
+      <p>If it can happen in federal court filings, it can happen in a tax office&rsquo;s email to a lender.</p>
+
+      <h2>Why it matters for your office</h2>
+
+      <p>Tax preparers count as financial institutions under the <a href="https://www.cpapracticeadvisor.com/?p=190980" target="_blank" rel="noopener">FTC Safeguards Rule</a>, and the IRS expects every paid preparer to keep a Written Information Security Plan (WISP). A WISP spells out what client data you hold, where it lives and how you protect it.</p>
+
+      <p>A redaction that can be copied back out quietly undoes all of that. During the season, SSNs, bank account numbers and dates of birth leave the office every day: on W-2s, 1099s, bank statements and engagement letters, sent to clients, lenders, attorneys and other preparers. Each &ldquo;redacted&rdquo; file that still holds the numbers is client data you didn&rsquo;t mean to share.</p>
+
+      <h2>The 10-second test</h2>
+
+      <p>Pick a PDF you have already redacted and sent, then:</p>
+
+      <ol>
+        <li>Open it and press Ctrl+A (Cmd+A on a Mac) to select everything.</li>
+        <li>Copy it with Ctrl+C (Cmd+C).</li>
+        <li>Paste it into a blank document or email draft.</li>
+        <li>Look for the numbers you covered. If you can read them, so can anyone you sent the file to.</li>
+      </ol>
+
+      <p>If you would rather not handle client data that way, a free <a href="/redaction-checker/">Redaction Checker</a> runs the same test in your browser and never uploads the file.</p>
+
+      <h2>How to redact so it holds</h2>
+
+      <ul>
+        <li><strong>Use a real redaction tool, not a drawing tool.</strong> Rectangles, highlights and black text color only cover words. A true redaction feature (Adobe Acrobat Pro&rsquo;s Redact tool is one) deletes the text and then flattens the page.</li>
+        <li><strong>Never redact in Word and save as PDF.</strong> Black highlighting in Word carries the text straight into the PDF.</li>
+        <li><strong>Clear what you can&rsquo;t see.</strong> Comments, form fields, metadata and earlier versions can hold the same numbers. Acrobat&rsquo;s Sanitize option, or exporting a fresh flattened copy, removes them.</li>
+        <li><strong>Scans need the same care.</strong> A scanned page with a box drawn over it is still two layers until it is flattened.</li>
+        <li><strong>Check before you send.</strong> Run the 10-second test on the finished file every time. It takes less time than writing the email.</li>
+        <li><strong>Write it into your WISP.</strong> One line covering how your office redacts and verifies documents before they leave makes the habit stick for everyone on staff.</li>
+      </ul>
+
+      <h2>About the author</h2>
+
+      <p>Bryon Hudson is the founder of CamLabs AI here in Oregon. CamLabs AI makes <a href="/redactly/">Redactly AI</a>, which finds and permanently removes personal information from PDFs and scans on the user&rsquo;s own device, and the free <a href="/redaction-checker/">Redaction Checker</a>. Reach him at bryon@camlabs.ai.</p>
+
+      <div class="cta-box">
+        <h3>Check a PDF free</h3>
+        <p>Drop a redacted PDF and see if text is still hiding under the black boxes. Runs in your browser &mdash; nothing is uploaded.</p>
+        <a class="cta" href="/redaction-checker/">Check a PDF free &rarr;</a>
+      </div>
+
+      <div class="sources">
+        <h2>Sources</h2>
+        <ul>
+          <li><a href="https://abovethelaw.com/2019/01/paul-manaforts-lawyers-learn-that-obvious-thing-you-learned-as-a-summer-associate/" target="_blank" rel="noopener">Paul Manafort&rsquo;s lawyers learn that obvious thing you learned as a summer associate &mdash; Above the Law, January 2019</a></li>
+          <li><a href="https://gvwire.com/2025/12/24/redacted-material-in-some-epstein-files-is-easily-recovered/" target="_blank" rel="noopener">Redacted material in some Epstein files is easily recovered &mdash; GV Wire (New York Times), December 2025</a></li>
+          <li><a href="https://www.cpapracticeadvisor.com/?p=190980" target="_blank" rel="noopener">What the FTC Safeguards Rule Actually Requires From Tax and Accounting Firms &mdash; CPA Practice Advisor, October 2026</a></li>
+        </ul>
+      </div>
+    </article>
+
+    <footer>
+      &copy; 2026 CamLabs.ai &middot; <a href="/blog/">Blog</a> &middot; <a href="/redactly/">Redactly AI</a> &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/support.html">Support</a>
+    </footer>
+  </div>
+<script src="/checker-banner.js" defer></script>
+</body>
+</html>
