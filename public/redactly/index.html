@@ -33,7 +33,7 @@
     "offers": [
       {
         "@type": "Offer",
-        "name": "Redactly Pro (App Store / Google Play)",
+        "name": "Redactly AI Pro (App Store / Google Play)",
         "price": "29.99",
         "priceCurrency": "USD",
         "priceValidUntil": "2027-12-31",
@@ -113,6 +113,10 @@
     nav a:hover { color:var(--ink); }
     nav a.brand { color:var(--ink); font-weight:700; display:inline-flex; align-items:center; gap:9px; margin-right:auto; }
     .brand-logo { width:28px; height:28px; border-radius:50%; object-fit:contain; object-position:center; border:none; }
+    @media (max-width:600px) {
+      nav a:not(.brand):not(.cta) { display:none; }
+      nav { gap:12px; }
+    }
 
     .cta {
       display:inline-flex; align-items:center; justify-content:center; gap:9px;
@@ -445,7 +449,7 @@
         <a class="cta ghost" href="https://apps.apple.com/us/app/id6797546607?platform=mac" target="_blank" rel="noopener">Mac App Store</a>
         <a class="cta ghost" href="/redactly/download.html#windows">Windows download</a>
       </div>
-      <div class="hero-sub">Free download · Redactly Pro $29.99/year · 14-day free trial</div>
+      <div class="hero-sub">Free download · 14-day free trial · Phones $29.99/year · Mac &amp; Windows $19/month or $149/year</div>
     </header>
 
     <!-- Video demo -->
@@ -456,7 +460,7 @@
           <p>A 14-page loan packet, redacted in under two minutes.</p>
         </div>
         <div class="video-wrap">
-          <iframe src="https://www.youtube.com/embed/EwYQVBpxhxM" title="Redactly Pro — full demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+          <iframe src="https://www.youtube.com/embed/EwYQVBpxhxM" title="Redactly AI — full demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
         </div>
       </div>
     </section>
@@ -679,7 +683,7 @@
             </div>
             <p class="plat-name">iPhone, iPad &amp; Android</p>
             <p class="plat-desc">Camera scanning, photo-to-PDF, on-device redaction, and outbound faxing.</p>
-            <p class="plat-price">Free download &middot; Redactly Pro $29.99/year &middot; 14-day trial</p>
+            <p class="plat-price">Free download &middot; Redactly AI Pro $29.99/year &middot; 14-day trial</p>
             <ul>
               <li>Camera scan-to-PDF</li>
               <li>On-device detection &amp; redaction</li>
@@ -747,7 +751,7 @@
           <div class="trial-result" id="trialResult">
             <p class="key-label">Your trial license key:</p>
             <p class="key-value" id="trialKey"></p>
-            <p class="key-note">Check your email — we sent this key there too. Open Redactly Pro on your Mac or Windows PC, click "Enter your license key", and paste it in.</p>
+            <p class="key-note">Check your email — we sent this key there too. Open Redactly AI on your Mac or Windows PC, click "Enter your license key", and paste it in.</p>
           </div>
           <p class="trial-error" id="trialError"></p>
         </div>
@@ -759,14 +763,14 @@
       <div class="container">
         <div class="sec-head">
           <h2>Pricing</h2>
-          <p>Free download. Upgrade to Redactly Pro for full features with a 14-day free trial.</p>
+          <p>Free download. Upgrade to Redactly AI Pro for full features with a 14-day free trial.</p>
         </div>
         <div class="pricing-grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));max-width:920px;">
 
           <!-- App Store / Google Play -->
           <div class="price-card featured">
             <div class="best-badge">App Store &amp; Google Play</div>
-            <div class="plan-name">Redactly Pro</div>
+            <div class="plan-name">Redactly AI Pro</div>
             <div class="amount">$29.99</div>
             <div class="per">/year</div>
             <div class="trial-note">14-day free trial included</div>
@@ -876,6 +880,7 @@
     <footer>
       &copy; 2026 CamLabs.ai · Redactly AI &nbsp;·&nbsp;
       <a href="/">Home</a> &nbsp;·&nbsp;
+      <a href="/redactly/download.html">Download</a> &nbsp;·&nbsp;
       <a href="/sentinel/">Sentinel AI</a> &nbsp;·&nbsp;
       <a href="/redaction-checker/">Free redaction checker</a> &nbsp;·&nbsp;
       <a href="/privacy.html">Privacy</a> &nbsp;·&nbsp;

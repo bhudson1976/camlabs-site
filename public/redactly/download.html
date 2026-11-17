@@ -33,7 +33,7 @@
     "offers": [
       {
         "@type": "Offer",
-        "name": "Redactly Pro (App Store / Google Play)",
+        "name": "Redactly AI Pro (App Store / Google Play)",
         "price": "29.99",
         "priceCurrency": "USD",
         "priceValidUntil": "2027-12-31",
@@ -112,6 +112,10 @@
     nav a:hover { color:var(--ink); }
     nav a.brand { color:var(--ink); font-weight:700; display:inline-flex; align-items:center; gap:9px; margin-right:auto; }
     .brand-logo { width:28px; height:28px; border-radius:50%; object-fit:contain; object-position:center; border:none; }
+    @media (max-width:600px) {
+      nav a:not(.brand) { display:none; }
+      nav { gap:12px; }
+    }
 
     header.hero { text-align:center; padding:70px 20px 26px; max-width:var(--maxw); margin:0 auto; }
     .pill {
@@ -246,14 +250,18 @@
           <h2>Redactly AI — PDF Scanner</h2>
           <p class="app-sub">Version 1.0.11 · Windows installer · 64-bit</p>
 
-          <div style="display:flex;gap:14px;align-items:center;justify-content:center;flex-wrap:wrap;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:14px;">
+            <a class="btn-download"
+               href="https://apps.microsoft.com/detail/XPFMHQS7VC079S?mode=direct"
+               target="_blank" rel="noopener">
+              Get it from the Microsoft Store
+            </a>
+            <span style="font-size:0.82rem;color:var(--ink-faint);">Installs without the SmartScreen warning.</span>
             <a class="btn-download"
                href="https://pub-10ae3ecc83a24d31961ba7a11de5255a.r2.dev/installers/1.0.11/Redactly-Setup-1.0.11-x64.exe"
-               download="Redactly-Setup-1.0.11-x64.exe">
-              <span class="arrow">⬇</span> Download Free Trial
-            </a>
-            <a href="https://apps.microsoft.com/detail/XPFMHQS7VC079S?mode=direct" target="_blank" rel="noopener">
-              <img src="/redactly/assets/ms-store-badge.svg" alt="Get Redactly AI from the Microsoft Store" height="48" style="display:block;">
+               download="Redactly-Setup-1.0.11-x64.exe"
+               style="background:rgba(255,255,255,0.07);border:1px solid var(--border-strong);box-shadow:none;">
+              <span class="arrow">⬇</span> Direct installer (.exe)
             </a>
           </div>
 
